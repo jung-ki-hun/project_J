@@ -42,16 +42,16 @@
                         <h4 class="font-18 m-b-5 text-center">무료 회원가입</h4>
                         <p class="text-muted text-center">Get your free Clean IoT account now.</p>
 
-                        <form class="form-horizontal m-t-30" method="post" action="/process/adduser">
+                        <!-- <form class="form-horizontal m-t-30" method="post" action="/process/adduser"> -->
 
                             <div class="form-group">
                                 <label for="useremail">Email</label>
-                                <input type="email" class="form-control" id="id" name="id" placeholder="Enter email">
+                                <input type="email" class="form-control" id="email" name="id" placeholder="Enter email">
                             </div>
 
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter username">
+                                <input type="text" class="form-control" id="username" name="name" placeholder="Enter username">
                             </div>
 
                             <div class="form-group">
@@ -61,7 +61,7 @@
 
                             <div class="form-group row m-t-20">
                                 <div class="col-12 text-right">
-                                    <button class="btn btn-primary w-md waves-effect waves-light" type="submit">완  료</button>
+                                    <button class="btn btn-primary w-md waves-effect waves-light" id="button" type="submit">완  료</button>
                                 </div>
                             </div>
 
@@ -70,7 +70,7 @@
                                     <p class="font-14 text-muted mb-0">By registering you agree to the Clean IoT</p>
                                 </div>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
 
                 </div>
@@ -95,6 +95,6 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
-
+        <script src="js/pages-register.js"></script>
     </body>
 </html>
