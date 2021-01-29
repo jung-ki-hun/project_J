@@ -5,7 +5,7 @@ var path = require('path');//경로
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var router = require(`./router.js`);
-var ip = `180.83.98.144`;///"203.241.228.134";//서버주소//당분간 로컬로 진행
+var ip = /*'127.0.0.1';//*/`180.83.98.144`;///"203.241.228.134";//서버주소//당분간 로컬로 진행
 var app = express();
 app.set('port', process.env.PORT || 3000);//3000번 포트 개방
 app.disable(`x-powered-by`);
@@ -18,9 +18,12 @@ db_config.connect(conn)
 ///////////////////////////////////
 
 
-
- app.use('/',router); //router 파일 읽어들이기
-
+//app.use('/web', static(path.join(__dirname, 'web')));//--dirmane : js 파일이 있는 폴더경로
+app.use('/', router); //router 파일 읽어들이기
+app.use('/', (req, res, next) => {
+	//res.redirect('/web/index.html');
+	console.log('dddd');
+})
 
 
 

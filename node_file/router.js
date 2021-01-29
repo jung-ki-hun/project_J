@@ -12,7 +12,7 @@ db_config.connect(conn)
 
 router.use('/', (req, res, next) => {
     try {
-        res.redirect('http://180.83.98.144:3000/index.html');//메인페이지로 가는것
+        res.redirect('web/index.html');//메인페이지로 가는것
     }
     catch (e) {
         console.log(e + '메인페이지로 이동 불가');
