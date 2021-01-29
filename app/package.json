@@ -2,9 +2,9 @@
   "name": "docker_web_app",
   "version": "1.0.0",
   "description": "Node.js on Docker",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node app.js",
     "debug": "set NODE_ENV=development&&nodemon --inspect=5860 ./server --watch ./ --delay 1.5",
     "dispatch": "bash dispatch.sh || exit 0"
   },

@@ -4,7 +4,7 @@ var static = require('serve-static');// 특정 폴더의 파일들을특정 패�
 var path = require('path');//경로
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var router = require(`./router.js`);
+var router = require(`../node_file/router.js`);
 var ip = `180.83.98.144`;///"203.241.228.134";//서버주소//당분간 로컬로 진행
 var app = express();
 app.set('port', process.env.PORT || 3000);//3000번 포트 개방
