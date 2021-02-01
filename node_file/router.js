@@ -12,7 +12,7 @@ db_config.connect(conn)
 
 router.use('/', (req, res, next) => {
     try {
-        res.redirect('web/index.html');//메인페이지로 가는것
+        res.redirect(__dirname+'web/index.html');//메인페이지로 가는것
     }
     catch (e) {
         console.log(e + '메인페이지로 이동 불가');
@@ -41,7 +41,7 @@ router.post('/login', (req, res) => {
                 console.log(results);//결과 출력
                 db_name = results[0].user_name;
                 response.query = db_name;
-                res.redirect('/index.html');
+                res.redirect(__dirname+'web/index.html');
             }
             else {
                 response.query = 'field';
