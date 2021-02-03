@@ -7,7 +7,7 @@ var router = require(`./api/router.js`);
 const app = express();
 const dataset ={
 	port : 3000,
-	host : '180.83.98.144' //'127.0.0.1'
+	host : '115.138.105.47'//'180.83.98.144' //'127.0.0.1'
 }
 
 app.use('/', router); //router 파일 읽어들이기 
@@ -18,3 +18,4 @@ app.listen(dataset.port,dataset.host,()=>{
 	console.log('익스프레스로 웹 서버를 실행함 : ' + dataset.host+":"+ dataset.port);
 	console.log(__dirname);
 });
+//기훈 컴퓨터에 저장한 코드 같이 편집하는 모드
