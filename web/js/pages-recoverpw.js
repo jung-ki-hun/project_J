@@ -10,7 +10,7 @@ function login() {
         email: email.value
     };
 
-    fetch("/login", {
+    fetch("/repw", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

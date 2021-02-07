@@ -14,7 +14,7 @@ function login() {
         password: password.value,
     };
 
-    fetch("/login", {
+    fetch("/regi", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
