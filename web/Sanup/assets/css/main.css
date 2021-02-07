@@ -8749,4 +8749,39 @@ input, select, textarea {
 	   -webkit-transform: scale(0.8) rotate(-30deg);
 	   -ms-transform: scale(0.8) rotate(-30deg);
 	   transform: scale(0.8) rotate(-30deg);
+	}
+	:root{
+		/* header 색상 크기 제어 */
+		--size-header: 5.5em;
+		--size-header-img-width: 17em; 
+		--size-header-img-height: 4.5em; 
+		--padding-header: 2em; 
+		--font-header: 1.3em;
+		--color-background-menu:#ffbb00ad;
+	
+		--color-font-default-menu:rgba(0, 0, 0, 0.75);
+		--color-font-hover-menu:#fff;
+		--duration-animation-header: 0.2s;
+	
+		/* nav 색상 크기 제어 */
+		--size-width-nav:300px;
+		--font-nav-sub:1.5em;
+		--color-font-default-nav:rgba(255, 255, 255, 0.75);
+		--color-font-hover-nav:#fff;
+		--color-background-nav:#26c6da;
+		--color-border-nav: #cfcfcf;
+		--padding-nav:1.5em;
+		--duration-animation-nav: 0.3s;
+	
+		/* action bar 색상 크기 제어 */
+		--size-width-action-bar:20em;
+		--size-height-action-bar:2.5em;
+		--size-width-i-action-bar:2em;
+		--font-content-action-bar:1.1em;
+		--color-background-action-bar:#81b9bf;
+		--color-font-action-bar:#e5ffff;
+		--color-angle-action-bar:#ffffff;
+		--margin-action-bar:1.5em;
+		--size-width-im-action-bar:calc(var(--size-width-i-action-bar) + var(--margin-action-bar));
+		--duration-animation-action-bar:0.6s;
 	}			
