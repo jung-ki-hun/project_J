@@ -5,7 +5,7 @@ const db_info = {
     // user: 'ghtest',
     // password: 'ghtestpwd2@',
     // database: 'ghtest_db'
-    host: '127.0.0.1',//'180.83.98.144',//'203.241.228.134',//
+    host: '192.168.219.100',//'127.0.0.1',//'180.83.98.144',//'203.241.228.134',//
     port: '3306',
     user: 'root',
     password: 'root',

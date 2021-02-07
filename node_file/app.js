@@ -4,10 +4,12 @@ var path = require('path');//경로
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 var cookieParser = require('cookie-parser');
 var router = require(`./api/router.js`);
+var argv_ip = process.argv[2];
 const app = express();
 const dataset ={
 	port : 3000,
-	host : '115.138.105.47'//'180.83.98.144' //'127.0.0.1'
+	host : argv_ip != null?argv_ip.toString():'127.0.0.1'//'180.83.98.144' //'127.0.0.1'
+	//테스트 하기위한 코드
 }
 
 app.use('/', router); //router 파일 읽어들이기 
@@ -17,5 +19,5 @@ app.use('/web', static(path.join(__dirname, 'web')));//--dirmane : js 파일이 
 app.listen(dataset.port,dataset.host,()=>{
 	console.log('익스프레스로 웹 서버를 실행함 : ' + dataset.host+":"+ dataset.port);
 	console.log(__dirname);
+	console.log(argv_ip);
 });
-//기훈 컴퓨터에 저장한 코드 같이 편집하는 모드
