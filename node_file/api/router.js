@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var login_Select = require('./process/login_db_Select').default;
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ express: true }));
 
@@ -24,7 +25,6 @@ router.use(expressSession({
     // })
 }));// 저장할 정보에 대해서 어떻게 할지..
 
-
 /*****************************/
 /******db 연결부 코드구현******/
 /*****************************/
@@ -33,7 +33,6 @@ const db = require('../db');
 const db_config = require('../db.js')
 const conn = db_config.init()
 db_config.connect(conn)
-
 
 
 /*****************************/
@@ -47,44 +46,14 @@ router.post('/login', (req, res) => {
 
     console.log(req.body);
 
-    var db_email;
-    var db_pw;
-    var db_name;
+    var db_data = {
+        db_pw: null,
+        db_name: null,
+        db_email: null
+    };
+    
+    login_Select.userSelect(conn, db, res);
 
-    ///
-    const response = {
-        state: 1,
-        query: null,
-        msg: 'Succesful'
-    }//사용자 이름 전송용 
-    console.log('이메일 : '+email);
-    let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
-    conn.query(sql,[email,pw], function (err, results) {
-        if (err) {
-            console.log('걍 안됨'+error);
-        }
-        else {
-            try {
-                if (results != null) {
-                    console.log('조회 결과 :'+results);//결과 출력
-                    //db_name = results[0].user_name;
-                    response.query = db_name;
-                    res.redirect('http://180.83.98.144:3000/web/index.html');
-                    res.end();
-                }
-                else {
-                    console.log("조회 결과 없음");
-                    response.query = false;
-                }
-            }
-            catch (e) {
-                console.log(e + ' db조회중 오류 발생');
-            }
-        }
-        console.log(results);
-    });
-    ////
-    //return res.status(200).json(response);
 });
 
 router.get('/regi', (req, res) => {
@@ -129,7 +98,7 @@ router.post('/proposal', (req, res) => {
     res.redirect('index.html');
 });
 router.get('/', (req, res) => {
-    res.render('/web/index.html');
+    res.redirect(302,'/web/index.html');
 });
 
 module.exports = router;
