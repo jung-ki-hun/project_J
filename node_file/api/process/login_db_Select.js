@@ -17,7 +17,7 @@ module.exports = {
                 try {
                     if (results != null) {
                         console.log('조회 결과 :' + results);//결과 출력
-                        //db_name = results[0].user_name;
+                        db.b_name = results[0].user_name;
                         response.query = db_name;
                         res.redirect();
                         res.render('./web/index.html');
@@ -32,7 +32,7 @@ module.exports = {
                     console.log(e + ' db조회중 오류 발생');
                 }
             }
-           //console.log(results);
+           console.log(results);
         });
         return res.status(200).json(response);
     }
