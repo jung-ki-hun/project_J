@@ -1,15 +1,10 @@
-const response = {
-    state: 1,
-    query: null,
-    msg: 'Succesful'
-}//사용자 이름 전송용 
 
 
 module.exports = {
-    userSelect: (conn,db , res) => {
+    userSelect: (conn,db ,req_data, res) => {
         console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
-        conn.query(sql, [email, pw], function (err, results) {
+        conn.query(sql, [req_data.email,req_data.password], function (err, results) {
             if (err) {
                 console.log('에러 : ' + error);
             }
