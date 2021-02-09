@@ -1,3 +1,6 @@
 #module#
 node_file/node_modules/
 node_file/
+#image#
+#txt#
+db.txt
