@@ -1,0 +1,50 @@
+[{
+    "temp": 19,
+    "humi" : 50,
+    "space" : "b",
+    "number" : "001",
+    "mintemp" : 5,
+    "minhumi" : 20,
+    "maxtemp" : 30,
+    "maxhumi" : 100
+},
+{
+    "temp": 20,
+    "humi" : 40,
+    "space" : "a",
+    "number" : "002",
+    "mintemp" : 70,
+    "minhumi" : 80,
+    "maxtemp" : 30,
+    "maxhumi" : 100
+},
+{
+    "temp": 21,
+    "humi" : 50,
+    "space" : "a",
+    "number" : "003",
+    "mintemp" : 0,
+    "minhumi" : 20,
+    "maxtemp" : 30,
+    "maxhumi" : 100
+},
+{
+    "temp": 60,
+    "humi" : 10,
+    "space" : "a",
+    "number" : "004",
+    "mintemp" : 10,
+    "minhumi" : 50,
+    "maxtemp" : 70,
+    "maxhumi" : 50
+},
+{
+    "temp": 41,
+    "humi" : 20,
+    "space" : "C",
+    "number" : "005",
+    "mintemp" : 10,
+    "minhumi" : 20,
+    "maxtemp" : 30,
+    "maxhumi" : 100
+}]
