@@ -1,16 +1,23 @@
 var express = require("express");
 var http = require('http'); // node 내장 모듈 불러옴 
-var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 var path = require('path');//경로
-var bodyParser = require('body-parser');
+var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 var cookieParser = require('cookie-parser');
-var ip = `127.0.0.1`;///"203.241.228.134";//서버주소//당분간 로컬로 진행
-var app = express();
-app.set('port', process.env.PORT || 3000);//3000번 포트 개방
-app.disable(`x-powered-by`);
-http.createServer(app).listen(app.get('port'), ip, function () {
+var router = require(`./api/router.js`);
+var argv_ip = process.argv[2];
+const app = express();
+const dataset ={
+	port : 3000,
+	host : argv_ip != null?argv_ip.toString():'127.0.0.1'//'180.83.98.144' //'127.0.0.1'
+	//테스트 하기위한 코드
+}
 
-	console.log('익스프레스로 웹 서버를 실행함 : ' + app.get('port'));
-	connectDB();
+app.use('/', router); //router 파일 읽어들이기 
 
-}); 
+app.use('/web', static(path.join(__dirname, 'web')));//--dirmane : js 파일이 있는 폴더경로
+
+app.listen(dataset.port,dataset.host,()=>{
+	console.log('익스프레스로 웹 서버를 실행함 : ' + dataset.host+":"+ dataset.port);
+	console.log(__dirname);
+	console.log(argv_ip);
+});
