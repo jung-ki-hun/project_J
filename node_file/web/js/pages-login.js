@@ -21,8 +21,14 @@ function login() {
     })
         .then((res) => res.json()) //query: null,
         .then((data) => {
-            console.log(data);
-            // if (data.success) { // }
+            var temp = JSON.parse(data);
+            console.log(temp);
+            if (temp.msg == 'Succesful') { 
+                location.href = '/';
+            }else
+            {
+                alert(temp.msg);
+            }
         })
         .catch((err) => console.error('에러 메시지 : '+err));
 }

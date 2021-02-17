@@ -30,7 +30,6 @@ router.use(expressSession({
 /******db 연결부 코드구현******/
 /*****************************/
 
-const db = require('../db');
 const db_config = require('../db.js')
 const conn = db_config.init()
 db_config.connect(conn)
@@ -42,7 +41,7 @@ db_config.connect(conn)
 
 //router 시작
 router.post('/login', (req, res) => {
-    var email = req.body.email;// || req.query.email,
+    var email = req.body.id;// || req.query.email,
     var pw = req.body.password;// || req.query.password
 
     var db_data = {
@@ -55,12 +54,12 @@ router.post('/login', (req, res) => {
         query: null,
         msg: 'Succesful'
     }//사용자 이름 전송용 
-
+console.log('받은 데이터 확인 : ');
     console.log(req.body);//받은 데이터 확인인
     //console.log('이메일 : ' + email);//확인용용
     let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기 
     conn.query(sql, [email, pw], function (err, results) {
-        console.log(results);
+        console.log('결과 : ' + results);
         if (err) {
             console.log('에러 : ' + error);
         }
@@ -75,18 +74,18 @@ router.post('/login', (req, res) => {
                 else {
                     console.log('조회 결과 :' + results[0].user_name);//결과 출력
                     db_data.db_name = results[0].user_name;
-                    response.query = db_data.db_name; 
+                    response.query = db_data.db_name;
                     return res.status(200).json(JSON.stringify(response));
-                    
+
                 }
             }
             catch (e) {
                 console.log(e + '// db조회중 오류 발생');
             }
         }
-        
+
     });
-    
+
 
 });
 
