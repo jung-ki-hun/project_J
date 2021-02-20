@@ -19,7 +19,7 @@ var response = {
 };//사용자 이름 전송용 
 
 module.exports = {
-    userSelect: async (res,email, pw) => {
+    userSelect: async (res, email, pw) => {
         console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
         conn.query(sql, [email, pw], function (err, results) {
@@ -40,7 +40,7 @@ module.exports = {
                         response.query = db_data.db_name;
                         response.msg = 'Succesful';
                         console.log(response);
-                       
+
                         return res.status(200).json(JSON.stringify(response));
                     }
                 }
@@ -50,5 +50,6 @@ module.exports = {
             }
         });
     },
-    userCreate: () => { }
+    userCreate: async () => { },
+    userCheck: async () => { }
 }
