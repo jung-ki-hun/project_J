@@ -43,13 +43,13 @@ router.post('/login', (req, res) => {
     var email = req.body.id;// || req.query.email,
     var pw = req.body.password;// || req.query.password
 
-    
+
     /***************** */
     /** 리팩토링   **** */
     /***************** */
-    jkh_db_config.userSelect(res,email, pw);
+    jkh_db_config.userSelect(res, email, pw);
 
-    
+
     /***************** */
     /** 잘동작하는 코드 */
     /***************** */
@@ -58,7 +58,7 @@ router.post('/login', (req, res) => {
     //     query: null,
     //     msg: 'f'//'Succesful'
     // }//사용자 이름 전송용 
-    
+
     // var db_data = {
     //     db_pw: null,
     //     db_name: null,
@@ -94,7 +94,7 @@ router.post('/login', (req, res) => {
     //     }
 
     // });
- 
+
 
 });
 
@@ -102,44 +102,13 @@ router.post('/login', (req, res) => {
 
 //회원가입
 router.post('/regi', (req, res) => {
-    //res.redirect('index.html');
     var email = req.body.email;
     var name = req.body.username;
     var pw = req.body.password;
-
     /***************** */
     /** 리팩토링   **** */
     /***************** */
-
-jkh_db_config.userCreate(res,email,name,pw);
-
-    // const response = {
-    //     state: 1,
-    //     query: null,
-    //     msg: 'Succesful'
-    // }//사용자 이름 전송
-
-    // let sql = 'SELECT * FROM user_database WHERE user_email = ' + email + 'AND user_password = ' + pw  //가져오기
-    // conn.query(sql, function (err, results, field) {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    //     try {
-    //         if (results != null) {
-    //             console.log(results);//결과 출력
-    //             db_name = results[0].user_name;
-    //             response.query = db_name;
-    //             res.redirect(__dirname + 'node_file/web/index.html');
-    //         }
-    //         else {
-    //             response.query = 'field';
-    //         }
-    //     }
-    //     catch (e) {
-    //         console.log(e + 'db조회중 오류 발생');
-    //     }
-    // });
-    // return res.status(200).json(response);
+    jkh_db_config.userCreate(res, email, name, pw);
 });//회원 가입
 router.get('/repw', (req, res) => {
     res.redirect('index.html');
