@@ -50,6 +50,25 @@ module.exports = {
             }
         });
     },
-    userCreate: async () => { },
-    userCheck: async () => { }
+    userCreate: async (res, email, name, pw) => {
+        var check_data =1;// this.userCheck();
+        if (check_data != 1) {
+
+        }//중복 항목 존재시..
+        else {
+            let sql = 'INSERT into user_database values(?,?,?)';
+            conn.query(sql, [email, name, pw], function (err, rows) {
+                if (err) {
+                    console.error(err);
+                }//실패~!
+                else {
+                    console.log(rows);
+                    response.msg = 'Succesful';
+                    return res.status(200).json(JSON.stringify(response));
+                }//성공~!
+            })
+        }//가입 성공시
+       
+    }, //회원 가입
+    //userCheck: async () => { return 1; }
 }

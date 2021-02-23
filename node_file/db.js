@@ -1,6 +1,6 @@
 const mysql = require('mysql');
-const dataset = require('./app.js');
-const db_info = {
+//const dataset = require('./app.js');
+var db_info = {
     // host: '127.0.0.1',
     // port: '3306',
     // user: 'ghtest',
@@ -32,5 +32,8 @@ module.exports = {
                 console.log('mysql connection disconnectting');
             }
         });
+    },
+    getConnection: function(){
+        return db_info;
     }
 }
