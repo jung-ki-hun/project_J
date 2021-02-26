@@ -24,7 +24,7 @@ module.exports = {
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
         conn.query(sql, [email, pw], function (err, results) {
             if (err) {
-                console.log('에러 : ' + error);
+                console.log('에러 : '+err);
             }
             else {
                 try {
