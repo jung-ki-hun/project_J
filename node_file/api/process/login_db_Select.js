@@ -51,7 +51,7 @@ module.exports = {
         });
     },
     userCreate: async (res, email, name, pw) => {
-        var check_data =1;// this.userCheck();
+        var check_data = 1;// this.userCheck();
         if (check_data != 1) {
 
         }//중복 항목 존재시..
@@ -68,7 +68,41 @@ module.exports = {
                 }//성공~!
             })
         }//가입 성공시
-       
+
     }, //회원 가입
+    userchage: async (res, email) => {
+        if (jkh_fun.isEmpty(email)) {
+            response.msg = 'please enter to email';
+        }
+        else {
+            let sql = 'UPDATE user_database set user_password =1234 WHERE user_email = ?';
+            conn.query(sql, [email], function (err, rows) {
+                if (err) {
+                    console.error(err);
+                }//디비 조회중 에러발생
+                else {
+                    try {
+                        if (jkh_fun.isEmpty(results)) {
+                            console.log("조회 결과 없음");
+                            response.query = false;//이름없음
+                            response.msg = 'failed';
+                            return res.status(200).json(JSON.stringify(response));
+                        }//조회 실패
+                        else {
+                            console.log('조회 결과 :' + results[0].user_name);//결과 출력
+
+                            response.msg = 'Succesful';
+                            console.log(response);
+
+                            return res.status(200).json(JSON.stringify(response));
+                        }
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }//정상적으로 디비 조회
+            })
+        }
+    },
     //userCheck: async () => { return 1; }
 }
