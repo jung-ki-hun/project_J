@@ -43,62 +43,12 @@ router.post('/login', (req, res) => {
     var email = req.body.id;// || req.query.email,
     var pw = req.body.password;// || req.query.password
 
-
     /***************** */
     /** 리팩토링   **** */
     /***************** */
     jkh_db_config.userSelect(res, email, pw);
 
-
-    /***************** */
-    /** 잘동작하는 코드 */
-    /***************** */
-    // var response = {
-    //     state: 1,
-    //     query: null,
-    //     msg: 'f'//'Succesful'
-    // }//사용자 이름 전송용 
-
-    // var db_data = {
-    //     db_pw: null,
-    //     db_name: null,
-    //     db_email: null
-    // };
-    // console.log('받은 데이터 확인 : ');
-    // console.log(req.body);//받은 데이터 확인인
-    // //console.log('이메일 : ' + email);//확인용용
-    // let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기 
-    // conn.query(sql, [email, pw], function (err, results) {
-    //     console.log('결과 : ' + results);
-    //     if (err) {
-    //         console.log('에러 : ' + error);
-    //     }
-    //     else {
-    //         try {
-    //             if (jkh_fun.isEmpty(results)) {
-    //                 console.log("조회 결과 없음");
-    //                 response.query = false;//이름없음
-    //                 response.msg = 'failed';
-    //                 return res.status(200).json(JSON.stringify(response))
-    //             }//조회 실패
-    //             else {
-    //                 console.log('조회 결과 :' + results[0].user_name);//결과 출력
-    //                 db_data.db_name = results[0].user_name;
-    //                 response.query = db_data.db_name;
-    //                 return res.status(200).json(JSON.stringify(response));
-    //             }
-    //         }
-    //         catch (e) {
-    //             console.log(e + '// db조회중 오류 발생');
-    //         }
-    //     }
-
-    // });
-
-
 });
-
-
 
 //회원가입
 router.post('/regi', (req, res) => {
@@ -111,13 +61,16 @@ router.post('/regi', (req, res) => {
     jkh_db_config.userCreate(res, email, name, pw);
 });//회원 가입
 router.get('/repw', (req, res) => {
-    res.redirect('index.html');
+    var email = req.body.email;
+    jkh_db_config.userchage(res, email);
 });//비밀번호 찾기
+
+
 router.post('/proposal', (req, res) => {
     res.redirect('index.html');
 });
 router.get('/', (req, res) => {
     res.redirect(302, '/web/index.html');
-});
+});//메인페이지로 이동
 
 module.exports = router;
