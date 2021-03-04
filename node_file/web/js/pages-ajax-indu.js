@@ -1,7 +1,7 @@
 $(document).ready(() => {
-    $("#jkhajax").click(() => {
+    $("#jkhajax-1").click(() => {
         $.ajax({
-            url: 'index.html',
+            url: 'index.html',//'/pages/pages-situation.html'
             cache: false,
             dataType: 'html',
             type: "GET",
@@ -11,9 +11,9 @@ $(document).ready(() => {
             }
         })
     }),
-        $("#jkhajax").click(() => {
+        $("#jkhajax-2").click(() => {
             $.ajax({
-                url: 'index.html',
+                url: 'index.html',//'/pages/pages-manual.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",
@@ -23,9 +23,9 @@ $(document).ready(() => {
                 }
             })
         }),
-        $("#jkhajax").click(() => {
+        $("#jkhajax-3").click(() => {
             $.ajax({
-                url: 'index.html',
+                url: 'index.html',//'/pages/pages-automatic.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",
@@ -35,9 +35,9 @@ $(document).ready(() => {
                 }
             })
         }),
-        $("#jkhajax").click(() => {
+        $("#jkhajax-4").click(() => {
             $.ajax({
-                url: 'index.html',
+                url: 'index.html',//'/pages/pages-blank.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",

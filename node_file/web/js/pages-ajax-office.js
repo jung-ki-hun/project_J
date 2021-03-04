@@ -1,7 +1,7 @@
 $(document).ready(() => {
-    $("#jkhajax").click(() => {
+    $("#jkhajax-1").click(() => {
         $.ajax({
-            url: 'index.html',
+            url: 'index.html',//'/pages/pages-statistics.html'
             cache: false,
             dataType: 'html',
             type: "GET",
@@ -11,9 +11,9 @@ $(document).ready(() => {
             }
         })
     }),
-        $("#jkhajax").click(() => {
+        $("#jkhajax-2").click(() => {
             $.ajax({
-                url: 'index.html',
+                url: 'index.html',//'/pages/pages-productlist.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",
@@ -23,9 +23,9 @@ $(document).ready(() => {
                 }
             })
         }),
-        $("#jkhajax").click(() => {
+        $("#jkhajax-3").click(() => {
             $.ajax({
-                url: 'index.html',
+                url: 'index.html',//'/pages/pages-productbuy.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",
@@ -35,9 +35,21 @@ $(document).ready(() => {
                 }
             })
         }),
-        $("#jkhajax").click(() => {
+        $("#jkhajax-4").click(() => {
             $.ajax({
-                url: 'index.html',
+                url: 'index.html',//'/pages/pages-productbill.html'
+                cache: false,
+                dataType: 'html',
+                type: "GET",
+                success: function (data, textStatus, jqXHR) {
+                    $("#result").html(data);
+
+                }
+            })
+        })
+        $("#jkhajax-5").click(() => {
+            $.ajax({
+                url: 'index.html',//'/pages/pages-warehouse.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",
