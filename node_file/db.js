@@ -10,7 +10,7 @@ var db_info = {
     port: '3306',
     user: 'root',
     password: 'root',
-    database: 'ghtest'
+    database: 'project'
 }
 
 module.exports = {

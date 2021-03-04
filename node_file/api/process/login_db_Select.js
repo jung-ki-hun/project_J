@@ -40,8 +40,9 @@ module.exports = {
                         response.query = db_data.db_name;
                         response.msg = 'Succesful';
                         console.log(response);
-
                         return res.status(200).json(JSON.stringify(response));
+
+                        //세션에다가 결과 저장해야됨
                     }
                 }
                 catch (e) {

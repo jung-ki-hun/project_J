@@ -4,14 +4,14 @@ var path = require('path');//경로
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var db = require('./db.js')
+var db = require('./db.js');
 var MySQLStore = require("express-mysql-session")(session);
 var router = require(`./api/router.js`);
 var argv_ip = process.argv[2];
 const app = express();
 const dataset = {
 	port: 3000,
-	host: argv_ip != null ? argv_ip.toString() : '127.0.0.1'//'180.83.98.144' //'127.0.0.1'
+	host: argv_ip != null ? argv_ip.toString() : '127.0.0.1'//'180.83.98.144' //'127.0.0.1'//'192.168.219.102'
 	//테스트 하기위한 코드
 }
 var db_info = db.getConnection();
