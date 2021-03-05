@@ -1,12 +1,13 @@
 const mysql = require('mysql');
 //const dataset = require('./app.js');
+var argv_ip  = process.argv[2]
 var db_info = {
     // host: '127.0.0.1',
     // port: '3306',
     // user: 'ghtest',
     // password: 'ghtestpwd2@',
     // database: 'ghtest_db'
-    host: '180.83.98.144',//'192.168.219.100',//'127.0.0.1',//'180.83.98.144',//'203.241.228.134',//
+    host: argv_ip != '192.168.219.102' ?  '127.0.0.1':argv_ip.toString(), //'180.83.98.144' //'127.0.0.1'//'192.168.219.102'
     port: '3306',
     user: 'root',
     password: 'root',
