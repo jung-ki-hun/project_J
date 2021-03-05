@@ -18,19 +18,47 @@ user_password VARCHAR(50)
 );
 create TABLE project.QRcode_database (
 count_number int primary KEY,
-name VARCHAR(30),
+name VARCHAR(30), 
 qr_code VARCHAR(30),
 QRcode_check bool,
 price int,
 stock int,
+Location VARCHAR(20)
 );
+create TABLE project.MarketList(
+SNo int,
+Market bool,
+UserName VARCHAR(30),
+Product VARCHAR(30),
+Mcount int,
+Mdate TIMESTAMP
+);
+
 create TABLE project.HomePage(
 name VARCHAR(40),
 email VARCHAR(100),
-message BLOG,
+message BLOB,
 data TIMESTAMP
 );
 
 
 ----
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';
+
+처리방식.
+-- max_connect_errors 카운트 확인
+select @@global.max_connect_errors;
+
+-- max_connections 카운트 확인
+select @@global.max_connections;
+
+-- 에러 카운트 초기화
+flush hosts;
+
+-- max_connections 변경
+set global max_connections=300;
+
+-- max_connect_errors 변경
+set global max_connect_errors=10000;
+
+* mysql 을 재시작 하지 않아도 적용됨
