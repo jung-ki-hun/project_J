@@ -8629,7 +8629,9 @@ input, select, textarea {
 	}
 
 	#header.alt {
-	   padding: 7em 5em 4em 5em ;
+		padding: 10vh 3em 15vh 3em;
+		width:100vw;
+		height:100vh;
 	}
 
 	   #header.alt h1 {
@@ -8674,7 +8676,7 @@ input, select, textarea {
 	   }
 
 		  #header.alt {
-			 padding: 6em 4em 3em 4em ;
+			 /*padding: 6em 4em 3em 4em ;*/
 		  }
 
 	}
@@ -8686,7 +8688,7 @@ input, select, textarea {
 	   }
 
 		  #header.alt {
-			 padding: 5em 3em 2em 3em ;
+			 /*padding: 5em 3em 2em 3em ;*/
 		  }
 
 	}
@@ -8707,7 +8709,7 @@ input, select, textarea {
 			 }
 
 		  #header.alt {
-			 padding: 4em 2em 1em 2em ;
+			/* padding: 4em 2em 1em 2em ;*/
 		  }
 
 			 #header.alt h1 {
@@ -8723,7 +8725,7 @@ input, select, textarea {
 	   }
 
 		  #header.alt {
-			 padding: 4em 1.5em 1em 1.5em ;
+			/* padding: 4em 1.5em 1em 1.5em ;*/
 		  }
 
 	}
@@ -8735,7 +8737,7 @@ input, select, textarea {
 	   }
 
 		  #header.alt {
-			 padding: 3.5em 1em 0.5em 1em ;
+			 /*padding: 3.5em 1em 0.5em 1em ;*/
 		  }
 
 	}
