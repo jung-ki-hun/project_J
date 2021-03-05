@@ -6,6 +6,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var jkh_db_config = require('./process/login_db_Select');
+var jkh_suggest = require('./process/suggest_db');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ express: true }));
 
@@ -35,7 +36,7 @@ router.post('/login', (req, res) => {
 
 });
 //로그인
-router.post('logout',(req, res)=>{
+router.post('logout', (req, res) => {
 
 })
 //로그아웃
@@ -46,7 +47,7 @@ router.post('/regi', (req, res) => {
     /***************** */
     /** 리팩토링   **** */
     /***************** */
-    
+
     jkh_db_config.userCreate(res, email, name, pw);
 });//회원 가입
 router.get('/repw', (req, res) => {
@@ -54,10 +55,20 @@ router.get('/repw', (req, res) => {
     jkh_db_config.userchage(res, email);
 });//비밀번호 찾기
 
-
-router.post('/proposal', (req, res) => {
-    res.redirect('index.html');
+router.post('/suggest', (req, res) => {
+    var data_sug = {
+        email: req.body.email,
+        name: req.body.name,
+        msg: req.body.msg
+    }
+    // var email = req.body.email;
+    // var name = req.body.name;
+    // var msg = req.body.msg;g
+    jkh_suggest.addsuggest(res, data_sug);
 });
+
+router.post('/')
+
 router.get('/', (req, res) => {
     res.redirect(302, '/web/index.html');
 });//메인페이지로 이동

@@ -1,7 +1,19 @@
 $(document).ready(() => {
+    $("#jkhajax-1").ready(() => {
+        $.ajax({
+            url: 'pages/pages-situation.html',//'/pages/pages-situation.html'
+            cache: false,
+            dataType: 'html',
+            type: "GET",
+            success: function (data, textStatus, jqXHR) {
+                $("#result").html(data);
+
+            }
+        })
+    }),
     $("#jkhajax-1").click(() => {
         $.ajax({
-            url: 'index.html',//'/pages/pages-situation.html'
+            url: 'pages/pages-situation.html',//'/pages/pages-situation.html'
             cache: false,
             dataType: 'html',
             type: "GET",
