@@ -7,7 +7,7 @@ var db_info = {
     // user: 'ghtest',
     // password: 'ghtestpwd2@',
     // database: 'ghtest_db'
-    host: argv_ip != '192.168.219.102' ?  '127.0.0.1':argv_ip.toString(), //'180.83.98.144' //'127.0.0.1'//'192.168.219.102'
+    host: argv_ip != '192.168.219.102' ?  '180.83.98.144':argv_ip.toString(), //'180.83.98.144' //'127.0.0.1'//'192.168.219.102'
     port: '3306',
     user: 'root',
     password: 'root',

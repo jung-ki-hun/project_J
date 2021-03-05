@@ -5,7 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var jkh_db_config = require('./process/login_db_Select');
+var jkh_db_config = require('./process/login_db');
 var jkh_suggest = require('./process/suggest_db');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ express: true }));
