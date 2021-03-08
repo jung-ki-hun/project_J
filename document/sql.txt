@@ -41,7 +41,12 @@ message BLOB,
 data TIMESTAMP
 );
 
-
+create table project.log_database(
+count_d  int PRIMARY KEY NOT null,
+title VARCHAR(50),
+time_data TIMESTAMP,
+err_msg BLOB
+);
 ----
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';
 
