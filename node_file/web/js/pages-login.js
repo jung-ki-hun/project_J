@@ -25,6 +25,7 @@ function login() {
             console.log(temp);
             if (temp.msg == 'Succesful') { 
                 location.href = '/';
+                
             }else
             {
                 alert(temp.msg);
@@ -32,3 +33,4 @@ function login() {
         })
         .catch((err) => console.error('에러 메시지 : '+err));
 }
+

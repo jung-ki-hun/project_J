@@ -15,9 +15,9 @@ router.use(bodyParser.urlencoded({ express: true }));
 /******db 연결부 코드구현******/
 /*****************************/
 
-// const db_config = require('../db.js')
-// const conn = db_config.init()
-// db_config.connect(conn)
+const db_config = require('../db.js')
+const conn = db_config.init()
+db_config.connect(conn)
 
 
 /*****************************/
@@ -25,22 +25,25 @@ router.use(bodyParser.urlencoded({ express: true }));
 /*****************************/
 
 //router 시작
-router.post('/login', (req, res) => {
-    var email = req.body.id;// || req.query.email,
-    var pw = req.body.password;// || req.query.password
+router.post('/login',  (req, res) => {
+    var req_data = {
+        email :  req.body.id,
+        pw : req.body.password
+    }
 
+    
     /***************** */
     /** 리팩토링   **** */
     /***************** */
-    jkh_db_config.userSelect(res, email, pw);
+     jkh_db_config.userSelect(req, res, conn,req_data);
 
 });
 //로그인
-router.post('logout', (req, res) => {
+router.post('/logout', (req, res) => {
 
 })
 //로그아웃
-router.post('/regi', (req, res) => {
+router.post('/regi',  (req, res) => {
     var email = req.body.email;
     var name = req.body.username;
     var pw = req.body.password;
@@ -48,23 +51,20 @@ router.post('/regi', (req, res) => {
     /** 리팩토링   **** */
     /***************** */
 
-    jkh_db_config.userCreate(res, email, name, pw);
+     jkh_db_config.userCreate(req, res, conn, email, name, pw);
 });//회원 가입
-router.get('/repw', (req, res) => {
+router.get('/repw',  (req, res) => {
     var email = req.body.email;
-    jkh_db_config.userchage(res, email);
+     jkh_db_config.userchage(req, res, conn, email);
 });//비밀번호 찾기
 
-router.post('/suggest', (req, res) => {
+router.post('/suggest',  (req, res) => {
     var data_sug = {
         email: req.body.email,
         name: req.body.name,
         msg: req.body.msg
     }
-    // var email = req.body.email;
-    // var name = req.body.name;
-    // var msg = req.body.msg;g
-    jkh_suggest.addsuggest(res, data_sug);
+     jkh_suggest.addsuggest(req, res, conn, data_sug);
 });
 
 router.post('/')

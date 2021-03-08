@@ -15,7 +15,7 @@ var response = {
 };//사용자 이름 전송용 
 
 module.exports = {
-    addsuggest: async (req,res,conn, data_sug) => {
+    selectProduct:  (res, data_sug) => {
         var check_data = 1;// this.userCheck();
         if (check_data != 1) {
 
