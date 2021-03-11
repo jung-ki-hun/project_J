@@ -61,7 +61,7 @@ $(document).ready(() => {
         })
         $("#jkhajax-5").click(() => {
             $.ajax({
-                url: 'index.html',//'/pages/pages-warehouse.html'
+                url: 'pages-orderhistory.html',//'/pages/pages-warehouse.html'
                 cache: false,
                 dataType: 'html',
                 type: "GET",

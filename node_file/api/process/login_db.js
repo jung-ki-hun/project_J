@@ -2,10 +2,10 @@
 /******db 연결부 코드구현******/
 /*****************************/
 
-const db_config = require('../../db.js')
-const conn = db_config.init()
-db_config.connect(conn)
-var jkh_fun = require('../process/jkh_fun.js');
+// const db_config = require('../../db.js')
+// const conn = db_config.init()
+// db_config.connect(conn)
+var jkh_fun = require('./jkh_fun.js');
 
 var db_data = {
     db_pw: null,
@@ -19,10 +19,13 @@ var response = {
 };//사용자 이름 전송용 
 
 module.exports = {
-    userSelect: async (res, email, pw) => {
-        console.log('이메일 : ' + email);//확인용용
+    userSelect: (req, res, conn, req_data) => {
+
+        //console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
-        conn.query(sql, [email, pw], function (err, results) {
+
+
+        conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
             if (err) {
                 console.log('에러 : ' + error);
             }
@@ -39,7 +42,11 @@ module.exports = {
                         db_data.db_name = results[0].user_name;
                         response.query = db_data.db_name;
                         response.msg = 'Succesful';
-                        console.log(response);
+                        // req.session.db_name = results[0];
+                        // req.session.save();
+                        req.session = db_data.db_name;
+                        console.log(response);//결과 출력
+                        console.log(req.session);//결과 출력
                         return res.status(200).json(JSON.stringify(response));
 
                         //세션에다가 결과 저장해야됨
@@ -50,15 +57,16 @@ module.exports = {
                 }
             }
         });
+
     },
-    userCreate: async (res, email, name, pw) => {
+    userCreate: async (req, res, conn, email, name, pw) => {
         var check_data = 1;// this.userCheck();
         if (check_data != 1) {
 
         }//중복 항목 존재시..
         else {
             let sql = 'INSERT into user_database values(?,?,?)';
-            conn.query(sql, [email, name, pw], function (err, rows) {
+            await conn.query(sql, [email, name, pw], function (err, rows) {
                 if (err) {
                     console.error(err);
                 }//실패~!
@@ -71,7 +79,7 @@ module.exports = {
         }//가입 성공시
 
     }, //회원 가입
-    userchage: async (res, email) => {
+    userchage: (req, res, conn, email) => {
         if (jkh_fun.isEmpty(email)) {
             response.msg = 'please enter to email';
         }

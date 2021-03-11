@@ -13,6 +13,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "discord.js": "^12.5.1",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.5",
     "express-session": "^1.17.1",
@@ -23,7 +24,8 @@
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "request": "^2.88.2",
-    "serve-static": "^1.14.1"
+    "serve-static": "^1.14.1",
+    "winston": "^3.3.3"
   },
   "repository": {
     "type": "git",
