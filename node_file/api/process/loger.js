@@ -5,3 +5,4 @@ winston.createLogger({
         new winston.Transport.Console({})
     ]
 })
+module.exports = logger;
