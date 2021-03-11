@@ -7,8 +7,6 @@ var session = require('express-session');
 var db = require('./db.js');
 var MySQLStore = require("express-mysql-session")(session);
 var router = require(`./api/router.js`);
-var jkh_db_config = require('./process/login_db');
-var 
 var argv_ip = process.argv[2];
 const app = express();
 const dataset = {
