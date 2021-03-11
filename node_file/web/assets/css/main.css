@@ -6,7 +6,7 @@
     --size-header-img-height: 4.5em; 
     --padding-header: 2em; 
     --font-header: 1.3em;
-    --color-background-menu:#ffbb00ad;
+    --color-background-menu:#6bcaaad8;
 
     --color-font-default-menu:rgba(0, 0, 0, 0.75);
     --color-font-hover-menu:#fff;
@@ -38,7 +38,7 @@
     /* banner 색상 크기 제어 */
     --size-height-banner:35em;
     --size-height-inner-banner:80%;
-    --color-background-banner:#ffbb00ad;
+    --color-background-banner:#6bcaaad8;
     --color-font-banner:#020100;
     --color-border-banner:#ffffff;
     --color-change-button:#03a9f4;
@@ -70,9 +70,9 @@
     --color-border-button-post:#cfcfcf;
     --color-change-background-post:rgba(255,255,255,0.5);
     --color-change-background-b-post:rgba(0,0,0,0.1);
-    --color-style-one-post:#ffbb00ad;
-    --color-style-two-post:#ffbb00ad;
-    --color-style-three-post:#ffbb00ad;
+    --color-style-one-post:#6bcaaad8;
+    --color-style-two-post:#6bcaaad8;
+    --color-style-three-post:#6bcaaad8;
     --color-border-white-post:#efefef;
     --duration-animation-button-post:0.2s;
 
