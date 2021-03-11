@@ -42,12 +42,13 @@ module.exports = {
                         db_data.db_name = results[0].user_name;
                         response.query = db_data.db_name;
                         response.msg = 'Succesful';
-                        // req.session.db_name = results[0];
+                        req.session.db_name = db_data.db_name//results[0];
                         // req.session.save();
-                        req.session = db_data.db_name;
+                        req.session.save(() => { return res.status(200).json(JSON.stringify(response)); });
+                        //req.session = db_data.db_name;
                         console.log(response);//결과 출력
                         console.log(req.session);//결과 출력
-                        return res.status(200).json(JSON.stringify(response));
+                        //return res.status(200).json(JSON.stringify(response));
 
                         //세션에다가 결과 저장해야됨
                     }
@@ -59,14 +60,14 @@ module.exports = {
         });
 
     },
-    userCreate: async (req, res, conn, email, name, pw) => {
+    userCreate: async (req, res, conn, req_data) => {
         var check_data = 1;// this.userCheck();
         if (check_data != 1) {
 
         }//중복 항목 존재시..
         else {
             let sql = 'INSERT into user_database values(?,?,?)';
-            await conn.query(sql, [email, name, pw], function (err, rows) {
+            await conn.query(sql, [req_data.email, req_data.name, req_data.pw], function (err, rows) {
                 if (err) {
                     console.error(err);
                 }//실패~!

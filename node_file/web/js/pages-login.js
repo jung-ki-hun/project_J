@@ -34,3 +34,5 @@ function login() {
         .catch((err) => console.error('에러 메시지 : '+err));
 }
 
+$.ajax({
+    url})

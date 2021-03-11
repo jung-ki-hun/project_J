@@ -24,7 +24,7 @@ app.use(
 		secret: "session_cookie_secret",
 		store: sessionStore,
 		resave: false,
-		saveUninitialized: false,
+		saveUninitialized: true,
 	})
 );
 app.use('/web', static(path.join(__dirname, 'web')));//--dirmane : js 파일이 있는 폴더경로

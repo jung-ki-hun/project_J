@@ -7,6 +7,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var jkh_db_config = require('./process/login_db');
 var jkh_suggest = require('./process/suggest_db');
+var jkh_product = require('./process/product_db');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ express: true }));
 
@@ -25,50 +26,53 @@ db_config.connect(conn)
 /*****************************/
 
 //router 시작
-router.post('/login',  (req, res) => {
+router.post('/login', (req, res) => {
     var req_data = {
-        email :  req.body.id,
-        pw : req.body.password
+        email: req.body.id,
+        pw: req.body.password
     }
-
-    
-    /***************** */
-    /** 리팩토링   **** */
-    /***************** */
-     jkh_db_config.userSelect(req, res, conn,req_data);
+    jkh_db_config.userSelect(req, res, conn, req_data);
 
 });
+router.get('/login', (req, res) => {
+    //이름 보내주는 기능 만들기
+    jkh_db_config.userSelect_send(req, res, conn, req_data);
+})
 //로그인
 router.post('/logout', (req, res) => {
 
 })
 //로그아웃
-router.post('/regi',  (req, res) => {
-    var email = req.body.email;
-    var name = req.body.username;
-    var pw = req.body.password;
-    /***************** */
-    /** 리팩토링   **** */
-    /***************** */
+router.post('/regi', (req, res) => {
 
-     jkh_db_config.userCreate(req, res, conn, email, name, pw);
+    var req_data = {
+        email: req.body.id,
+        pw: req.body.password,
+        name: req.body.name,
+    }
+    jkh_db_config.userCreate(req, res, conn, req_data);
 });//회원 가입
-router.get('/repw',  (req, res) => {
+router.get('/repw', (req, res) => {
     var email = req.body.email;
-     jkh_db_config.userchage(req, res, conn, email);
+    jkh_db_config.userchage(req, res, conn, email);
 });//비밀번호 찾기
 
-router.post('/suggest',  (req, res) => {
+router.post('/suggest', (req, res) => {
     var data_sug = {
         email: req.body.email,
         name: req.body.name,
         msg: req.body.msg
     }
-     jkh_suggest.addsuggest(req, res, conn, data_sug);
+    jkh_suggest.addsuggest(req, res, conn, data_sug);
 });
 
-router.post('/')
 
+router.get('/p/list',()=>{
+    jkh_product.userSelect(res, conn, req_data);
+})
+
+router.post('/')
+//'//web/landing/industry/index.html' 일때 로그인의 유무를 판단하는 기능 구현
 router.get('/', (req, res) => {
     res.redirect(302, '/web/index.html');
 });//메인페이지로 이동
