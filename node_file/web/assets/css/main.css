@@ -631,6 +631,11 @@ ul{
     width:calc(100% - var(--size-content-width-post));
     height:100%;
 }
+.main > .post .post-item-img2{ 
+    margin:0px;    
+    
+    height:100%;
+}
 .main > .post .right{
     order:2;
     text-align:left;
@@ -820,4 +825,9 @@ ul{
 }
 .main > footer .footer-copy span{
     color:var(--color-strong-footer);
+}
+.rlgns_s
+{
+    width:10%;
+    height:10%;
 }

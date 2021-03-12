@@ -2,7 +2,7 @@ var express = require("express");
 var http = require('http'); // node 내장 모듈 불러옴 
 var path = require('path');//경로
 var static = require('serve-static');// 특정 폴더의 파일들을특정 패스로 접근할 수 있도록 만들어주는 외장 모듈
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var db = require('./db.js');
 var MySQLStore = require("express-mysql-session")(session);
@@ -30,7 +30,8 @@ app.use(
 app.use('/web', static(path.join(__dirname, 'web')));//--dirmane : js 파일이 있는 폴더경로
 
 app.listen(dataset.port, dataset.host, () => {
-	console.log('익스프레스로 웹 서버를 실행함 : ' + dataset.host + ":" + dataset.port);
+	var str = `익스프레스로 웹 서버를 실행함 : ${dataset.host} : ${dataset.port}`;
+	console.log(str);
 	console.log(__dirname);
 	console.log(argv_ip);
 	console.log(db_info);
