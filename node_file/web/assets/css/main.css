@@ -1,3 +1,6 @@
+html{
+    scroll-behavior:smooth;
+}
 @import url("fontawesome.min.css");
 :root{
     /* header 색상 크기 제어 */
