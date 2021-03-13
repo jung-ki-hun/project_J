@@ -50,8 +50,4 @@ for (let i = 0; i < scroll_e.length; i++)
         window.scrollTo({ top: targetY, left: 0, behavior: 'smooth' });
     });
 
-//2021-03-13(토) 동훈 추가 - JQuery - Smooth Scroll 메인페이지 적용시키기
-(function($){
-    $('.smooth-scroll').scrolly();
-    $('.smooth-scroll-middle').scrolly({ anchor: 'middle' });
-})
+
