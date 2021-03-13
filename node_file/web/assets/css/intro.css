@@ -147,3 +147,17 @@ footer[class="intro"]{
     }
     
 }
+
+.post .post-item .post-item-content{
+    width:100% !important;
+}
+
+.main .post .post-item{
+    flex-flow: initial !important;
+}
+
+@media screen and (max-width: 975px){
+.main .post .post-item {
+    flex-flow: initial !important;
+}
+}
