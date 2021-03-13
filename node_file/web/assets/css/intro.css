@@ -157,7 +157,15 @@ footer[class="intro"]{
 }
 
 @media screen and (max-width: 975px){
-.main .post .post-item {
-    flex-flow: initial !important;
-}
+    .main .post .post-item {
+        flex-flow: initial !important;
+        height:100vh !important;
+    }
+    .main .post{
+        display : initial !important;
+        height:100vh !important;
+    }
+    .main .post .post-item img{
+        width:200px !important;
+    }
 }
