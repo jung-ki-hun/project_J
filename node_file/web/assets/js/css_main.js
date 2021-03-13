@@ -2,7 +2,7 @@
 var menuButton = document.querySelector(".menu-button");
 var menu = document.querySelector("#menu-select");
 
-menuButton.addEventListener("click",function(){ 
+menuButton.addEventListener("click", function () {
     menu.classList.toggle("visible");
 });
 
@@ -12,16 +12,16 @@ var actionBar = document.querySelector(".action-bar");
 
 actionBarButton.addEventListener("click", actionBarClick);
 
-setTimeout(function(){
+setTimeout(function () {
     actionBarClick();
-    setTimeout(actionBarClick,1800);
-},10);
+    setTimeout(actionBarClick, 1800);
+}, 10);
 
 
-function actionBarClick(){
+function actionBarClick() {
     actionBar.classList.toggle("visible");
     actionBarButton.classList.toggle("turn");
-};    
+};
 
 //login 노출
 var isLogin = false;
@@ -30,12 +30,11 @@ var loginInfo = document.querySelector(".myinfo");
 
 var userName = loginInfo.querySelector(".name");
 var userMail = loginInfo.querySelector(".mail");
-function displayLogin(){
-    if(isLogin)
-    {
+function displayLogin() {
+    if (isLogin) {
         loginBlock.style.display = "none";
         loginInfo.style.display = "grid";
-    }else{
+    } else {
         loginBlock.style.display = "inline-block";
         loginInfo.style.display = "none";
     }
@@ -43,10 +42,16 @@ function displayLogin(){
 
 //부드러운 스크롤 (구버전 IE에서 작동이 안되는 호환성 문제 해결 필요)
 var scroll_e = document.querySelectorAll(".scroll");
-for(let i = 0; i < scroll_e.length; i++)
-    scroll_e[i].addEventListener("click", function(){        
-        var target = document.getElementById('by'+scroll_e[i].id);        
+for (let i = 0; i < scroll_e.length; i++)
+    scroll_e[i].addEventListener("click", function () {
+        var target = document.getElementById('by' + scroll_e[i].id);
         var targetY = target.offsetTop; //타겟 위치        
-        targetY = targetY - document.getElementById('main-header').offsetHeight;        
-        window.scrollTo({top: targetY, left:0, behavior:'smooth'}); 
-});
+        targetY = targetY - document.getElementById('main-header').offsetHeight;
+        window.scrollTo({ top: targetY, left: 0, behavior: 'smooth' });
+    });
+
+//2021-03-13(토) 동훈 추가 - JQuery - Smooth Scroll 메인페이지 적용시키기
+(function($){
+    $('.smooth-scroll').scrolly();
+    $('.smooth-scroll-middle').scrolly({ anchor: 'middle' });
+})
