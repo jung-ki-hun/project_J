@@ -67,8 +67,8 @@ router.post('/suggest', (req, res) => {
 });
 
 
-router.get('/p/list',()=>{
-    jkh_product.userSelect(res, conn, req_data);
+router.get('/p/list',(req,res)=>{
+    jkh_product.listSelect(res, conn);
 })
 
 router.post('/')
