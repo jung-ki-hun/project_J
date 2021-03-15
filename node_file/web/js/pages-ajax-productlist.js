@@ -12,7 +12,7 @@ $(document).ready(() => {
                 // const doc = parser.parseFromString(JSON.stringify(html_d.query), 'text/html');
                 // $("#list_item").html(doc);
                 var json_o = JSON.parse(data);
-                let json_d = json_o.query;
+                var json_d = json_o.query;
                 //let json_d = JSON.stringify(json_d);
                 console.log(json_d);
                 var str;
@@ -44,10 +44,14 @@ $(document).ready(() => {
                                 class="mdi mdi-close font-18"></i></a>
                     </td>
                 </tr>`;
-                }
+                console.log(stock);
+                } 
                 console.log(str);
-                var html_div =document.querySelector("#list_item")
-                html_div.innerHTML =str;
+                var html_div =document.querySelector("#list_item");
+                var ch = document.querySelector("progress");
+           
+                    html_div.innerHTML = str;//html에다가 만든걸 추가해줌
+                
 
             },
         })
