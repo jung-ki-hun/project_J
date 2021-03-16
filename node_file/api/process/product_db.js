@@ -42,7 +42,7 @@ module.exports = {
                     else {
                         //db_data.db_name = results[0].user_name;
                         var str = '', rr = JSON.stringify(results);
-                        console.log(rr);//results[i].name);//결과 출력
+                       // console.log(rr);//results[i].name);//결과 출력
                         // for (var i = 0; i < results.length; i++) {
                         //     // var stock = result[i].stock *10;
                         //     // var qrcode = results[i].qr_code;
