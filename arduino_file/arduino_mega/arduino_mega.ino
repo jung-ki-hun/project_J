@@ -18,7 +18,6 @@ int B_motor_L = 33; //B_motor_L을 33번핀으로 설정합니다.
 int B_motor_R = 34; //B_motor_R을 34번핀으로 설정합니다.
 int B_motor_S = 35; //B_motor_S을 35번핀으로 설정합니다. (속도 제어)
 
-
 // 2_RoadSensor
 
 // 3_BlockSensor
@@ -53,25 +52,30 @@ void loop()
         digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
         digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
         analogWrite(B_motor_S, 0);     // Motor B 속도조절 (0~2B_motor_RB_motor_R)
-        delay(30);
         break;
     case 1:
         /*모터A설정*/
         digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
         digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
-        analogWrite(A_motor_S, 1024);   // Motor A 속도조절 (0~2B_motor_RB_motor_R)
+        analogWrite(A_motor_S, 1023);  // Motor A 속도조절 (0~2B_motor_RB_motor_R)
         /*모터B설정*/
         digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
         digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
-        analogWrite(B_motor_S, 1024);    // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+        analogWrite(B_motor_S, 1023);  // Motor B 속도조절 (0~2B_motor_RB_motor_R)
         digitalWrite(LED_BUILTIN, HIGH);
-        delay(2000);
 
-        analogWrite(A_motor_S, 0); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-        analogWrite(B_motor_S, 0); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
-        digitalWrite(LED_BUILTIN, LOW);
-        delay(2000);
         break;
+    case 2:
+        /*모터A설정*/
+        digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
+        digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
+        analogWrite(A_motor_S, 1023);  // Motor A 속도조절 (0~2B_motor_RB_motor_R)
+        /*모터B설정*/
+        digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
+        digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
+        analogWrite(B_motor_S, 1023);  // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+        digitalWrite(LED_BUILTIN, HIGH);
+
     default:
         break;
     }
