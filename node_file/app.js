@@ -17,16 +17,16 @@ const dataset = {
 var db_info = db.getConnection();
 var sessionStore = new MySQLStore(db_info);
 
-app.use('/', router); //router 파일 읽어들이기 
 app.use(
 	session({
-		key: "session_cookie_name",
+		key: "session_cookie_name#@",
 		secret: "session_cookie_secret",
 		store: sessionStore,
 		resave: false,
 		saveUninitialized: true,
 	})
 );
+app.use('/', router); //router 파일 읽어들이기 
 app.use('/web', static(path.join(__dirname, 'web')));//--dirmane : js 파일이 있는 폴더경로
 
 app.listen(dataset.port, dataset.host, () => {

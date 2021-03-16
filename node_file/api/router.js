@@ -31,12 +31,12 @@ router.post('/login', (req, res) => {
         email: req.body.id,
         pw: req.body.password
     }
-    jkh_db_config.userSelect(req, res, conn, req_data);
-
+    jkh_db_config.userSelect_post(req, res, conn, req_data);
+   
 });
 router.get('/login', (req, res) => {
     //이름 보내주는 기능 만들기
-    jkh_db_config.userSelect_send(req, res, conn, req_data);
+    jkh_db_config.userSelect_get(req, res, conn, req_data);
 })
 //로그인
 router.post('/logout', (req, res) => {
@@ -69,11 +69,12 @@ router.post('/suggest', (req, res) => {
 
 router.get('/p/list',(req,res)=>{
     jkh_product.listSelect(res, conn);
-})
+});
 
 router.post('/')
 //'//web/landing/industry/index.html' 일때 로그인의 유무를 판단하는 기능 구현
 router.get('/', (req, res) => {
+    req.session;
     res.redirect(302, '/web/index.html');
 });//메인페이지로 이동
 

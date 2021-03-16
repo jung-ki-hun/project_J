@@ -23,8 +23,8 @@ module.exports = {
 
         //console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
-
-
+        var session  = req.session;
+       
         conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
             if (err) {
                 console.log('에러 : ' + error);
@@ -39,16 +39,21 @@ module.exports = {
                     }//조회 실패
                     else {
                         console.log('조회 결과 :' + results[0].user_name);//결과 출력
-                        db_data.db_name = results[0].user_name;
-                        response.query = db_data.db_name;
+                        //db_data.db_name = results[0].user_name;
+                        response.query =results[0].user_name;// db_data.db_name;
                         response.msg = 'Succesful';
-                        req.session.db_name = db_data.db_name//results[0];
+                        session.user ={
+                            name : response.query,//results[0].user_name;//results[0];
+                            password : req_data.password,
+                            email : req_data.email
+                        }
+                        //session.save();
                         // req.session.save();
-                        req.session.save(() => { return res.status(200).json(JSON.stringify(response)); });
+                        //req.session.save(() => { return res.status(200).json(JSON.stringify(response)); });
                         //req.session = db_data.db_name;
                         console.log(response);//결과 출력
-                        console.log(req.session);//결과 출력
-                        //return res.status(200).json(JSON.stringify(response));
+                        //console.log(session);//결과 출력
+                        return res.status(200).json(JSON.stringify(response));
 
                         //세션에다가 결과 저장해야됨
                     }
@@ -59,7 +64,7 @@ module.exports = {
             }
         });
 
-    },
+    },//세션등록
     userSelect_get: (req, res, conn, req_data) => {
 
         //console.log('이메일 : ' + email);//확인용용
@@ -84,7 +89,7 @@ module.exports = {
                         response.query = db_data.db_name;
                         response.msg = 'Succesful'; 
                         console.log(response);//결과 출력
-                        console.log(req.session);//결과 출력
+                        //console.log(req.session);//결과 출력
                         return res.status(200).json(JSON.stringify(response));
 
                         //세션에다가 결과 저장해야됨
@@ -96,7 +101,7 @@ module.exports = {
             }
         });
 
-    },
+    },//이름 보내줌
     userCreate: async (req, res, conn, req_data) => {
         var check_data = 1;// this.userCheck();
         if (check_data != 1) {
