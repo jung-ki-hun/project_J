@@ -1,3 +1,4 @@
+//Change the file extension from *.txt to *.ino//
 /////////////////////////////////////////////////////////////////////////////
 //                                           //                            //
 // ⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢠⣴⣾⣿⣶⣶⣆⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀  //                            //
@@ -43,59 +44,60 @@ int B_motor_S = 2;  //B_motor_S을 2번핀으로 설정합니다. (속도 제어
 // 2_RoadSensor
 
 // 3_BlockSensor
-void _1_Stop(void){
-        digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
-        digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
-        analogWrite(A_motor_S, 0);     // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-        digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
-        digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
-        analogWrite(B_motor_S, 0);     // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+void _1_Stop(void)
+{
+    digitalWrite(A_motor_L, HIGH); 
+    digitalWrite(A_motor_R, LOW);  
+    analogWrite(A_motor_S, 0);     
+    digitalWrite(B_motor_L, HIGH); 
+    digitalWrite(B_motor_R, LOW);  
+    analogWrite(B_motor_S, 0);     
 }
 void _1_Go(int speed)
 {
-    digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
-    digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
-    analogWrite(A_motor_S, speed); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-    digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
-    digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
-    analogWrite(B_motor_S, speed); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+    digitalWrite(A_motor_L, HIGH); 
+    digitalWrite(A_motor_R, LOW);  
+    analogWrite(A_motor_S, speed); 
+    digitalWrite(B_motor_L, HIGH); 
+    digitalWrite(B_motor_R, LOW);  
+    analogWrite(B_motor_S, speed); 
 }
 void _1_Back(int speed)
 {
-    digitalWrite(A_motor_L, LOW);  // Motor A 방향설정1
-    digitalWrite(A_motor_R, HIGH); // Motor A 방향설정2
-    analogWrite(A_motor_S, speed); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-    digitalWrite(B_motor_L, LOW);  // Motor B 방향설정1
-    digitalWrite(B_motor_R, HIGH); // Motor B 방향설정2
-    analogWrite(B_motor_S, speed); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+    digitalWrite(A_motor_L, LOW);  
+    digitalWrite(A_motor_R, HIGH); 
+    analogWrite(A_motor_S, speed); 
+    digitalWrite(B_motor_L, LOW);  
+    digitalWrite(B_motor_R, HIGH); 
+    analogWrite(B_motor_S, speed); 
 }
 void _1_Left(int speed)
 {
-    digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
-    digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
-    analogWrite(A_motor_S, speed); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-    digitalWrite(B_motor_L, LOW);  // Motor B 방향설정1
-    digitalWrite(B_motor_R, HIGH); // Motor B 방향설정2
-    analogWrite(B_motor_S, speed); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+    digitalWrite(A_motor_L, HIGH); 
+    digitalWrite(A_motor_R, LOW);  
+    analogWrite(A_motor_S, speed); 
+    digitalWrite(B_motor_L, LOW);  
+    digitalWrite(B_motor_R, HIGH); 
+    analogWrite(B_motor_S, speed); 
 }
 void _1_Right(int speed)
 {
-    digitalWrite(A_motor_L, LOW); // Motor A 방향설정1
-    digitalWrite(A_motor_R, HIGH);  // Motor A 방향설정2
-    analogWrite(A_motor_S, speed); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-    digitalWrite(B_motor_L, HIGH);  // Motor B 방향설정1
-    digitalWrite(B_motor_R, LOW); // Motor B 방향설정2
-    analogWrite(B_motor_S, speed); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+    digitalWrite(A_motor_L, LOW);  
+    digitalWrite(A_motor_R, HIGH); 
+    analogWrite(A_motor_S, speed); 
+    digitalWrite(B_motor_L, HIGH); 
+    digitalWrite(B_motor_R, LOW);  
+    analogWrite(B_motor_S, speed); 
 }
 void setup()
 {
     // 0_Car
 
     // 1_Motor
-    pinMode(A_motor_L, OUTPUT); // Motor A 방향설정1
-    pinMode(A_motor_R, OUTPUT); // Motor A 방향설정2
-    pinMode(B_motor_L, OUTPUT); // Motor B 방향설정1
-    pinMode(B_motor_R, OUTPUT); // Motor B 방향설정2
+    pinMode(A_motor_L, OUTPUT); 
+    pinMode(A_motor_R, OUTPUT); 
+    pinMode(B_motor_L, OUTPUT); 
+    pinMode(B_motor_R, OUTPUT); 
     pinMode(LED_BUILTIN, OUTPUT);
 
     // 2_RoadSensor
@@ -114,11 +116,11 @@ void loop()
         _1_Stop();
         break;
     case 1:
-        /*모터A설정*/
-    _1_Go(0);
+        //모터A설정
+        _1_Go(0);
         break;
     case 2:
-    _1_Back(255);
+        _1_Back(255);
     default:
         break;
     }
