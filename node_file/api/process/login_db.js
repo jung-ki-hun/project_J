@@ -4,6 +4,7 @@
 
 var jkh_fun = require('./jkh_fun.js');
 
+
 var db_data = {
     db_pw: null,
     db_name: null,
@@ -68,7 +69,7 @@ module.exports = {
         //console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
         let ssesion = req.session;
-        if (ssesion.name === undefined) {
+        if (ssesion.user === undefined) { //원래 name이였노
             conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
                 if (err) {
                     console.log('에러 : ' + error);
@@ -79,18 +80,17 @@ module.exports = {
                             console.log(`${jkh_fun.date_time()} : No request data`);
                             response.query = false;//이름없음
                             response.msg = 'failed';
-                            response.state =0;
+                            response.state = 0;
                             return res.status(200).json(JSON.stringify(response));
                         }//조회 실패
                         else {
                             console.log(`${jkh_fun.date_time()} : select is data => ${results[0].user_name}`);// + results[0].user_name);//결과 출력
                             db_data.db_name = results[0].user_name;
-                            if(req_data.name == results[0].user_name)
-                            {
+                            if (req_data.name == results[0].user_name) {
                                 console.log(`${jkh_fun.date_time()} :${req_data.name}  ==  ${db_data.db_name}: session same data`);
                                 response.query = db_data.db_name;
                             }
-                            else{
+                            else {
                                 console.log(`${jkh_fun.date_time()} :${req_data.name}  !=  ${db_data.db_name}: session different data`);
                             }
                             response.msg = 'Succesful';
@@ -105,7 +105,7 @@ module.exports = {
                     }
                 }
             });
-        }else{
+        } else {
             console.log(`${jkh_fun.date_time()} : session is not defind`);
         }
 
@@ -165,7 +165,21 @@ module.exports = {
         }
     },
     userdisable: (req, res, conn) => {
-        var session =req.ssesion;
-        console
-    },
+        var session = req.ssesion;
+        console.log(session.user);
+        if (session.user) {
+            req.session.destroy(
+                function (err) {
+                    if (err) {
+                        console.log('세션 삭제시 에러');
+                        return;
+                    }
+                    console.log('세션 삭제 성공');
+                    //파일 지정시 제일 앞에 / 를 붙여야 root 즉 public 안에서부터 찾게 된다
+                    res.redirect('/');
+                }
+            );
+
+        }
+    }
 }
