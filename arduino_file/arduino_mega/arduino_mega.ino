@@ -1,9 +1,18 @@
+//status
+//0)stop
+//1)road
+//2)location
+//3)pause
+//4)return
+int Car_status = 0;
+
 int A_motor_L = 32; //A_motor_L을 7번핀으로 설정합니다.
 int A_motor_R = 31; //A_motor_R을 8번핀으로 설정합니다.
 int B_motor_L = 34; //B_motor_L을 4번핀으로 설정합니다.
 int B_motor_R = 33; //B_motor_R을 7번핀으로 설정합니다.
 int A_motor_S = 30; //A_motor_S을 9번핀으로 설정합니다. (속도 제어)
 int B_motor_S = 35; //B_motor_S을 3번핀으로 설정합니다. (속도 제어)
+
 void setup() {
     pinMode(A_motor_L, OUTPUT); // Motor A 방향설정1
     pinMode(A_motor_R, OUTPUT); // Motor A 방향설정2
