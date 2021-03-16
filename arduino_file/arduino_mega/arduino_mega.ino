@@ -113,7 +113,7 @@ void loop()
         break;
     case 1:
         /*모터A설정*/
-    _1_Go(255);
+    _1_Go(0);
         break;
     case 2:
     _1_Back(255);
