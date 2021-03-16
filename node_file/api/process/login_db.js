@@ -69,7 +69,7 @@ module.exports = {
         //console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
         let ssesion = req.session;
-        if (ssesion.user === undefined) { //원래 name이였노
+        if (ssesion.user !== undefined) { //원래 name이였노
             conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
                 if (err) {
                     console.log('에러 : ' + error);
