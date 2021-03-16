@@ -165,8 +165,9 @@ module.exports = {
         }
     },
     userdisable: (req, res, conn) => {
-        var session = req.ssesion;
-        console.log(session.user);
+        try{
+        var session = req.session;
+        console.log(session.user.name);
         if (session.user) {
             req.session.destroy(
                 function (err) {
@@ -180,6 +181,9 @@ module.exports = {
                 }
             );
 
+        }}
+        catch(err){
+            console.log(`${jkh_fun.date_time()} : ${err}`)
         }
     }
 }

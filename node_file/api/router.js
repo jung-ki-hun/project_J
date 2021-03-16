@@ -45,7 +45,7 @@ router.get('/login', (req, res) => {
 })
 //로그인
 router.post('/logout', (req, res) => {
-
+jkh_db_config.userdisable(req,res,conn);
 })
 //로그아웃
 router.post('/regi', (req, res) => {
