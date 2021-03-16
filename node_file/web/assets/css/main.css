@@ -254,6 +254,7 @@ ul{
 ::-moz-selection{
     color:var(--color-white-default-post);
     background-color: var(--color-style-one-post);
+    
 }
 .main .invisible{
     display:none;
@@ -301,8 +302,9 @@ ul{
 .menu-bar li.menu-button::before{
     content: '\2630';
 }
-.main > header.main .menu-bar li:hover{
+.main > header.main .menu-bar li a:hover{
     color:var(--color-font-hover-menu);
+    
 }
 @media screen and (max-width:680px){
     .main > header.main .logo{
@@ -833,4 +835,7 @@ ul{
 {
     width:10%;
     height:10%;
+}
+#logout_del:not{
+
 }

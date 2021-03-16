@@ -87,7 +87,7 @@ module.exports = {
                             db_data.db_name = results[0].user_name;
                             if(req_data.name == results[0].user_name)
                             {
-                                console.log(`${jkh_fun.date_time()} :${req_data.name}  ==  ${db_data.db_name}: session different data`);
+                                console.log(`${jkh_fun.date_time()} :${req_data.name}  ==  ${db_data.db_name}: session same data`);
                                 response.query = db_data.db_name;
                             }
                             else{
@@ -95,7 +95,7 @@ module.exports = {
                             }
                             response.msg = 'Succesful';
                             response.state = 1;
-                            console.log(`${jkh_fun.date_time()} : response is data => ${response}`);//결과 출력
+                            console.log(`${jkh_fun.date_time()} : response is data => ${response.query}`);//결과 출력
                             //console.log(req.session);//결과 출력
                             return res.status(200).json(JSON.stringify(response));
                         }
