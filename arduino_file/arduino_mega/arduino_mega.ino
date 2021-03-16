@@ -1,41 +1,78 @@
+
+// 0_Car
+
 //status
 //0)stop
 //1)road
 //2)location
 //3)pause
 //4)return
-int Car_status = 0;
 
-int A_motor_L = 32; //A_motor_L을 7번핀으로 설정합니다.
-int A_motor_R = 31; //A_motor_R을 8번핀으로 설정합니다.
-int B_motor_L = 34; //B_motor_L을 4번핀으로 설정합니다.
-int B_motor_R = 33; //B_motor_R을 7번핀으로 설정합니다.
-int A_motor_S = 30; //A_motor_S을 9번핀으로 설정합니다. (속도 제어)
-int B_motor_S = 35; //B_motor_S을 3번핀으로 설정합니다. (속도 제어)
+int Car_status = 1;
 
-void setup() {
+// 1_Motor
+int A_motor_S = 30; //A_motor_S을 30번핀으로 설정합니다. (속도 제어)
+int A_motor_L = 31; //A_motor_L을 31번핀으로 설정합니다.
+int A_motor_R = 32; //A_motor_R을 32번핀으로 설정합니다.
+int B_motor_L = 33; //B_motor_L을 33번핀으로 설정합니다.
+int B_motor_R = 34; //B_motor_R을 34번핀으로 설정합니다.
+int B_motor_S = 35; //B_motor_S을 35번핀으로 설정합니다. (속도 제어)
+
+
+// 2_RoadSensor
+
+// 3_BlockSensor
+
+void setup()
+{
+    // 0_Car
+
+    // 1_Motor
     pinMode(A_motor_L, OUTPUT); // Motor A 방향설정1
     pinMode(A_motor_R, OUTPUT); // Motor A 방향설정2
     pinMode(B_motor_L, OUTPUT); // Motor B 방향설정1
     pinMode(B_motor_R, OUTPUT); // Motor B 방향설정2
+    pinMode(LED_BUILTIN, OUTPUT);
+
+    // 2_RoadSensor
+
+    // 3_BlockSensor
 }
-void loop() {
-    /*모터A설정*/
-    digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
-    digitalWrite(A_motor_R, LOW); // Motor A 방향설정2
-    analogWrite(A_motor_S, 100); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-    /*모터B설정*/
-    digitalWrite(B_motor_L, LOW); // Motor B 방향설정1
-    digitalWrite(B_motor_R, HIGH); // Motor B 방향설정2
-    analogWrite(B_motor_S, 50); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
-    delay(1000); // 3초 유지
-    /*모터A설정*/
-    digitalWrite(A_motor_L, LOW); // Motor A 방향설정1
-    digitalWrite(A_motor_R, HIGH); // Motor A 방향설정2
-    analogWrite(A_motor_S, 200); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
-    /*모터B설정*/
-    digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
-    digitalWrite(B_motor_R, LOW); // Motor B 방향설정2
-    analogWrite(B_motor_S, 150); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
-    delay(1000); // 3초 유지
+void loop()
+{
+    //차 상태 받아와
+
+    //차 상태에 따른 동작
+    switch (Car_status)
+    {
+    case 0:
+        digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
+        digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
+        analogWrite(A_motor_S, 0);     // Motor A 속도조절 (0~2B_motor_RB_motor_R)
+        /*모터B설정*/
+        digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
+        digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
+        analogWrite(B_motor_S, 0);     // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+        delay(30);
+        break;
+    case 1:
+        /*모터A설정*/
+        digitalWrite(A_motor_L, HIGH); // Motor A 방향설정1
+        digitalWrite(A_motor_R, LOW);  // Motor A 방향설정2
+        analogWrite(A_motor_S, 1024);   // Motor A 속도조절 (0~2B_motor_RB_motor_R)
+        /*모터B설정*/
+        digitalWrite(B_motor_L, HIGH); // Motor B 방향설정1
+        digitalWrite(B_motor_R, LOW);  // Motor B 방향설정2
+        analogWrite(B_motor_S, 1024);    // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(2000);
+
+        analogWrite(A_motor_S, 0); // Motor A 속도조절 (0~2B_motor_RB_motor_R)
+        analogWrite(B_motor_S, 0); // Motor B 속도조절 (0~2B_motor_RB_motor_R)
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(2000);
+        break;
+    default:
+        break;
+    }
 }
