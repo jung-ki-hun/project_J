@@ -12,7 +12,7 @@ var Succesful_login = () => {
             if (json_o.state == 1) {
                 let name = json_d;
                 console.log(json_d);
-                let str = `<form method="GET" action="/login">${name}님 환영합니다!<&nbsp><&nbsp><&nbsp><&nbsp><a href ="#">logout</a> </form>`;
+                let str = `<form method="GET" action="/login">${name}님 환영합니다!&nbsp&nbsp&nbsp&nbsp<a href ="#">logout</a> </form>`;
                 benner.innerHTML = str;
             } else {
                 let str = `<a href="pages-login.html">Login</a>`
