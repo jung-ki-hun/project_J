@@ -13,7 +13,7 @@ function login() {
     };
 
     fetch("/login", {
-        method: "POST",
+        method: "POST",     //로그인 승인 요청
         headers: {
             "Content-Type": "application/json",
         },
@@ -23,16 +23,12 @@ function login() {
         .then((data) => {
             var temp = JSON.parse(data);
             console.log(temp);
-            if (temp.msg == 'Succesful') { 
-                location.href = '/';
-                
-            }else
-            {
+            if (temp.msg == 'Succesful') {
+               location.href = '/';
+                Succesful_login();
+            } else {
                 alert(temp.msg);
             }
         })
-        .catch((err) => console.error('에러 메시지 : '+err));
+        .catch((err) => console.error('에러 메시지 : ' + err));
 }
-
-$.ajax({
-    url})

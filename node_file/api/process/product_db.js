@@ -1,19 +1,6 @@
-/*****************************/
-/******db 연결부 코드구현******/
-/*****************************/
-
-// const db_config = require('../../db.js')
-// const conn = db_config.init()
-// db_config.connect(conn)
 var jkh_fun = require('./jkh_fun.js');
-var fs =require('fs');
-// var db_data = {
-//     db_name: null,
-//     db_price: null,
-//     db_qrcode: null,
-//     db_stock: null,
-//     qrcode_check : null,
-// };
+//var fs =require('fs');
+
 var response = {
     state: 1,
     query: null,
@@ -42,7 +29,8 @@ module.exports = {
                     else {
                         //db_data.db_name = results[0].user_name;
                         var str = '', rr = JSON.stringify(results);
-                        console.log(rr);//results[i].name);//결과 출력
+                        console.log(rr);
+                        //results[i].name);//결과 출력
                         // for (var i = 0; i < results.length; i++) {
                         //     // var stock = result[i].stock *10;
                         //     // var qrcode = results[i].qr_code;

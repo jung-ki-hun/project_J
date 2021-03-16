@@ -36,6 +36,11 @@ router.post('/login', (req, res) => {
 });
 router.get('/login', (req, res) => {
     //이름 보내주는 기능 만들기
+    var req_data = {
+        name: req.session.user.name,
+        email: req.session.user.email,
+        pw: req.session.user.password
+    }
     jkh_db_config.userSelect_get(req, res, conn, req_data);
 })
 //로그인

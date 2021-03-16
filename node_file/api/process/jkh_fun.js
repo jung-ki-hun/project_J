@@ -7,6 +7,15 @@ var isEmpty = (str) => {
 }
 
 
+var date_time  =() =>{ 
+    const date = new Date();
+    
+    var str = date;
+        return str;
+}
+
 module.exports = {
     isEmpty,
+    date_time,
+
 }

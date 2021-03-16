@@ -1,13 +1,4 @@
-// const db_config = require('../../db.js')
-// const conn = db_config.init()
-// db_config.connect(conn)
 var jkh_fun = require('../process/jkh_fun.js');
-
-var db_data = {
-    db_pw: null,
-    db_name: null,
-    db_email: null
-};
 var response = {
     state: 1,
     query: null,
@@ -16,11 +7,6 @@ var response = {
 
 module.exports = {
     addsuggest: async (req,res,conn, data_sug) => {
-        var check_data = 1;// this.userCheck();
-        if (check_data != 1) {
-
-        }//중복 항목 존재시..
-        else {
             let sql = 'INSERT into user_database values(?,?,?)';
             conn.query(sql, [data_sug.email,data_sug.name,data_sug.msg], function (err, rows) {
                 if (err) {
@@ -32,7 +18,7 @@ module.exports = {
                     return res.status(200).json(JSON.stringify(response));
                 }//성공~!
             })
-        }//가입 성공시
+        //가입 성공시
 
     }, 
     

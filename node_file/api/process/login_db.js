@@ -1,10 +1,7 @@
 /*****************************/
-/******db 연결부 코드구현******/
+/****로그인 선언부 코드구현*****/
 /*****************************/
 
-// const db_config = require('../../db.js')
-// const conn = db_config.init()
-// db_config.connect(conn)
 var jkh_fun = require('./jkh_fun.js');
 
 var db_data = {
@@ -23,8 +20,8 @@ module.exports = {
 
         //console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
-        var session  = req.session;
-       
+        var session = req.session;
+
         conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
             if (err) {
                 console.log('에러 : ' + error);
@@ -35,19 +32,20 @@ module.exports = {
                         console.log("조회 결과 없음");
                         response.query = false;//이름없음
                         response.msg = 'failed';
+                        response.state = 0;
                         return res.status(200).json(JSON.stringify(response));
                     }//조회 실패
                     else {
                         console.log('조회 결과 :' + results[0].user_name);//결과 출력
                         //db_data.db_name = results[0].user_name;
-                        response.query =results[0].user_name;// db_data.db_name;
+                        response.query = results[0].user_name;// db_data.db_name;
                         response.msg = 'Succesful';
-                        session.user ={
-                            name : response.query,//results[0].user_name;//results[0];
-                            password : req_data.password,
-                            email : req_data.email
+                        session.user = {
+                            name: response.query,//results[0].user_name;//results[0];
+                            password: req_data.pw,
+                            email: req_data.email
                         }
-                        //session.save();
+                        response.state = 1;
                         // req.session.save();
                         //req.session.save(() => { return res.status(200).json(JSON.stringify(response)); });
                         //req.session = db_data.db_name;
@@ -69,37 +67,48 @@ module.exports = {
 
         //console.log('이메일 : ' + email);//확인용용
         let sql = 'SELECT * FROM user_database WHERE user_email = ? AND user_password = ?';  //가져오기
-
-
-        conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
-            if (err) {
-                console.log('에러 : ' + error);
-            }
-            else {
-                try {
-                    if (jkh_fun.isEmpty(results)) {
-                        console.log("조회 결과 없음");
-                        response.query = false;//이름없음
-                        response.msg = 'failed';
-                        return res.status(200).json(JSON.stringify(response));
-                    }//조회 실패
-                    else {
-                        console.log('조회 결과 :' + results[0].user_name);//결과 출력
-                        db_data.db_name = results[0].user_name;
-                        response.query = db_data.db_name;
-                        response.msg = 'Succesful'; 
-                        console.log(response);//결과 출력
-                        //console.log(req.session);//결과 출력
-                        return res.status(200).json(JSON.stringify(response));
-
-                        //세션에다가 결과 저장해야됨
+        let ssesion = req.session;
+        if (ssesion.name === undefined) {
+            conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
+                if (err) {
+                    console.log('에러 : ' + error);
+                }
+                else {
+                    try {
+                        if (jkh_fun.isEmpty(results)) {
+                            console.log(`${jkh_fun.date_time()} : No request data`);
+                            response.query = false;//이름없음
+                            response.msg = 'failed';
+                            response.state =0;
+                            return res.status(200).json(JSON.stringify(response));
+                        }//조회 실패
+                        else {
+                            console.log(`${jkh_fun.date_time()} : select is data => ${results[0].user_name}`);// + results[0].user_name);//결과 출력
+                            db_data.db_name = results[0].user_name;
+                            if(req_data.name == results[0].user_name)
+                            {
+                                console.log(`${jkh_fun.date_time()} :${req_data.name}  ==  ${db_data.db_name}: session different data`);
+                                response.query = db_data.db_name;
+                            }
+                            else{
+                                console.log(`${jkh_fun.date_time()} :${req_data.name}  !=  ${db_data.db_name}: session different data`);
+                            }
+                            response.msg = 'Succesful';
+                            response.state = 1;
+                            console.log(`${jkh_fun.date_time()} : response is data => ${response}`);//결과 출력
+                            //console.log(req.session);//결과 출력
+                            return res.status(200).json(JSON.stringify(response));
+                        }
+                    }
+                    catch (e) {
+                        console.log(`${jkh_fun.date_time()} : ${e}  // db조회중 오류 발생`);
                     }
                 }
-                catch (e) {
-                    console.log(e + '// db조회중 오류 발생');
-                }
-            }
-        });
+            });
+        }else{
+            console.log(`${jkh_fun.date_time()} : session is not defind`);
+        }
+
 
     },//이름 보내줌
     userCreate: async (req, res, conn, req_data) => {
@@ -142,7 +151,6 @@ module.exports = {
                         }//조회 실패
                         else {
                             console.log('조회 결과 :' + results[0].user_name);//결과 출력
-
                             response.msg = 'Succesful';
                             console.log(response);
 
@@ -156,5 +164,8 @@ module.exports = {
             })
         }
     },
-    //userCheck: async () => { return 1; }
+    userdisable: (req, res, conn) => {
+        var session =req.ssesion;
+        console
+    },
 }
