@@ -76,6 +76,6 @@ set global max_connect_errors=10000;
 * mysql 을 재시작 하지 않아도 적용됨
 
 
-----------------------------------
+---------------------------------- 값 변경
 ALTER TABLE project.orderghistory MODIFY COLUMN Mdate VARCHAR(30) DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL;
-값 변경
+RENAME TABLE project.orderghistory TO project.orderhistory;
