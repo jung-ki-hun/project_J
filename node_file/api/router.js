@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
         pw: req.body.password
     }
     jkh_db_config.userSelect_post(req, res, conn, req_data);
-   
+
 });
 router.get('/login', (req, res) => {
     //이름 보내주는 기능 만들기
@@ -45,22 +45,24 @@ router.get('/login', (req, res) => {
 })
 //로그인
 router.post('/logout', (req, res) => {
-jkh_db_config.userdisable(req,res,conn);
-})
-//로그아웃
+    jkh_db_config.userdisable(req, res, conn);
+})//로그아웃
+
 router.post('/regi', (req, res) => {
 
     var req_data = {
-        email: req.body.id,
+        email: req.body.email,
         pw: req.body.password,
-        name: req.body.name,
+        name: req.body.username,
     }
     jkh_db_config.userCreate(req, res, conn, req_data);
 });//회원 가입
+
 router.get('/repw', (req, res) => {
     var email = req.body.email;
     jkh_db_config.userchage(req, res, conn, email);
 });//비밀번호 찾기
+
 
 router.post('/suggest', (req, res) => {
     var data_sug = {
@@ -72,7 +74,7 @@ router.post('/suggest', (req, res) => {
 });
 
 
-router.get('/p/list',(req,res)=>{
+router.get('/p/list', (req, res) => {
     jkh_product.listSelect(res, conn);
 });
 
