@@ -163,7 +163,7 @@ module.exports = {
                 }//정상적으로 디비 조회
             })
         }
-    },
+    },//비밀번호 찾기
     userdisable: (req, res, conn) => {
         try{
         var session = req.session;
@@ -185,5 +185,5 @@ module.exports = {
         catch(err){
             console.log(`${jkh_fun.date_time()} : ${err}`)
         }
-    }
+    }//로그아웃
 }

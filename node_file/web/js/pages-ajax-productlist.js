@@ -10,6 +10,7 @@ $(document).ready(() => {
                 let json_d = json_o.query;
                 test = JSON.parse(json_d);
                 var str = "";
+                console.log(test);
                  $.each(test, function (key, value) {
                     str += `<tr>
                 <td>

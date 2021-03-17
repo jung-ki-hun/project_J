@@ -13,7 +13,7 @@ $(document).ready(() => {
     }),
     $("#jkhajax-1").click(() => {
         $.ajax({
-            url: 'pages/pages-situation.html',//'/pages/pages-situation.html'
+            url: 'pages-productlist.html',//'/pages/pages-situation.html'
             cache: false,
             dataType: 'html',
             type: "GET",
