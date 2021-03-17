@@ -26,14 +26,21 @@ stock int,
 Location VARCHAR(20)
 );
 create TABLE project.MarketList(
-SNo int,
+SNo int AUTO_INCREMENT,
 Market bool,
 UserName VARCHAR(30),
 Product VARCHAR(30),
 Mcount int,
-Mdate TIMESTAMP
+Mdate TIMESTAMP,
+primary key(SNo)
 );
-
+create TABLE project.OrdergHistory(
+Number int AUTO_INCREMENT,
+price int,
+UserName VARCHAR(30),
+Mdate TIMESTAMP,
+primary key(Number)
+);
 create TABLE project.HomePage(
 name VARCHAR(40),
 email VARCHAR(100),
@@ -67,3 +74,8 @@ set global max_connections=300;
 set global max_connect_errors=10000;
 
 * mysql 을 재시작 하지 않아도 적용됨
+
+
+----------------------------------
+ALTER TABLE project.orderghistory MODIFY COLUMN Mdate VARCHAR(30) DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL;
+값 변경
