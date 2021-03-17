@@ -1,7 +1,7 @@
 // const db_config = require('../../db.js')
 // const conn = db_config.init()
 // db_config.connect(conn)
-var jkh_fun = require('../process/jkh_fun.js');
+var jkh_fun = require('./jkh_fun.js');
 
 var db_data = {
     db_pw: null,
