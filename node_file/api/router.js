@@ -22,10 +22,14 @@ db_config.connect(conn)
 
 
 /*****************************/
-/******URL 관리 스크립트*******/
+/**********URL 관리***********/
 /*****************************/
 
-//router 시작
+//접근제한 관련 코드 작성
+
+/*****************************/
+/**********로그인 설정*********/
+/*****************************/
 router.post('/login', (req, res) => {
     var req_data = {
         email: req.body.id,
@@ -34,20 +38,24 @@ router.post('/login', (req, res) => {
     jkh_db_config.userSelect_post(req, res, conn, req_data);
 
 });
+//로그인 - 세션등록
 router.get('/login', (req, res) => {
-    //이름 보내주는 기능 만들기
+    try{
     var req_data = {
         name: req.session.user.name,
         email: req.session.user.email,
         pw: req.session.user.password
+    }}
+    catch(e){
+        console.error(e);
     }
     jkh_db_config.userSelect_get(req, res, conn, req_data);
 })
-//로그인
+//로그인 - 닉네임 추출
 router.post('/logout', (req, res) => {
     jkh_db_config.userdisable(req, res, conn);
-})//로그아웃
-
+})
+//로그아웃
 router.post('/regi', (req, res) => {
 
     var req_data = {
@@ -56,13 +64,17 @@ router.post('/regi', (req, res) => {
         name: req.body.username,
     }
     jkh_db_config.userCreate(req, res, conn, req_data);
-});//회원 가입
-
+});
+//회원 가입
 router.get('/repw', (req, res) => {
     var email = req.body.email;
     jkh_db_config.userchage(req, res, conn, email);
-});//비밀번호 찾기
+});
+//비밀번호 찾기
 
+/*****************************/
+/*******게시판 환경 소스*******/
+/*****************************/
 
 router.post('/suggest', (req, res) => {
     var data_sug = {
@@ -72,17 +84,36 @@ router.post('/suggest', (req, res) => {
     }
     jkh_suggest.addsuggest(req, res, conn, data_sug);
 });
+//건의 사항 접수
 
+/*****************************/
+/*********제품 관리 환경*******/
+/*********사무실 페이지********/
+/*****************************/
 
 router.get('/p/list', (req, res) => {
     jkh_product.listSelect(res, conn);
 });
+//제품리스트 반환
 
+router.post('/p/buy', (req,res) => {
+    var data_sug = {
+        listname : req.body.name,
+        count : req.body.count
+    }
+    //jkh_product.buySelect(req,res,conn,data_sug); 
+});
+//제품 구매
+
+/*****************************/
+/******최상위 환경 페이지******/
+/*****************************/
 router.post('/')
 //'//web/landing/industry/index.html' 일때 로그인의 유무를 판단하는 기능 구현
 router.get('/', (req, res) => {
     req.session;
     res.redirect(302, '/web/index.html');
-});//메인페이지로 이동
+});
+//메인페이지로 이동
 
 module.exports = router;

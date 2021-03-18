@@ -11,7 +11,7 @@ $(document).ready(() => {
                 test = JSON.parse(json_d);
                 var str = "";
                 console.log(test);
-                 $.each(test, function (key, value) {
+                 $.each(test, async function (key, value) {
                     str += `<tr>
                 <td>
                     <h6 class="mt-0 m-b-5">`+ value.QRcode_check + `</h6>
@@ -24,15 +24,7 @@ $(document).ready(() => {
                         <div class="progress-bar bg-danger" role="progressbar" style="width:`+ value.stock + `0%;"
                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                </td>
-                <td>
-                    <a href="javascript:void(0);" class="m-r-15 text-muted" data-toggle="tooltip"
-                        data-placement="top" title="" data-original-title="Edit"><i
-                            class="mdi mdi-pencil font-18"></i></a>
-                    <a href="javascript:void(0);" class="text-muted" data-toggle="tooltip"
-                        data-placement="top" title="" data-original-title="Delete"><i
-                            class="mdi mdi-close font-18"></i></a>
-                </td>
+                </td>               
             </tr>`;
                 });
 
