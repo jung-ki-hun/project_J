@@ -25,11 +25,9 @@
 
 // 0_Car
 //status
-//0)stop
-//1)road
-//2)location
-//3)pause
-//4)return
+//1)Go
+//2)Stop
+//3)
 
 char Car_status = 0;
 
@@ -104,10 +102,11 @@ char _4_readSerial(void)
     {
         ch = Serial.read();
         str.concat(ch);
+        Serial.print("Serial : ");
+        Serial.println(str);
         delay(10);
     }
-    Serial.print("Serial : ");
-    Serial.println(str);
+    
     return str.toInt();
 }
 void setup()
@@ -134,6 +133,10 @@ void loop()
 {
     //차 상태 받아와
     Car_status = _4_readSerial();
+
+
+
+    
     //차 상태에 따른 동작
     switch (Car_status)
     {
@@ -141,7 +144,7 @@ void loop()
         
         break;
     case 1:
-        _1_Go(0);
+        _1_Go(255);
         break;
     case 2:
         _1_Stop();
