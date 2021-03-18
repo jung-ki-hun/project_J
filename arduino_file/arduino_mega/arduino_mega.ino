@@ -247,6 +247,7 @@ void loop()
     {
     case -1:
         enable_bluetooth = !enable_bluetooth;
+        delay(300);
         break;
     case 1:
         _1_Go(255);
