@@ -23,18 +23,17 @@
 // Visual Stduio Code                 //                                   //
 /////////////////////////////////////////////////////////////////////////////
 
-
 // 0_Car
 
 String Car_status = "0";
-int Car_Speed = 255;
+int Car_speed = 255;
 
 // Bluetooth
 String bt_status = "0";
 int enable_bluetooth = 0;
+int alert_bluetooth = 0;
 int Tx = 12;
 int Rx = 11;
-
 
 // 1_Motor
 int A_motor_S = 3;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
@@ -49,13 +48,16 @@ int Line_Sensor = 0;
 
 // 3_BlockSensor
 //int Block_Sensor = 0;
-String enable_distance="0";
+int enable_distance = 0;
 int distance = 0;
 int triggerPin = 50;
 int echoPin = 51;
+int beeper = 11;
 
 long delay1 = 2000;
 long lTime = 0;
+
+
 // 4_DEBUG_SERIAL
 void _0_Auto(void)
 {
@@ -65,11 +67,10 @@ void _0_Auto(void)
     }
 
     //차 상태에 따른 동작
-    _3_Block_Sensor();
     switch (Car_status.toInt())
     {
     case 0:
-    
+
         break;
 
     case 1:
@@ -79,7 +80,7 @@ void _0_Auto(void)
     case 2:
         //자동조작:정지
         _1_Stop();
-        enable_distance=!(enable_distance.toInt())+"";
+        enable_distance = 1;
         break;
     case 3:
         //자동조작:후진
@@ -91,25 +92,34 @@ void _0_Auto(void)
 }
 void _0_Controll(void)
 {
+    _3_Block_Sensor();
     if (Serial1.available())
     {
         bt_status = _4_readSerial1();
     }
     switch (bt_status.toInt())
     {
-        case -2:
-        enable_distance=!(enable_distance.toInt())+"";
-        bt_status="0";
+    case -2:
+        enable_distance = !(enable_distance);
+        bt_status = "0";
         break;
     case -1:
         enable_bluetooth = !enable_bluetooth;
-        bt_status="0";
-        delay(300);
+        if (enable_bluetooth)
+        {
+            tone(beeper, 300, 100);
+        }
+        else if (!enable_bluetooth)
+        {
+            tone(beeper, 400, 100);
+        }
+        bt_status = "0";
         break;
     case 0:
         break;
     case 1:
         _1_Go(255);
+
         break;
     case 2:
         _1_Stop();
@@ -132,7 +142,6 @@ void _0_Controll(void)
         _0_Auto();
     }
 }
-
 void _1_Stop(void)
 {
     digitalWrite(A_motor_L, HIGH);
@@ -213,17 +222,13 @@ void _3_Block_Sensor(void)
         delay1 = 1000;
     }
 
-    if (enable_distance.toInt() == 2)
+    if (enable_distance == 1)
     {
         if (millis() - lTime > delay1)
         {
             lTime = millis();
-            tone(13, 550, 100);
+            tone(beeper, 550, 100);
         }
-    }
-    else
-    {
-        noTone(13);
     }
 }
 String _4_readSerial(void)
@@ -280,7 +285,6 @@ void setup()
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
 }
-
 void loop()
 {
     _0_Controll();
