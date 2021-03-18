@@ -106,7 +106,7 @@ char _4_readSerial(void)
         Serial.println(str);
         delay(10);
     }
-    
+
     return str.toInt();
 }
 void setup()
@@ -126,7 +126,6 @@ void setup()
 
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
-
 }
 
 void loop()
@@ -134,20 +133,20 @@ void loop()
     //차 상태 받아와
     Car_status = _4_readSerial();
 
-
-
-    
     //차 상태에 따른 동작
     switch (Car_status)
     {
     case 0:
-        
+
         break;
     case 1:
         _1_Go(255);
         break;
     case 2:
         _1_Stop();
+        break;
+    case 3:
+        _1_Back(255);
         break;
     default:
         break;
