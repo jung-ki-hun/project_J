@@ -31,7 +31,7 @@
 //3)pause
 //4)return
 
-int Car_status = 1;
+char Car_status = 0;
 
 // 1_Motor
 int A_motor_S = 3;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
@@ -96,7 +96,7 @@ void _2_Line(void)
 {
 }
 
-String _4_readSerial(void)
+char _4_readSerial(void)
 {
     String str = "";
     char ch;
@@ -106,7 +106,9 @@ String _4_readSerial(void)
         str.concat(ch);
         delay(10);
     }
-    return str;
+    Serial.print("Serial : ");
+    Serial.println(str);
+    return str.toInt();
 }
 void setup()
 {
@@ -131,18 +133,18 @@ void setup()
 void loop()
 {
     //차 상태 받아와
-
+    Car_status = _4_readSerial();
     //차 상태에 따른 동작
     switch (Car_status)
     {
     case 0:
-        _1_Stop();
+        
         break;
     case 1:
         _1_Go(0);
         break;
     case 2:
-
+        _1_Stop();
         break;
     default:
         break;
