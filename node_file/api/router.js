@@ -96,13 +96,13 @@ router.get('/p/list', (req, res) => {
 });
 //제품리스트 반환
 
-router.post('/p/buy', (req,res) => {
-    var data_sug = {
-        listname : req.body.name,
-        count : req.body.count
-    }
-    //jkh_product.buySelect(req,res,conn,data_sug); 
-});
+// router.post('/p/buy', (req,res) => {
+//     var data_sug = {
+//         listname : req.body.name,
+//         count : req.body.count
+//     }
+//     //jkh_product.buySelect(req,res,conn,data_sug); 
+// });
 //제품 구매
 
 /*****************************/
