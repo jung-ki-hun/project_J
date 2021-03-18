@@ -22,15 +22,19 @@
 // Develope Tool :                    //                                   //
 // Visual Stduio Code                 //                                   //
 /////////////////////////////////////////////////////////////////////////////
+#include "SoftwareSerial.h"
 
 // 0_Car
-//status
-//1)Go
-//2)Stop
-//3)
 
 String Car_status = "0";
-int Car_Speed = 0;
+int Car_Speed = 255;
+
+// Bluetooth
+String bt_status = "0";
+int enable_bluetooth = 0;
+int Tx = 12;
+int Rx = 11;
+SoftwareSerial btSerial(Tx, Rx);
 
 // 1_Motor
 int A_motor_S = 3;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
@@ -40,19 +44,49 @@ int B_motor_L = 32; //B_motor_L을 32번핀으로 설정합니다.
 int B_motor_R = 33; //B_motor_R을 33번핀으로 설정합니다.
 int B_motor_S = 2;  //B_motor_S을 2번핀으로 설정합니다. (속도 제어)
 
-
 // 2_LineSensor
 int Line_Sensor = 0;
 
 // 3_BlockSensor
 //int Block_Sensor = 0;
-int distance;
+int distance = 0;
 int triggerPin = 50;
 int echoPin = 51;
 
 long delay1 = 2000;
 long lTime = 0;
 // 4_DEBUG_SERIAL
+
+void _0_Auto(void)
+{
+    //차 상태 받아와 시리얼통신으로
+    if (Serial.available())
+    {
+        Car_status = _4_readSerial();
+    }
+
+    //차 상태에 따른 동작
+    switch (Car_status.toInt())
+    {
+    case 0:
+        break;
+
+    case 1:
+        //자동조작:전진
+        _1_Go(Car_Speed);
+        break;
+    case 2:
+        //자동조작:정지
+        _1_Stop();
+        break;
+    case 3:
+        //자동조작:후진
+        _1_Back(Car_Speed);
+        break;
+    default:
+        break;
+    }
+}
 
 void _1_Stop(void)
 {
@@ -165,10 +199,27 @@ String _4_readSerial(void)
     return str;
     //return ch.toInt();
 }
+String _4_readbtSerial(void)
+{
+   String bstr = "";
+        char bch;
+        while (btSerial.available() > 0)
+        {
+            bch = btSerial.read();
+            if (bch != '\n')
+            {
+                bstr.concat(bch);
+                btSerial.print("btSerial : ");
+                btSerial.println(bstr);
+            }
+            delay(10);
+        }
+        return bstr;
+}
 void setup()
 {
     // 0_Car
-
+    btSerial.begin(9600);
     // 1_Motor
     pinMode(A_motor_L, OUTPUT);
     pinMode(A_motor_R, OUTPUT);
@@ -187,39 +238,30 @@ void setup()
 
 void loop()
 {
-    _3_Block_Sensor();
 
-    //차 상태 받아와
-    if (Serial.available())
+    if (btSerial.available())
     {
-        Car_status = _4_readSerial();
+        bt_status=_4_readbtSerial();
     }
-
-    //차 상태에 따른 동작
-    switch (Car_status.toInt())
+    switch (bt_status.toInt())
     {
-
     case -1:
-        //수동조작
+        enable_bluetooth = !enable_bluetooth;
         break;
-    case 0:
-
-        break;
-        
     case 1:
-        //자동조작:전진
-        _1_Go(Car_Speed);
+        _1_Go(255);
         break;
     case 2:
-        //자동조작:정지
         _1_Stop();
         break;
     case 3:
-        //자동조작:후진
-        _1_Back(Car_Speed);
-
+        _1_Left(255);
         break;
-    default:
+    case 4:
+        _1_Right(255);
         break;
+    }
+    if(!enable_bluetooth){
+        _0_Auto();
     }
 }
