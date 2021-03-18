@@ -26,7 +26,7 @@ $(document).ready(() => {
 
                 var html_div = document.querySelector("#list_item");
                 html_div.innerHTML = str;//html에다가 만든걸 추가해줌
-
+                $('#datatable').DataTable();
 
             },
         })

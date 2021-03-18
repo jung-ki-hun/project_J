@@ -32,8 +32,8 @@ $(document).ready(() => {
                 html_div.innerHTML = str;//html에다가 만든걸 추가해줌
 
 
+                $('#datatable').DataTable();
             },
         })
-        $('#datatable').DataTable();
     })
 })
