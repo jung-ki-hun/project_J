@@ -17,12 +17,12 @@
 //                                           //                            //
 /////////////////////////////////////////////////////////////////////////////
 // Make    : Kim Dong Hun             //                            ⠀      //
-// Update  : KR 2021/03/17 01:13      //                                   //
+// Update  : KR 2021/03/19 06:13      //                                   //
 // E-Mail  : 112303dh@naver.com       //                                   //
 // Develope Tool :                    //                                   //
 // Visual Stduio Code                 //                                   //
 /////////////////////////////////////////////////////////////////////////////
-#include "SoftwareSerial.h"
+
 
 // 0_Car
 
@@ -34,7 +34,7 @@ String bt_status = "0";
 int enable_bluetooth = 0;
 int Tx = 12;
 int Rx = 11;
-SoftwareSerial btSerial(Tx, Rx);
+
 
 // 1_Motor
 int A_motor_S = 3;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
@@ -49,6 +49,7 @@ int Line_Sensor = 0;
 
 // 3_BlockSensor
 //int Block_Sensor = 0;
+String enable_distance="0";
 int distance = 0;
 int triggerPin = 50;
 int echoPin = 51;
@@ -56,19 +57,19 @@ int echoPin = 51;
 long delay1 = 2000;
 long lTime = 0;
 // 4_DEBUG_SERIAL
-
 void _0_Auto(void)
 {
-    //차 상태 받아와 시리얼통신으로
     if (Serial.available())
     {
         Car_status = _4_readSerial();
     }
 
     //차 상태에 따른 동작
+    _3_Block_Sensor();
     switch (Car_status.toInt())
     {
     case 0:
+    
         break;
 
     case 1:
@@ -78,6 +79,7 @@ void _0_Auto(void)
     case 2:
         //자동조작:정지
         _1_Stop();
+        enable_distance=!(enable_distance.toInt())+"";
         break;
     case 3:
         //자동조작:후진
@@ -85,6 +87,49 @@ void _0_Auto(void)
         break;
     default:
         break;
+    }
+}
+void _0_Controll(void)
+{
+    if (Serial1.available())
+    {
+        bt_status = _4_readSerial1();
+    }
+    switch (bt_status.toInt())
+    {
+        case -2:
+        enable_distance=!(enable_distance.toInt())+"";
+        bt_status="0";
+        break;
+    case -1:
+        enable_bluetooth = !enable_bluetooth;
+        bt_status="0";
+        delay(300);
+        break;
+    case 0:
+        break;
+    case 1:
+        _1_Go(255);
+        break;
+    case 2:
+        _1_Stop();
+        break;
+    case 3:
+        _1_Back(255);
+        break;
+    case 4:
+        _1_Left(255);
+        break;
+    case 5:
+        _1_Right(255);
+        break;
+    default:
+
+        break;
+    }
+    if (!enable_bluetooth)
+    {
+        _0_Auto();
     }
 }
 
@@ -168,7 +213,7 @@ void _3_Block_Sensor(void)
         delay1 = 1000;
     }
 
-    if (Car_status.toInt() == 2)
+    if (enable_distance.toInt() == 2)
     {
         if (millis() - lTime > delay1)
         {
@@ -199,27 +244,27 @@ String _4_readSerial(void)
     return str;
     //return ch.toInt();
 }
-String _4_readbtSerial(void)
+String _4_readSerial1(void)
 {
-   String bstr = "";
-        char bch;
-        while (btSerial.available() > 0)
+    String bstr = "";
+    char bch;
+    while (Serial1.available() > 0)
+    {
+        bch = Serial1.read();
+        if (bch != '\n')
         {
-            bch = btSerial.read();
-            if (bch != '\n')
-            {
-                bstr.concat(bch);
-                btSerial.print("btSerial : ");
-                btSerial.println(bstr);
-            }
-            delay(10);
+            bstr.concat(bch);
+            Serial.print("Serial1 : ");
+            Serial.println(bstr);
         }
-        return bstr;
+        delay(10);
+    }
+    return bstr;
 }
 void setup()
 {
     // 0_Car
-    btSerial.begin(9600);
+    Serial1.begin(9600);
     // 1_Motor
     pinMode(A_motor_L, OUTPUT);
     pinMode(A_motor_R, OUTPUT);
@@ -238,31 +283,5 @@ void setup()
 
 void loop()
 {
-
-    if (btSerial.available())
-    {
-        bt_status=_4_readbtSerial();
-    }
-    switch (bt_status.toInt())
-    {
-    case -1:
-        enable_bluetooth = !enable_bluetooth;
-        delay(300);
-        break;
-    case 1:
-        _1_Go(255);
-        break;
-    case 2:
-        _1_Stop();
-        break;
-    case 3:
-        _1_Left(255);
-        break;
-    case 4:
-        _1_Right(255);
-        break;
-    }
-    if(!enable_bluetooth){
-        _0_Auto();
-    }
+    _0_Controll();
 }
