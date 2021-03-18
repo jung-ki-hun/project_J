@@ -66,7 +66,7 @@ var order_history = (conn, data_price, req_data) => {
 module.exports = {
     listSelect: (res, conn) => {
         let sql = 'SELECT * FROM qrcode_database';  //가져오기
-        conn.query(sql, function (err, results, fields) {
+        conn.query(sql, async function (err, results, fields) {
             if (err) {
                 console.error(`${jkh_fun.date_time()} : product list is not fined => ${err}`);
             }
@@ -82,7 +82,7 @@ module.exports = {
                         var rr = JSON.stringify(results);
                         response.query = rr;
                         response.msg = 'Succesful';
-                        console.log(`${jkh_fun.date_time()} : defined data => ${rr}`);
+                        console.log(`${jkh_fun.date_time()} : defined data => good!`);
                         return res.status(200).json(JSON.stringify(response));
                     }
                 }
@@ -93,12 +93,12 @@ module.exports = {
         });
 
     },
-    buySelect: async (req, res, conn, data_sug) => {
-        var data_price = await price(conn, req_data); // 가격 들고옴
-        var data_stock = await add_stock(conn, req_data); //제고 업데이트
-        //var order_history = await 
-        order_history(conn, data_price, req_data);
+    // buySelect: async (req, res, conn, data_sug) => {
+    //     var data_price = await price(conn, req_data); // 가격 들고옴
+    //     var data_stock = await add_stock(conn, req_data); //제고 업데이트
+    //     //var order_history = await 
+    //     order_history(conn, data_price, req_data);
 
-    },
+    // },
     //제품추가  -> 1. 재고량 변경 2. 주문기록 테이블에 추가
 }

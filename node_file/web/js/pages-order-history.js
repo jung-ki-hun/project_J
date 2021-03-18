@@ -12,7 +12,7 @@ $(document).ready(() => {
                 var str = "";
                 console.log(test);
                  $.each(test, function (key, value) {
-                    str += `         <tr>
+                    str += `        <tr>
                     <td>
                         <a href="#" class="font-600 text-muted">#${1}</a></td>
                     <td>${1}<</td>

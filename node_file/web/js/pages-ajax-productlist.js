@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $("#jkhajax-1").ready(() => {
         $.ajax({
-            url: '/p/list', 
+            url: '/p/list',
             cache: false,
             dataType: 'json',
             type: "GET",
@@ -10,9 +10,9 @@ $(document).ready(() => {
                 let json_d = json_o.query;
                 test = JSON.parse(json_d);
                 var str = "";
-                console.log(test);
-                 $.each(test, async function (key, value) {
-                    str += `<tr>
+                //console.log(test);
+                $.each(test, async function (key, value) {
+                    str += `<tr role="row">
                 <td>
                     <h6 class="mt-0 m-b-5">`+ value.QRcode_check + `</h6>
                     <p class="m-0 font-14">`+ value.name + `</p>
