@@ -26,6 +26,9 @@ db_config.connect(conn)
 /*****************************/
 
 //접근제한 관련 코드 작성
+router.get('/p/m/office');
+router.get('/p/m/industry');
+
 
 /*****************************/
 /**********로그인 설정*********/
@@ -96,13 +99,13 @@ router.get('/p/list', (req, res) => {
 });
 //제품리스트 반환
 
-// router.post('/p/buy', (req,res) => {
-//     var data_sug = {
-//         listname : req.body.name,
-//         count : req.body.count
-//     }
-//     //jkh_product.buySelect(req,res,conn,data_sug); 
-// });
+router.post('/p/buy', (req,res) => {
+    var data_sug = {
+        listname : req.body.name,
+        count : req.body.count
+    }
+    jkh_product.buySelect(req,res,conn,data_sug); 
+});
 //제품 구매
 
 /*****************************/

@@ -102,7 +102,7 @@
 
             //creating bar chart
             var $barData = [
-                {y: '2009', a: 100, b: 90},
+                {y: '2009', a: 100},
                 {y: '2010', a: 75, b: 65},
                 {y: '2011', a: 50, b: 40},
                 {y: '2012', a: 75, b: 65},
@@ -111,7 +111,7 @@
                 {y: '2015', a: 100, b: 90},
                 {y: '2016', a: 90, b: 75}
             ];
-            this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#8d6e63', '#4ac18e']);
+           // this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#8d6e63', '#4ac18e']);
 
             //creating area chart
             var $areaData = [

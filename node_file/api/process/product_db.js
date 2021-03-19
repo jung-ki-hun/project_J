@@ -5,9 +5,9 @@ var response = {
     msg: 'Succesful'
 };//사용자 이름 전송용 
 
-var price = (conn, req_data) => {
+var price = (conn, data_sug) => {
     let sql = 'SELECT * FROM qrcode_database WHERE name = ? ';  //가져오기
-    conn.query(sql, function (err, results, fields) {
+    conn.query(sql, [data_sug.listname],function (err, results, fields) {
         if (err) {
             console.error(`${jkh_fun.date_time()} : price is not fined => ${err}`);
         }
@@ -21,7 +21,7 @@ var price = (conn, req_data) => {
                 else {
                     var rr = results[0].price;
                     console.log(`${jkh_fun.date_time()} : price data => ${rr}`);
-                    return rr;;
+                    return rr;
                 }
             }
             catch (e) {
@@ -30,34 +30,34 @@ var price = (conn, req_data) => {
         }
     });
 }//가격 들고오는 함수
-var add_stock = (conn, req_data) => {
-    let sql = 'UPDATE qrcode_database SET stock = ? WHERE name = ?';
-    conn.query(sql, [req_data.count, req_data.listname], function (err, rows) {
+var add_stock = (conn, data_sug) => {
+    let sql = 'UPDATE qrcode_database SET stock = stock + ? WHERE name = ?';
+    conn.query(sql, [data_sug.count, data_sug.listname], function (err) {
         if (err) {
             console.error(`${jkh_fun.date_time()} : stock is not updata => ${err}`);
             return;
         }//실패~!
         else {
-            console.log(`${jkh_fun.date_time()} : chage stock data => ${row}`);
+            console.log(`${jkh_fun.date_time()} : chage stock data`);
             response.msg = 'Succesful';
             return;
         }//성공~!
     })
 
 }
-var order_history = (conn, data_price, req_data) => {
+var order_history = (conn, data_price, data_sug) => {
     var data = {
         price: data_price,
-        username: req_data.listname,
+        username: data_sug.listname,
         date: jkh_fun.date_ymd()
     }
-    let sql = 'INSERT into orderhistory values(?,?,?)';
-    conn.query(sql, [data.price, data.username, data.date], function (err, rows) {
+    let sql = 'INSERT into orderhistory (price, UserName, Mdate) values(?,?,?)';
+    conn.query(sql, [data.price, data.username, data.date], function (err) {
         if (err) {
-            console.error(err);
+            console.error(`${jkh_fun.date_time()} : add not order history => ${err}`);
         }//실패~!
         else {
-            console.log(rows);
+            console.log(`${jkh_fun.date_time()} : add order history data`);
             response.msg = 'Succesful';
             return res.status(200).json(JSON.stringify(response));
         }//성공~!
@@ -93,12 +93,12 @@ module.exports = {
         });
 
     },
-    // buySelect: async (req, res, conn, data_sug) => {
-    //     var data_price = await price(conn, req_data); // 가격 들고옴
-    //     var data_stock = await add_stock(conn, req_data); //제고 업데이트
-    //     //var order_history = await 
-    //     order_history(conn, data_price, req_data);
+    buySelect: async (req, res, conn, data_sug) => {
+        var data_price = await price(conn, data_sug); // 가격 들고옴
+        var data_stock = await add_stock(conn, data_sug); //제고 업데이트
+        //var order_history = await 
+        order_history(conn, data_price, data_sug);
 
-    // },
+    },
     //제품추가  -> 1. 재고량 변경 2. 주문기록 테이블에 추가
 }
