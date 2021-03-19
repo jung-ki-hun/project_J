@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $("#jkhajax-2").ready(() => {
+    $("#jkhajax-3").ready(() => {
         $.ajax({
             url: '/p/list', 
             cache: false,
