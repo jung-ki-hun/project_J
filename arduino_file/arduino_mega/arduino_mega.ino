@@ -25,7 +25,7 @@
 
 // 0_Car
 String Car_status = "0";
-int Car_speed = 255;
+int Car_speed = 255 / 2;
 
 // Bluetooth
 String bt_status = "0";
@@ -41,19 +41,17 @@ int B_motor_R = 25; //B_motor_R을 33번핀으로 설정합니다.
 int B_motor_S = 3;  //B_motor_S을 2번핀으로 설정합니다. (속도 제어)
 
 // 2_LineSensor
-int Line_Sensor = 0;
 
 // 3_BlockSensor
 //int Block_Sensor = 0;
 int enable_distance = 0;
 int distance = 0;
-int triggerPin = 50;
-int echoPin = 51;
+int triggerPin = 52;
+int echoPin = 53;
 int beeper = 11;
 
 long delay1 = 2000;
 long lTime = 0;
-
 
 // 4_DEBUG_SERIAL
 void _0_Auto(void)
@@ -61,31 +59,31 @@ void _0_Auto(void)
     if (Serial.available())
     {
         Car_status = _4_readSerial();
+        switch (Car_status.toInt())
+        {
+        case 0:
+
+            break;
+
+        case 1:
+            //자동조작:전진
+            _1_Go(Car_speed);
+            break;
+        case 2:
+            //자동조작:정지
+            _1_Stop();
+            enable_distance = 1;
+            break;
+        case 3:
+            //자동조작:후진
+            _1_Back(Car_speed);
+            break;
+        default:
+            break;
+        }
     }
 
     //차 상태에 따른 동작
-    switch (Car_status.toInt())
-    {
-    case 0:
-
-        break;
-
-    case 1:
-        //자동조작:전진
-        _1_Go(Car_Speed);
-        break;
-    case 2:
-        //자동조작:정지
-        _1_Stop();
-        enable_distance = 1;
-        break;
-    case 3:
-        //자동조작:후진
-        _1_Back(Car_Speed);
-        break;
-    default:
-        break;
-    }
 }
 void _0_Controll(void)
 {
@@ -93,51 +91,51 @@ void _0_Controll(void)
     if (Serial1.available())
     {
         bt_status = _4_readSerial1();
-    }
-    switch (bt_status.toInt())
-    {
-    case -2:
-    //수동조작:비프음
-        enable_distance = !(enable_distance);
-        bt_status = "0";
-        break;
-    case -1:
-    //수동조작:auto켜기
-        enable_auto = !enable_auto;
-        if (enable_auto)
+        switch (bt_status.toInt())
         {
-            tone(beeper, 300, 100);
+        case -2:
+            //수동조작:비프음
+            enable_distance = !(enable_distance);
+            bt_status = "0";
+            break;
+        case -1:
+            //수동조작:auto켜기
+            enable_auto = !enable_auto;
+            if (enable_auto)
+            {
+                tone(beeper, 300, 100);
+            }
+            else if (!enable_auto)
+            {
+                tone(beeper, 400, 100);
+            }
+            bt_status = "0";
+            break;
+        case 0:
+            break;
+        case 1:
+            //수동조작:앞으로
+            _1_Go(Car_speed);
+            break;
+        case 2:
+            //수동조작:멈춤
+            _1_Stop();
+            break;
+        case 3:
+            //수동조작:뒤로
+            _1_Back(Car_speed);
+            break;
+        case 4:
+            //수동조작:왼쪽
+            _1_Left(Car_speed);
+            break;
+        case 5:
+            //수동조작:오른쪽
+            _1_Right(Car_speed);
+            break;
+        default:
+            break;
         }
-        else if (!enable_auto)
-        {
-            tone(beeper, 400, 100);
-        }
-        bt_status = "0";
-        break;
-    case 0:
-        break;
-    case 1:
-    //수동조작:앞으로
-        _1_Go(Car_speed);
-        break;
-    case 2:
-    //수동조작:멈춤
-        _1_Stop();
-        break;
-    case 3:
-    //수동조작:뒤로
-        _1_Back(Car_speed);
-        break;
-    case 4:
-    //수동조작:왼쪽
-        _1_Left(Car_speed);
-        break;
-    case 5:
-    //수동조작:오른쪽
-        _1_Right(Car_speed);
-        break;
-    default:
-        break;
     }
 
     //자동조작허락시 출발
@@ -208,7 +206,7 @@ void _3_Block_Sensor(void)
     Serial.print(delay1);
     Serial.print(",Car_status:");
     Serial.print(Car_status);
-    
+
     Serial.print(",bt_status:");
     Serial.print(bt_status);
 
@@ -291,6 +289,17 @@ void setup()
     pinMode(echoPin, INPUT); // echo 핀 입력으로 설정
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
+    tone(beeper, 150, 500);
+    delay(500);
+    tone(beeper, 300, 500);
+    delay(500);
+    tone(beeper, 500, 500);
+    delay(500);
+    _1_Go(255);
+    delay(300);
+    _1_Back(255);
+    delay(300);
+    _1_Stop();
 }
 void loop()
 {
