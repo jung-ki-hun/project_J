@@ -10,8 +10,7 @@ document.getElementById("order").addEventListener("click", function() {
         name: $("#listitem option:selected").val(),
         count: document.querySelector("#manufacturername").value,
     }
-    alert(req.count);
-    alert(req.name);
+    
 
     
 

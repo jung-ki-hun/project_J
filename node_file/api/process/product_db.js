@@ -7,7 +7,7 @@ var response = {
 
 var price = (conn, data_sug) => {
     let sql = 'SELECT * FROM qrcode_database WHERE name = ? ';  //가져오기
-    conn.query(sql, [data_sug.listname],function (err, results, fields) {
+    conn.query(sql, [data_sug.listname], function (err, results, fields) {
         if (err) {
             console.error(`${jkh_fun.date_time()} : price is not fined => ${err}`);
         }
@@ -15,13 +15,13 @@ var price = (conn, data_sug) => {
             try {
                 if (jkh_fun.isEmpty(results)) {
                     console.log(`${jkh_fun.date_time()} : undifined price data`);
-                    var rr = null;
-                    return rr;
+                    var data_price = null;
+                    return data_price;
                 }//조회 실패
                 else {
-                    var rr = results[0].price;
-                    console.log(`${jkh_fun.date_time()} : price data => ${rr}`);
-                    return rr;
+                    data_price = results[0].price;
+                    console.log(`${jkh_fun.date_time()} : price data => ${data_price}`);
+                    return data_price;
                 }
             }
             catch (e) {
@@ -44,14 +44,14 @@ var add_stock = (conn, data_sug) => {
         }//성공~!
     })
 
-}
-var order_history = (conn, data_price, data_sug) => {
+}//제고 채워줌
+var order_history = (res, conn, data_price, data_sug) => {
     var data = {
-        price: data_price * data_sug.count,
+        price: data_price ,//* data_sug.count,
         username: data_sug.listname,
         date: jkh_fun.date_ymd()
     }
-    let sql = 'INSERT into orderhistory (price, UserName, Mdate) values(?,?,?)';
+    let sql = 'INSERT into orderhistory(price, UserName, Mdate) values(?,?,?)';
     conn.query(sql, [data.price, data.username, data.date], function (err) {
         if (err) {
             console.error(`${jkh_fun.date_time()} : add not order history => ${err}`);
@@ -94,13 +94,13 @@ module.exports = {
 
     },
     buySelect: async (req, res, conn, data_sug) => {
-        var data_price = await price(conn, data_sug); // 가격 들고옴
+        var data_price =  price(conn, data_sug); // 가격 들고옴
+        console.log(data_price);
         var data_stock = await add_stock(conn, data_sug); //제고 업데이트
-        //var order_history = await 
-        order_history(conn, data_price, data_sug);
+        var order_history1 = await order_history(res, conn, data_price, data_sug);
 
     },
-    order_history_list:(res,conn)=>{
+    order_history_list: (res, conn) => {
         let sql = 'SELECT * FROM orderhistory';  //가져오기
         conn.query(sql, async function (err, results, fields) {
             if (err) {

@@ -14,13 +14,13 @@ $(document).ready(() => {
                 $.each(test, function (key, value) {
                     str += `<tr>
                     <td>
-                        <a href="#" class="font-600 text-muted">#${1}</a></td>
+                        <a href="#" class="font-600 text-muted">#${value.Number}</a></td>
                     <td>${1}</td>
-                    <td>${1}</td>
-                    <td>${1}</td>
+                    <td>${value.Mdate}</td>
+                    <td>${value.UserName}</td>
                     <td>
                         <a href="javascript:void(0);" class="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi ion-android-note"></i></a></td>
-                </tr>/td>
+                </tr>
             </tr>`;
                 });
 
