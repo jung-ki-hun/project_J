@@ -8,10 +8,12 @@ const email = document.querySelector("#email"),
 registerBtn.addEventListener("click", register);
 
 function register() {
+
+    password.value == null ? alert("이메일 값 입력 해주세요") :
     const req = {
-        email: email.value,
-        username: username.value,
-        password: password.value,
+        email: email.value == null ? alert("이메일 값 입력 해주세요") : email.value,
+        username: username.value == null ? alert("이메일 값 입력 해주세요") : username.value,
+        password: password = document.querySelector("#password") : password.value,
     };
 
     fetch("/regi", {

@@ -4,6 +4,7 @@ var response = {
     query: null,
     msg: 'Succesful'
 };//사용자 이름 전송용 
+var data_price;
 
 var price = (conn, data_sug) => {
     let sql = 'SELECT * FROM qrcode_database WHERE name = ? ';  //가져오기
@@ -15,13 +16,13 @@ var price = (conn, data_sug) => {
             try {
                 if (jkh_fun.isEmpty(results)) {
                     console.log(`${jkh_fun.date_time()} : undifined price data`);
-                    var data_price = null;
-                    return data_price;
+                   data_price = null;
+                    return ;//data_price;
                 }//조회 실패
                 else {
                     data_price = results[0].price;
                     console.log(`${jkh_fun.date_time()} : price data => ${data_price}`);
-                    return data_price;
+                    return;//data_price;
                 }
             }
             catch (e) {
@@ -62,7 +63,7 @@ var order_history = (res, conn, data_price, data_sug) => {
             return res.status(200).json(JSON.stringify(response));
         }//성공~!
     })
-}
+}//주문 기록 추가
 module.exports = {
     listSelect: (res, conn) => {
         let sql = 'SELECT * FROM qrcode_database';  //가져오기
@@ -94,10 +95,10 @@ module.exports = {
 
     },
     buySelect: async (req, res, conn, data_sug) => {
-        var data_price =  price(conn, data_sug); // 가격 들고옴
+        var data_price1= await price(conn, data_sug); // 가격 들고옴
         console.log(data_price);
         var data_stock = await add_stock(conn, data_sug); //제고 업데이트
-        var order_history1 = await order_history(res, conn, data_price, data_sug);
+        var order_history1 = await order_history(res, conn, data_price*data_sug.count, data_sug);
 
     },
     order_history_list: (res, conn) => {
