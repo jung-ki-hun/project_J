@@ -29,7 +29,7 @@ int Car_speed = 255;
 
 // Bluetooth
 String bt_status = "0";
-int enable_bluetooth = 0;
+int enable_auto = 0;
 int alert_bluetooth = 0;
 
 // 1_Motor
@@ -97,16 +97,18 @@ void _0_Controll(void)
     switch (bt_status.toInt())
     {
     case -2:
+    //수동조작:비프음
         enable_distance = !(enable_distance);
         bt_status = "0";
         break;
     case -1:
-        enable_bluetooth = !enable_bluetooth;
-        if (enable_bluetooth)
+    //수동조작:auto켜기
+        enable_auto = !enable_auto;
+        if (enable_auto)
         {
             tone(beeper, 300, 100);
         }
-        else if (!enable_bluetooth)
+        else if (!enable_auto)
         {
             tone(beeper, 400, 100);
         }
@@ -115,26 +117,31 @@ void _0_Controll(void)
     case 0:
         break;
     case 1:
-        _1_Go(255);
-
+    //수동조작:앞으로
+        _1_Go(Car_speed);
         break;
     case 2:
+    //수동조작:멈춤
         _1_Stop();
         break;
     case 3:
-        _1_Back(255);
+    //수동조작:뒤로
+        _1_Back(Car_speed);
         break;
     case 4:
-        _1_Left(255);
+    //수동조작:왼쪽
+        _1_Left(Car_speed);
         break;
     case 5:
-        _1_Right(255);
+    //수동조작:오른쪽
+        _1_Right(Car_speed);
         break;
     default:
-
         break;
     }
-    if (!enable_bluetooth)
+
+    //자동조작허락시 출발
+    if (!enable_auto)
     {
         _0_Auto();
     }
@@ -195,12 +202,15 @@ void _3_Block_Sensor(void)
     digitalWrite(triggerPin, LOW);
     // echo 핀 입력으로부터 거리를 cm 단위로 계산
     distance = pulseIn(echoPin, HIGH) / 58;
-    Serial.print("Distance(cm) = ");
+    Serial.print("Distance(cm):");
     Serial.print(distance);
-    Serial.print(",");
-    Serial.println(delay1);
-    Serial.print(",");
-    Serial.println(Car_status);
+    Serial.print(",Delay(ms):");
+    Serial.print(delay1);
+    Serial.print(",Car_status:");
+    Serial.print(Car_status);
+    
+    Serial.print(",bt_status:");
+    Serial.print(bt_status);
 
     if (distance < 50)
     {
