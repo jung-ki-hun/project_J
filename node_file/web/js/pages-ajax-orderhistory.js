@@ -1,7 +1,7 @@
 $(document).ready(() => {
-    $("#jkhajax-1").ready(() => {
+    $("#jkhajax-5").ready(() => {
         $.ajax({
-            url: '/p/list', //신주소 만들어야됨~
+            url: '/p/order/list', //신주소 만들어야됨~
             cache: false,
             dataType: 'json',
             type: "GET",
@@ -11,7 +11,7 @@ $(document).ready(() => {
                 test = JSON.parse(json_d);
                 var str = "";
                 console.log(test);
-                 $.each(test, function (key, value) {
+                $.each(test, function (key, value) {
                     str += `<tr>
                     <td>
                         <a href="#" class="font-600 text-muted">#${1}</a></td>

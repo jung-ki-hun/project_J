@@ -107,6 +107,9 @@ router.post('/p/buy', (req,res) => {
     jkh_product.buySelect(req,res,conn,data_sug); 
 });
 //제품 구매
+router.get('/p/order/list', (req,res) => {
+    jkh_product.order_history_list(res,conn);
+})//발주 기록
 
 /*****************************/
 /******최상위 환경 페이지******/

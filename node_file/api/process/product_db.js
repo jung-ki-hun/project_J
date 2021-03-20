@@ -47,7 +47,7 @@ var add_stock = (conn, data_sug) => {
 }
 var order_history = (conn, data_price, data_sug) => {
     var data = {
-        price: data_price,
+        price: data_price * data_sug.count,
         username: data_sug.listname,
         date: jkh_fun.date_ymd()
     }
@@ -100,5 +100,33 @@ module.exports = {
         order_history(conn, data_price, data_sug);
 
     },
+    order_history_list:(res,conn)=>{
+        let sql = 'SELECT * FROM orderhistory';  //가져오기
+        conn.query(sql, async function (err, results, fields) {
+            if (err) {
+                console.error(`${jkh_fun.date_time()} : product list is not fined => ${err}`);
+            }
+            else {
+                try {
+                    if (jkh_fun.isEmpty(results)) {
+                        console.log(`${jkh_fun.date_time()} : undifined data`);
+                        response.query = false;//이름없음
+                        response.msg = 'failed';
+                        return res.status(200).json(JSON.stringify(response));
+                    }//조회 실패
+                    else {
+                        var rr = JSON.stringify(results);
+                        response.query = rr;
+                        response.msg = 'Succesful';
+                        console.log(`${jkh_fun.date_time()} : defined data => good!${rr}`);
+                        return res.status(200).json(JSON.stringify(response));
+                    }
+                }
+                catch (e) {
+                    console.log(`${jkh_fun.date_time()} : database Searching => ${e}`);
+                }
+            }
+        });
+    }
     //제품추가  -> 1. 재고량 변경 2. 주문기록 테이블에 추가
 }
