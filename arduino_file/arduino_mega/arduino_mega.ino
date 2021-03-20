@@ -24,7 +24,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 // 0_Car
-
 String Car_status = "0";
 int Car_speed = 255;
 
@@ -32,16 +31,14 @@ int Car_speed = 255;
 String bt_status = "0";
 int enable_bluetooth = 0;
 int alert_bluetooth = 0;
-int Tx = 12;
-int Rx = 11;
 
 // 1_Motor
-int A_motor_S = 3;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
-int A_motor_L = 30; //A_motor_L을 30번핀으로 설정합니다.
-int A_motor_R = 31; //A_motor_R을 31번핀으로 설정합니다.
-int B_motor_L = 32; //B_motor_L을 32번핀으로 설정합니다.
-int B_motor_R = 33; //B_motor_R을 33번핀으로 설정합니다.
-int B_motor_S = 2;  //B_motor_S을 2번핀으로 설정합니다. (속도 제어)
+int A_motor_S = 2;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
+int A_motor_L = 22; //A_motor_L을 30번핀으로 설정합니다.
+int A_motor_R = 23; //A_motor_R을 31번핀으로 설정합니다.
+int B_motor_L = 24; //B_motor_L을 32번핀으로 설정합니다.
+int B_motor_R = 25; //B_motor_R을 33번핀으로 설정합니다.
+int B_motor_S = 3;  //B_motor_S을 2번핀으로 설정합니다. (속도 제어)
 
 // 2_LineSensor
 int Line_Sensor = 0;
