@@ -524,6 +524,11 @@ ul{
     color:var(--color-font-banner);
     font-weight: bold;
 }
+.main > .banner .banner-inner span.banner-sub2{
+    font-size:var(--font-title-sub-banner)-10;
+    color:rgb(2, 39, 19);
+    font-weight: bold;
+}
 .main > .banner .banner-inner .banner-button{
     margin-top:var(--margin-button-banner);
     font-size:var(--font-button-banner);

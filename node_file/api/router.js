@@ -99,9 +99,19 @@ router.post('/suggest', (req, res) => {
     var data_sug = {
         email: req.body.email,
         name: req.body.name,
-        msg: req.body.msg
+        msg: req.body.message,
+        title:req.body.title
     }
     jkh_suggest.addsuggest(req, res, conn, data_sug);
+});
+router.get('/suggest/list', (req, res) => {
+    // var data_sug = {
+    //     email: req.body.email,
+    //     name: req.body.name,
+    //     msg: req.body.message,
+    //     title:req.body.title
+    // }
+    jkh_suggest.listsuggest(req, res, conn);
 });
 //건의 사항 접수
 
