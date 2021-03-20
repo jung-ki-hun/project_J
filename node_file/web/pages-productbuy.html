@@ -11,10 +11,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="productname">제품 이름</label>
-                                <!-- <input id="productname" name="productname" type="text" class="form-control"> -->
-                                <select class="form-control select2"id=listitem>
-                                    <!-- <option value="AK">Alaska</option> -->
+                                <select class="form-control select2"id=listitem onchange="chageLangSelect()">
+
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="productprice">제품 가격 :</label>
+                                <label for="productprice2" id=price>1000</label>
+                                <label for="productprice3" id=price2> 원</label>
                             </div>
                             <div class="form-group">
                                 <label for="manufacturername">제품 수량</label>

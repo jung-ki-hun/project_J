@@ -95,7 +95,7 @@ module.exports = {
     },
     buySelect: async (req, res, conn, data_sug) => {
         var data_price =  price(conn, data_sug); // 가격 들고옴
-        console.log(data_price);
+        //console.log(data_price);
         var data_stock = await add_stock(conn, data_sug); //제고 업데이트
         var order_history1 = await order_history(res, conn, data_price, data_sug);
 
@@ -118,7 +118,7 @@ module.exports = {
                         var rr = JSON.stringify(results);
                         response.query = rr;
                         response.msg = 'Succesful';
-                        console.log(`${jkh_fun.date_time()} : defined data => good!${rr}`);
+                        console.log(`${jkh_fun.date_time()} : order defined data => good!${rr}`);
                         return res.status(200).json(JSON.stringify(response));
                     }
                 }
