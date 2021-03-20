@@ -1,8 +1,17 @@
 "use strict";
 document.getElementById("cancel").addEventListener("click", function() {
-    //alert("드가자");
     location.href = './office_function.html';
   });
+  
+$("#listitem").change( function() {
+
+        var langSelect = document.getElementById("listitem"); 
+        var selectValue = langSelect.options[langSelect.selectedIndex].id; 
+
+        $("label[for='productprice2']").text(selectValue);
+    
+    });
+    
 
 document.getElementById("order").addEventListener("click", function() {
     
@@ -24,7 +33,7 @@ document.getElementById("order").addEventListener("click", function() {
         .then((res) => res.json()) //query: null,
         .then((data) => {
             var temp = JSON.parse(data);
-            console.log(temp);
+            //console.log(temp);
             if (temp.msg == 'Succesful') {
                 alert(temp.msg);
                 location.href = './office_function.html';

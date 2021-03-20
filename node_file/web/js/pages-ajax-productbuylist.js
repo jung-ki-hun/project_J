@@ -11,7 +11,8 @@ $(document).ready(() => {
                 test = JSON.parse(json_d);
                 var str = "";
                  $.each(test, function (key, value) {                     
-                    str += `<option value="${value.name}">${value.name}</option>`;
+                    str += `<option id="${value.price}" value="${value.name}">${value.name}</option>`;
+
                     console.log(value.name);
 
                 });
