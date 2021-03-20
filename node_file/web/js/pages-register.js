@@ -9,11 +9,11 @@ registerBtn.addEventListener("click", register);
 
 function register() {
 
-    password.value == null ? alert("이메일 값 입력 해주세요") :
+    
     const req = {
         email: email.value == null ? alert("이메일 값 입력 해주세요") : email.value,
-        username: username.value == null ? alert("이메일 값 입력 해주세요") : username.value,
-        password: password = document.querySelector("#password") : password.value,
+        username: username.value == null ? alert("이름 값 입력 해주세요") : username.value,
+        password: password.value == null ? alert("비밀번호 값 입력 해주세요") : password.value,
     };
 
     fetch("/regi", {

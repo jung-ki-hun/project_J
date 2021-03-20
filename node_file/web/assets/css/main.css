@@ -611,7 +611,7 @@ ul{
 .main > .post .post-item .post-sub.white{
     color:var(--color-white-default-post);
 }
-.main > .post .post-item .post-button{  
+.main > .post .post-item .post-button {  
     display:inline-block;          
     cursor:pointer;
     font-weight:bold;
@@ -620,8 +620,10 @@ ul{
     -moz-transition: background var(--duration-animation-button-post) ease-in-out;
     -ms-transition: background var(--duration-animation-button-post) ease-in-out;
     -webkit-transition: background var(--duration-animation-button-post) ease-in-out;
-    transition: background var(--duration-animation-button-post) ease-in-out;    
+    transition: background var(--duration-animation-button-post) ease-in-out;   
+    
 }
+
 .main > .post .post-item .post-button.bwhite{  
     border-color:var(--color-border-white-post);    
 }
@@ -837,5 +839,8 @@ ul{
     height:10%;
 }
 #logout_del:not{
+
+}
+#officec_del:not{
 
 }

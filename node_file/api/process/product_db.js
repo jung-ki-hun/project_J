@@ -95,13 +95,8 @@ module.exports = {
 
     },
     buySelect: async (req, res, conn, data_sug) => {
-<<<<<<< HEAD
         var data_price1= await price(conn, data_sug); // 가격 들고옴
         console.log(data_price);
-=======
-        var data_price =  price(conn, data_sug); // 가격 들고옴
-        //console.log(data_price);
->>>>>>> 3950f85a7aed4a26ba859cbee97a033b83f58849
         var data_stock = await add_stock(conn, data_sug); //제고 업데이트
         var order_history1 = await order_history(res, conn, data_price*data_sug.count, data_sug);
 
