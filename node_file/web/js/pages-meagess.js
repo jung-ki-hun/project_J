@@ -1,35 +1,40 @@
-// const id = document.querySelector("#id"),
-//     paword = document.querySelector("#password"),
+const email = document.querySelector("#email"),
+    name1 = document.querySelector("#name"),
+    message = document.querySelector("#message"),
+    title = document.querySelector("#title"),
+    sendBtn = document.querySelector("#submit");
 
-//     loginBtn = document.querySelector("button");
+sendBtn.addEventListener("click", sendm);
 
-// loginBtn.addEventListener("click", login);
+function sendm() {
+    const req = {
+        email: email.value,
+        name: name1.value,
+        message: message.value,
+        title: title.value
 
-// function login() {
-//     const req = {
-//         id: id.value,
-//         password: password.value,
-//     };
+    };
 
-//     fetch("/login", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(req),
-//     })
-//         .then((res) => res.json()) //query: null,
-//         .then((data) => {
-//             var temp = JSON.parse(data);
-//             console.log(temp);
-//             if (temp.msg == 'Succesful') {
-//                 location.href = '/';
-//             } else {
-//                 alert(temp.msg);
-//             }
-//         })
-//         .catch((err) => console.error('에러 메시지 : ' + err));
-// }
+    fetch("/suggest", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    })
+        .then((res) => res.json()) //query: null,
+        .then((data) => {
+            var temp = JSON.parse(data);
+            console.log(temp);
+            if (temp.msg == 'Succesful') {
+                location.href = '#';
+                alert(temp.msg);
+            } else {
+                alert(temp.msg);
+            }
+        })
+        .catch((err) => console.error('에러 메시지 : ' + err));
+}
 
 
 /****

@@ -47,11 +47,7 @@ module.exports = {
                             email: req_data.email
                         }
                         response.state = 1;
-                        // req.session.save();
-                        //req.session.save(() => { return res.status(200).json(JSON.stringify(response)); });
-                        //req.session = db_data.db_name;
                         console.log(response);//결과 출력
-                        //console.log(session);//결과 출력
                         return res.status(200).json(JSON.stringify(response));
 
                         //세션에다가 결과 저장해야됨
@@ -164,7 +160,7 @@ module.exports = {
             })
         }
     },//비밀번호 찾기
-    userdisable: (req, res, conn) => {
+    userdisable: (req, res) => {
         try{
         var session = req.session;
         console.log(session.user.name);
@@ -185,5 +181,6 @@ module.exports = {
         catch(err){
             console.log(`${jkh_fun.date_time()} : ${err}`)
         }
-    }//로그아웃
+    },//로그아웃
+    
 }

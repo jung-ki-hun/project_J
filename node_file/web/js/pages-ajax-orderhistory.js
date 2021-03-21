@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $("#jkhajax-5").ready(() => {
         $.ajax({
-            url: '/p/order/list', //신주소 만들어야됨~
+            url: '/p/order/list',
             cache: false,
             dataType: 'json',
             type: "GET",
@@ -28,7 +28,7 @@ $(document).ready(() => {
                 });
 
                 var html_div = document.querySelector("#list_item");
-                html_div.innerHTML = str;//html에다가 만든걸 추가해줌
+                html_div.innerHTML = str;
                 $('#datatable').DataTable();
 
             },

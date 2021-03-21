@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $("#jkhajax-1").ready(() => {
         $.ajax({
-            url: 'pages-productlist.html',//'/pages/pages-situation.html'
+            url: 'pages-productlist.html',
             cache: false,
             dataType: 'html',
             type: "GET",
@@ -13,7 +13,7 @@ $(document).ready(() => {
     }),
     $("#jkhajax-1").click(() => {
         $.ajax({
-            url: 'pages-productlist.html',//'/pages/pages-situation.html'
+            url: 'pages-productlist.html',
             cache: false,
             dataType: 'html',
             type: "GET",
@@ -25,7 +25,7 @@ $(document).ready(() => {
     }),
         $("#jkhajax-2").click(() => {
             $.ajax({
-                url: 'pages-productout.html',//'/pages/pages-manual.html'
+                url: 'pages-productout.html',
                 cache: false,
                 dataType: 'html',
                 type: "GET",
@@ -37,6 +37,3 @@ $(document).ready(() => {
         })
      
 })
-/**
- * url의 링크 만 변경하면 탭기능 동작
- */
