@@ -10,7 +10,17 @@ $(document).ready(() => {
             let json_d = json_o.query;
             test = JSON.parse(json_d);
             var str = "";
+            var text ="";
             //console.log(test);
+            function readfile(f){ 
+                var reader=new FileReader(); 
+                reader.readAsText(f); 
+                reader.onload = ()=>{
+                     text=reader.result;
+                    return;
+                }
+            }
+                
             $.each(test, async function (key, value) {
                 str += `<div class="card">
                 <div class="card-header bg-white border-bottom-0 p-3" id="headingOne">
@@ -25,7 +35,7 @@ $(document).ready(() => {
                 <div id="collapseOne" class="collapse show"
                      aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body text-muted">
-                        ${value.message}
+                        ${readfile(value.message)}
                     </div>
                 </div>
             </div>`;
