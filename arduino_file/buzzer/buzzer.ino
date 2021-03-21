@@ -367,11 +367,12 @@ void buzz(int targetPin, long frequency, long length) {
 }
  //*/
 
-//* 04)SerialBuzzerPiano
+//* 04)SerialBuzzerPiano + keyboard
+#incldue "Keyboard.h"
 
 int bPin = 11;
-int pList[] = {  262, 277, 294, 311, 330,  349, 370, 392, 415, 440,  466, 494, 523, 554, 587,  622, 659, 698, 740, 784, 831, 880, 932, 988, 1047,  1109, 1175, 1245, 1319, 1397,  1480, 1568, 1661, 1760, 1865  };
-char cList[] = "q2w3er5t6y7ui9o0pzsxdcfvbhnjm,l.;/'";
+int pList[] = { 247, 262, 277, 294, 311, 330,  349, 370, 392, 415, 440,  466, 494, 523, 554, 587,  622, 659, 698, 740, 784, 831, 880, 932, 988, 1047,  1109, 1175, 1245, 1319, 1397,  1480, 1568, 1661, 1760, 1865  };
+char cList[] = "`q2w3er5t6y7ui9o0pzsxdcfvbhnjm,l.;/'";
 void setup()
 {
   Serial.begin(9600);
@@ -380,7 +381,6 @@ void loop()
 {
   if (Serial.available())
   {
-    Serial.println("hi");
     int i = 0;
     int cValue = 0;
     char ch = Serial.read();
@@ -392,7 +392,7 @@ void loop()
         break;
       }
     }
-    tone(bPin, pList[cValue], 100);
+    tone(bPin, pList[cValue], 70);
     String str="pList[cValue] >";
     str+=cValue;
     str+=", ";
