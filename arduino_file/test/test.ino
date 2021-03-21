@@ -154,3 +154,56 @@ void loop() {
 }
 
 //*/
+
+//* 4) SR04 + Buzzer
+int bPin = 11;
+int tPin = 2;
+int ePin = 3;
+int value=0;
+String str="";
+void setup()
+{
+    pinMode(tPin, OUTPUT);
+    pinMode(ePin, INPUT);
+    Serial.begin(9600);
+}
+void loop()
+{
+  str="";
+  
+    digitalWrite(tPin,HIGH);
+    delayMicroseconds(10);
+    digitalWrite(tPin,LOW);
+    value = pulseIn(ePin,HIGH)/58.2;
+    if(value<1000){
+    str=value;
+    str+="(cm)";
+    Serial.println(str);
+    
+    tone(bPin,value,100);
+    }
+    else{
+      delay(100);
+    }
+}
+
+//*/
+
+/*5)Line tcrt(module: ky-033) + Buzzer
+int bPin=11;
+int lPin=A0;
+int lValue=0;
+void setup(){
+  Serial.begin(9600);
+}
+
+void loop(){
+  lValue=analogRead(lPin);
+  Serial.println(lValue);
+  
+    tone(bPin,lValue,100);
+ 
+ 
+}
+
+//*/

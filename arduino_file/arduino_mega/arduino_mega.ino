@@ -199,7 +199,7 @@ void _3_Block_Sensor(void)
     delayMicroseconds(10);
     digitalWrite(triggerPin, LOW);
     // echo 핀 입력으로부터 거리를 cm 단위로 계산
-    distance = pulseIn(echoPin, HIGH) / 58;
+    distance = pulseIn(echoPin, HIGH) / 58.2;
     Serial.print("Distance(cm):");
     Serial.print(distance);
     Serial.print(",Delay(ms):");
