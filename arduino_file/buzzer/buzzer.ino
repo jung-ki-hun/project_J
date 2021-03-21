@@ -87,13 +87,12 @@ void loop() {
   by: Dipto Pratyaksa
   last updated: 31/3/13
 */
- 
+
 /*************************************************
  * Public Constants
  *************************************************/
 
-
- /* 03)슈퍼마리오
+/* 03)슈퍼마리오
 #define NOTE_B0  31
 #define NOTE_C1  33
 #define NOTE_CS1 35
@@ -368,62 +367,31 @@ void buzz(int targetPin, long frequency, long length) {
 }
  //*/
 
+//* 04)SerialBuzzerPiano
 
- //* 04)SerialBuzzerPiano
-
- int bPin=11;
-  int pList[]={
-262,
-277,
-294,
-311,
-330,
-349,
-370,
-392,
-415,
-440,
-466,
-494,
-523,
-554,
-587,
-622,
-659,
-698,
-740,
-784,
-831,
-880,
-932,
-988,
-1047,
-1109,
-1175,
-1245,
-1319,
-1397
-};
-char cList[]="q2w3er5t6y7ui9o0pzsxdcfvbhnjm,l.;/'";
- void setup(){
+int bPin = 11;
+int pList[] = {262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988, 1047, 1109, 1175, 1245, 1319, 1397};
+char cList[] = "q2w3er5t6y7ui9o0pzsxdcfvbhnjm,l.;/'";
+void setup()
+{
   Serial.begin(9600);
- }
- void loop(){
-  if(Serial.available())
+}
+void loop()
+{
+  if (Serial.available())
   {
-    int i=0;
-    int cValue=0;
-    char ch=Serial.read();
-    for(i=0;i<sizeof(cList);i++)
+    int i = 0;
+    int cValue = 0;
+    char ch = Serial.read();
+    for (i = 0; i < sizeof(cList); i++)
     {
-      if(ch==cList[i]){
-        cValue=i;
+      if (ch == cList[i])
+      {
+        cValue = i;
         break;
       }
     }
-    tone(bPin,pList[cValue],100);
-    
+    tone(bPin, pList[cValue], 100);
   }
- }
- //*/
- 
+}
+//*/
