@@ -11,17 +11,20 @@ $(document).ready(() => {
                 test = JSON.parse(json_d);
                 var str = "";
                 console.log(test);
+                var i=0;
+
                 $.each(test, function (key, value) {
+                    console.log(i);
                     str += `<tr>
                     <td>
-                        <a href="#" class="font-600 text-muted">#${value.Number}</a></td>
-                    <td>${1}</td>
+                        <a href="#" id="${value.Number}" class="font-600 text-muted">#${value.Number}</a></td>
+                    <td>${value.price} 원</td>
                     <td>${value.Mdate}</td>
                     <td>${value.UserName}</td>
                     <td>
-                        <a href="javascript:void(0);" class="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi ion-android-note"></i></a></td>
+                        <a href="javascript:" onclick="openWindow(${i});" id="${i}" class="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi ion-android-note"></i></a></td>
                 </tr>
-            </tr>`;
+            </tr>`;i++;
                 });
 
                 var html_div = document.querySelector("#list_item");
