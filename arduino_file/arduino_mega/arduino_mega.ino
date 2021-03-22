@@ -294,8 +294,6 @@ void setup()
     tone(bPin, 262, 500);delay(500);
     tone(bPin, 330, 500);delay(500);
     tone(bPin, 392, 500);delay(500);
-    _1_Go(Car_speed);delay(800);
-    _1_Back(Car_speed);delay(800);
     _1_Stop();
 }
 void loop()
