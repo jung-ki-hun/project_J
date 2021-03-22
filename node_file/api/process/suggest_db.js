@@ -3,24 +3,56 @@ var response = {
     state: 1,
     query: null,
     msg: 'Succesful'
-};//사용자 이름 전송용 
+};
 
 module.exports = {
-    addsuggest: async (req,res,conn, data_sug) => {
-            let sql = 'INSERT into user_database values(?,?,?)';
-            conn.query(sql, [data_sug.email,data_sug.name,data_sug.msg], function (err, rows) {
+    addsuggest: async (req, res, conn, data_sug) => {
+        let sql = 'INSERT into homepage (name, email, message, title, timedata) values(?,?,?,?,?)';
+        conn.query(sql, [data_sug.name, data_sug.email, data_sug.msg, data_sug.title, jkh_fun.date_time()], function (err) {
+            try {
                 if (err) {
-                    console.error(err);
-                }//실패~!
+                    console.error(`${jkh_fun.date_time()} : message do not save => ${err} `);
+                }
                 else {
-                    console.log(rows);
+                    console.log(`${jkh_fun.date_time()} : message save succedful `);
                     response.msg = 'Succesful';
                     return res.status(200).json(JSON.stringify(response));
-                }//성공~!
-            })
-        //가입 성공시
+                }
+            }
+            catch (e) {
+                console.error(`${jkh_fun.date_time()} : message do not saving => ${err} `);
+            }
+        })
 
-    }, 
-    
-    //userCheck: async () => { return 1; }
+    },
+    listsuggest: (req, res, conn) => {
+        let sql = 'SELECT * FROM homepage ';
+        conn.query(sql, (err, results) => {
+            if (err) {
+                console.log('에러 : ' + error);
+            }
+            else {
+                try {
+                    if (jkh_fun.isEmpty(results)) {
+                        console.log(`${jkh_fun.date_time()} : undifined qna data`);
+                        response.query = false;//이름없음
+                        response.msg = 'failed';
+                        return res.status(200).json(JSON.stringify(response));
+                    }//조회 실패
+                    else {
+                        var rr = JSON.stringify(results);
+                        response.query = rr;// db_data.db_name;
+                        response.msg = 'Succesful';
+                        console.log(`${jkh_fun.date_time()} : defined qna data => good!`);//결과 출력
+                        return res.status(200).json(JSON.stringify(response));
+
+                        //세션에다가 결과 저장해야됨
+                    }
+                }
+                catch (e) {
+                    console.log(e + '// db조회중 오류 발생');
+                }
+            }
+        })
+    }
 }

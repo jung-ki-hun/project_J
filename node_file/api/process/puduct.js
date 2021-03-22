@@ -1,6 +1,3 @@
-// const db_config = require('../../db.js')
-// const conn = db_config.init()
-// db_config.connect(conn)
 var jkh_fun = require('./jkh_fun.js');
 
 var db_data = {
@@ -15,14 +12,14 @@ var response = {
 };//사용자 이름 전송용 
 
 module.exports = {
-    selectProduct:  (res, data_sug) => {
+    selectProduct: (res, data_sug) => {
         var check_data = 1;// this.userCheck();
         if (check_data != 1) {
 
         }//중복 항목 존재시..
         else {
             let sql = 'INSERT into user_database values(?,?,?)';
-            conn.query(sql, [data_sug.email,data_sug.name,data_sug.msg], function (err, rows) {
+            conn.query(sql, [data_sug.email, data_sug.name, data_sug.msg], function (err, rows) {
                 if (err) {
                     console.error(err);
                 }//실패~!
@@ -34,7 +31,7 @@ module.exports = {
             })
         }//가입 성공시
 
-    }, 
-    
+    },
+
     //userCheck: async () => { return 1; }
 }

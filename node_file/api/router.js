@@ -26,8 +26,24 @@ db_config.connect(conn)
 /*****************************/
 
 //접근제한 관련 코드 작성
-router.get('/p/m/office');
-router.get('/p/m/industry');
+router.post('/p/m/office',(req,res)=>{
+    if(req.session.user)
+    {
+       res.redirect(302,`/web/office_function.html`); 
+    }else
+    {
+        res.redirect(302,'/web/landing/office/index.html');
+    }
+});
+router.get('/p/m/industry',(req,res)=>{
+    if(req.session.user)
+    {
+       res.redirect(302,`/web/industry_function.html`); 
+    }else
+    {
+        res.redirect(302,'/web/landing/industry/index.html');
+    }
+});
 
 
 /*****************************/
@@ -83,9 +99,19 @@ router.post('/suggest', (req, res) => {
     var data_sug = {
         email: req.body.email,
         name: req.body.name,
-        msg: req.body.msg
+        msg: req.body.message,
+        title:req.body.title
     }
     jkh_suggest.addsuggest(req, res, conn, data_sug);
+});
+router.get('/suggest/list', (req, res) => {
+    // var data_sug = {
+    //     email: req.body.email,
+    //     name: req.body.name,
+    //     msg: req.body.message,
+    //     title:req.body.title
+    // }
+    jkh_suggest.listsuggest(req, res, conn);
 });
 //건의 사항 접수
 
@@ -107,14 +133,19 @@ router.post('/p/buy', (req,res) => {
     jkh_product.buySelect(req,res,conn,data_sug); 
 });
 //제품 구매
+router.get('/p/order/list', (req,res) => {
+    jkh_product.order_history_list(res,conn);
+})//발주 기록
 
 /*****************************/
 /******최상위 환경 페이지******/
 /*****************************/
 router.post('/')
+
 //'//web/landing/industry/index.html' 일때 로그인의 유무를 판단하는 기능 구현
 router.get('/', (req, res) => {
     req.session;
+
     res.redirect(302, '/web/index.html');
 });
 //메인페이지로 이동

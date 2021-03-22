@@ -48,7 +48,6 @@ module.exports = {
                         }
                         response.state = 1;
                         console.log(response);//결과 출력
-                        //console.log(session);//결과 출력
                         return res.status(200).json(JSON.stringify(response));
 
                         //세션에다가 결과 저장해야됨
@@ -161,6 +160,7 @@ module.exports = {
             })
         }
     },//비밀번호 찾기
+<<<<<<< HEAD
     userdisable: (req, res, conn) => {
         try {
             var session = req.session;
@@ -175,6 +175,18 @@ module.exports = {
                         console.log('세션 삭제 성공');
                         //파일 지정시 제일 앞에 / 를 붙여야 root 즉 public 안에서부터 찾게 된다
                         res.redirect('/');
+=======
+    userdisable: (req, res) => {
+        try{
+        var session = req.session;
+        console.log(session.user.name);
+        if (session.user) {
+            req.session.destroy(
+                function (err) {
+                    if (err) {
+                        console.log('세션 삭제시 에러');
+                        return;
+>>>>>>> d7954ef67f2b73e40779f7962967337918a86054
                     }
                 );
 
@@ -183,5 +195,6 @@ module.exports = {
         catch (err) {
             console.log(`${jkh_fun.date_time()} : ${err}`)
         }
-    }//로그아웃
+    },//로그아웃
+    
 }

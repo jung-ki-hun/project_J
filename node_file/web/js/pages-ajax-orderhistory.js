@@ -1,7 +1,7 @@
 $(document).ready(() => {
-    $("#jkhajax-1").ready(() => {
+    $("#jkhajax-5").ready(() => {
         $.ajax({
-            url: '/p/list', //신주소 만들어야됨~
+            url: '/p/order/list',
             cache: false,
             dataType: 'json',
             type: "GET",
@@ -11,21 +11,24 @@ $(document).ready(() => {
                 test = JSON.parse(json_d);
                 var str = "";
                 console.log(test);
-                 $.each(test, function (key, value) {
+                var i=0;
+
+                $.each(test, function (key, value) {
+                    console.log(i);
                     str += `<tr>
                     <td>
-                        <a href="#" class="font-600 text-muted">#${1}</a></td>
-                    <td>${1}</td>
-                    <td>${1}</td>
-                    <td>${1}</td>
+                        <a href="#" id="${value.Number}" class="font-600 text-muted">#${value.Number}</a></td>
+                    <td>${value.price} 원</td>
+                    <td>${value.Mdate}</td>
+                    <td>${value.UserName}</td>
                     <td>
-                        <a href="javascript:void(0);" class="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi ion-android-note"></i></a></td>
-                </tr>/td>
-            </tr>`;
+                        <a href="javascript:" onclick="openWindow(${i});" id="${i}" class="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi ion-android-note"></i></a></td>
+                </tr>
+            </tr>`;i++;
                 });
 
                 var html_div = document.querySelector("#list_item");
-                html_div.innerHTML = str;//html에다가 만든걸 추가해줌
+                html_div.innerHTML = str;
                 $('#datatable').DataTable();
 
             },
