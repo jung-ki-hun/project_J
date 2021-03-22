@@ -25,19 +25,19 @@ module.exports = {
 
         conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
             if (err) {
-                console.log('에러 : ' + error);
+                console.log(`${jkh_fun.date_time()} : error => ${err}`);
             }
             else {
                 try {
                     if (jkh_fun.isEmpty(results)) {
-                        console.log("조회 결과 없음");
+                        console.log(`${jkh_fun.date_time()} : No request data`);
                         response.query = false;//이름없음
                         response.msg = 'failed';
                         response.state = 0;
                         return res.status(200).json(JSON.stringify(response));
                     }//조회 실패
                     else {
-                        console.log('조회 결과 :' + results[0].user_name);//결과 출력
+                        console.log(`${jkh_fun.date_time()} : select is data => ${results[0].user_name}`);
                         //db_data.db_name = results[0].user_name;
                         response.query = results[0].user_name;// db_data.db_name;
                         response.msg = 'Succesful';
@@ -68,7 +68,7 @@ module.exports = {
         if (ssesion.user !== undefined) { //원래 name이였노
             conn.query(sql, [req_data.email, req_data.pw], function (err, results) {
                 if (err) {
-                    console.log('에러 : ' + error);
+                    console.log(`${jkh_fun.date_time()} : error => ${err}`);
                 }
                 else {
                     try {
@@ -80,7 +80,7 @@ module.exports = {
                             return res.status(200).json(JSON.stringify(response));
                         }//조회 실패
                         else {
-                            console.log(`${jkh_fun.date_time()} : select is data => ${results[0].user_name}`);// + results[0].user_name);//결과 출력
+                            console.log(`${jkh_fun.date_time()} : select is data => ${results[0].user_name}`);
                             db_data.db_name = results[0].user_name;
                             if (req_data.name == results[0].user_name) {
                                 console.log(`${jkh_fun.date_time()} :${req_data.name}  ==  ${db_data.db_name}: session same data`);
@@ -116,10 +116,10 @@ module.exports = {
             let sql = 'INSERT into user_database values(?,?,?)';
             await conn.query(sql, [req_data.email, req_data.name, req_data.pw], function (err, rows) {
                 if (err) {
-                    console.error(err);
+                    console.log(`${jkh_fun.date_time()} : error => ${err}`);
                 }//실패~!
                 else {
-                    console.log(rows);
+                    console.log(`${jkh_fun.date_time()} : select is data => ${rows}`);
                     response.msg = 'Succesful';
                     return res.status(200).json(JSON.stringify(response));
                 }//성공~!
@@ -129,6 +129,7 @@ module.exports = {
     }, //회원 가입
     userchage: (req, res, conn, email) => {
         if (jkh_fun.isEmpty(email)) {
+            console.log(`${jkh_fun.date_time()} : email is not defind => ${err}`);
             response.msg = 'please enter to email';
         }
         else {
@@ -140,16 +141,15 @@ module.exports = {
                 else {
                     try {
                         if (jkh_fun.isEmpty(results)) {
-                            console.log("조회 결과 없음");
+                            console.log(`${jkh_fun.date_time()} : name is not defined`);
                             response.query = false;//이름없음
                             response.msg = 'failed';
                             return res.status(200).json(JSON.stringify(response));
                         }//조회 실패
                         else {
-                            console.log('조회 결과 :' + results[0].user_name);//결과 출력
+                            console.log(`${jkh_fun.date_time()} : userchage is succeful `);
                             response.msg = 'Succesful';
                             console.log(response);
-
                             return res.status(200).json(JSON.stringify(response));
                         }
                     }
@@ -160,22 +160,6 @@ module.exports = {
             })
         }
     },//비밀번호 찾기
-<<<<<<< HEAD
-    userdisable: (req, res, conn) => {
-        try {
-            var session = req.session;
-            console.log(session.user.name);
-            if (session.user) {
-                req.session.destroy(
-                    function (err) {
-                        if (err) {
-                            console.log('세션 삭제시 에러');
-                            return;
-                        }
-                        console.log('세션 삭제 성공');
-                        //파일 지정시 제일 앞에 / 를 붙여야 root 즉 public 안에서부터 찾게 된다
-                        res.redirect('/');
-=======
     userdisable: (req, res) => {
         try{
         var session = req.session;
@@ -186,13 +170,15 @@ module.exports = {
                     if (err) {
                         console.log('세션 삭제시 에러');
                         return;
->>>>>>> d7954ef67f2b73e40779f7962967337918a86054
                     }
-                );
+                    console.log('세션 삭제 성공');
+                    //파일 지정시 제일 앞에 / 를 붙여야 root 즉 public 안에서부터 찾게 된다
+                    res.redirect('/');
+                }
+            );
 
-            }
-        }
-        catch (err) {
+        }}
+        catch(err){
             console.log(`${jkh_fun.date_time()} : ${err}`)
         }
     },//로그아웃

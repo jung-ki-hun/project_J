@@ -17,7 +17,6 @@ var price = (conn, data_sug) => {
             try {
                 if (jkh_fun.isEmpty(results)) {
                     console.log(`${jkh_fun.date_time()} : undifined price data`);
-<<<<<<< HEAD
                     rr = null;
                     return rr;
                 }//조회 실패
@@ -25,15 +24,6 @@ var price = (conn, data_sug) => {
                     rr = results[0].price;
                     console.log(`${jkh_fun.date_time()} : price data => ${rr}`);
                     return rr;
-=======
-                   data_price = null;
-                    return ;//data_price;
-                }//조회 실패
-                else {
-                    data_price = results[0].price;
-                    console.log(`${jkh_fun.date_time()} : price data => ${data_price}`);
-                    return;//data_price;
->>>>>>> d7954ef67f2b73e40779f7962967337918a86054
                 }
             }
             catch (e) {
@@ -59,7 +49,7 @@ var add_stock = (conn, data_sug) => {
 }//제고 채워줌
 var order_history = (res, conn, data_price, data_sug) => {
     var data = {
-        price: data_price ,//* data_sug.count,
+        price: data_price,//* data_sug.count,
         username: data_sug.listname,
         date: jkh_fun.date_ymd()
     }
@@ -106,10 +96,10 @@ module.exports = {
 
     },
     buySelect: async (req, res, conn, data_sug) => {
-        var data_price1= await price(conn, data_sug); // 가격 들고옴
+        var data_price1 = await price(conn, data_sug); // 가격 들고옴
         console.log(data_price);
         var data_stock = await add_stock(conn, data_sug); //제고 업데이트
-        var order_history1 = await order_history(res, conn, data_price*data_sug.count, data_sug);
+        var order_history1 = await order_history(res, conn, data_price * data_sug.count, data_sug);
 
     },
     order_history_list: (res, conn) => {
