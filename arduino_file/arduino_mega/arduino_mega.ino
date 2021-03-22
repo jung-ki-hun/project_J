@@ -24,14 +24,13 @@
 /////////////////////////////////////////////////////////////////////////////
 
 // 0_Car
-String Car_status = "0";
-int Car_max_speed=255;
-int Car_speed =0;
+String Car_status = "0"; //자동:시리얼받아옴
+int Car_max_speed = 255;
+int Car_speed = 0;
 
 // Bluetooth
-String bt_status = "0";
-int enable_auto = 0;
-int alert_bluetooth = 0;
+String bt_status = "0"; //수동:블루투스받아옴
+int enable_auto = 1;    //
 
 // 1_Motor
 int ASpeed = 2;
@@ -44,7 +43,7 @@ int BSpeed = 3;
 // 2_LineSensor
 
 // 3_BlockSensor
-int enable_block = 0;
+int enable_block = 0; //자동+수동:속도조절
 int distance = 0;
 int triggerPin = 52;
 int echoPin = 53;
@@ -54,104 +53,73 @@ long delay1 = 2000;
 long lTime = 0;
 
 // 4_DEBUG_SERIAL
-//int buttonPin=
-
-
 
 void _0_Controll(void)
 {
-    if (enable_block)
-    {
-        _3_Block_Sensor();
-    }
+    //수동조작시 값받아옴
     if (Serial1.available())
     {
-        bt_status = _4_readSerial1();
-        switch (bt_status.toInt())
-        {
-        case -2:
-            //수동조작:비프음
-            enable_block = !(enable_block);
-            bt_status = "0";
-            break;
-        case -1:
-            //수동조작:auto켜기
-            enable_auto = !enable_auto;
-            if (enable_auto)
-            {
-                tone(bPin, 300, 100);
-            }
-            else if (!enable_auto)
-            {
-                tone(bPin, 400, 100);
-            }
-            bt_status = "0";
-            break;
-        case 0:
-            break;
-        case 1:
-            //수동조작:앞으로
-            _1_Go(Car_speed);
-            break;
-        case 2:
-            //수동조작:멈춤
-            _1_Stop();
-            break;
-        case 3:
-            //수동조작:뒤로
-            _1_Back(Car_speed);
-            break;
-        case 4:
-            //수동조작:왼쪽
-            _1_Left(Car_speed);
-            break;
-        case 5:
-            //수동조작:오른쪽
-            _1_Right(Car_speed);
-            break;
-        default:
-            break;
-        }
+        Car_status = _4_readSerial1();
     }
 
-    //자동조작허락시 출발
-    if (!enable_auto)
-    {
-        _0_Auto();
-    }
-}
-void _0_Auto(void)
-{
     if (Serial.available())
     {
         Car_status = _4_readSerial();
-        switch (Car_status.toInt())
-        {
-        case 0:
-
-            break;
-
-        case 1:
-            //자동조작:전진
-            _1_Go(Car_speed);
-            break;
-        case 2:
-            //자동조작:정지
-            _1_Stop();
-            
-            break;
-        case 3:
-            //자동조작:후진
-            _1_Back(Car_speed);
-            enable_block = 1;
-            break;
-        default:
-            break;
-        }
     }
 
-    //차 상태에 따른 동작
+    switch (Car_status.toInt())
+    {
+    case -2:
+        //수동조작:거리센서
+        enable_block = !(enable_block);
+        Car_status = "0";
+        break;
+    case -1:
+        //수동조작:auto켜기
+        enable_auto = !enable_auto;
+        if (enable_auto)
+        {
+            tone(bPin, 300, 100);
+        }
+        else if (!enable_auto)
+        {
+            tone(bPin, 400, 100);
+        }
+        Car_status = "0";
+        break;
+    case 1:
+        _1_Go(Car_speed);
+        break;
+    case 2:
+        _1_Stop();
+        break;
+    case 3:
+        _1_Back(Car_speed);
+        break;
+    case 4:
+        _1_Left(Car_speed);
+        break;
+    case 5:
+        _1_Right(Car_speed);
+        break;
+    case 6:
+        if (Car_speed - 10 >= 0)
+        {
+            Car_speed -= 10;
+        }
+        break;
+    case 7:
+        if (Car_speed + 10 <= Car_max_speed)
+        {
+            Car_speed += 10;
+        }
+        break;
+    case 8:
+        Car_speed = Car_max_speed;
+        break;
+    }
 }
+
 void _1_Stop(void)
 {
     digitalWrite(ALeft, HIGH);
@@ -179,7 +147,7 @@ void _1_Back(int speed)
     digitalWrite(BRight, HIGH);
     analogWrite(BSpeed, speed);
 }
-void _1_Left(int speed)
+void _1_Right(int speed)
 {
     digitalWrite(ALeft, HIGH);
     digitalWrite(ARight, LOW);
@@ -188,7 +156,7 @@ void _1_Left(int speed)
     digitalWrite(BRight, HIGH);
     analogWrite(BSpeed, speed);
 }
-void _1_Right(int speed)
+void _1_Left(int speed)
 {
     digitalWrite(ALeft, LOW);
     digitalWrite(ARight, HIGH);
@@ -208,29 +176,19 @@ void _3_Block_Sensor(void)
     digitalWrite(triggerPin, LOW);
     // echo 핀 입력으로부터 거리를 cm 단위로 계산
     distance = pulseIn(echoPin, HIGH) / 58.2;
-    Serial.print("Distance(cm):");
-    Serial.print(distance);
-    Serial.print(",Delay(ms):");
-    Serial.print(delay1);
-    Serial.print(",Car_status:");
-    Serial.print(Car_status);
-
-    Serial.print(",bt_status:");
-    Serial.println(bt_status);
-
     if (distance < 50)
     {
-        Car_speed = Car_max_speed*0;
+        Car_speed = Car_max_speed * 0;
         delay1 = 50;
     }
     else if (distance < 100)
     {
-        Car_speed = Car_max_speed/4;
+        Car_speed = Car_max_speed / 2.5;
         delay1 = 100;
     }
     else if (distance < 150)
     {
-        Car_speed = Car_max_speed/2;
+        Car_speed = Car_max_speed / 1.5;
         delay1 = 300;
     }
     else
@@ -294,14 +252,17 @@ void setup()
 
     // 3_BlockSensor
     pinMode(triggerPin, OUTPUT); // trigger 핀 출력으로 설정
-    pinMode(echoPin, INPUT); // echo 핀 입력으로 설정
+    pinMode(echoPin, INPUT);     // echo 핀 입력으로 설정
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
-    tone(bPin, 262, 500);delay(500);
-    tone(bPin, 330, 500);delay(500);
-    tone(bPin, 392, 500);delay(500);
+    tone(bPin, 262, 500);
+    delay(500);
+    tone(bPin, 330, 500);
+    delay(500);
+    tone(bPin, 392, 500);
+    delay(500);
     _1_Stop();
-    Car_speed=Car_max_speed;
+    Car_speed = Car_max_speed;
 }
 void loop()
 {
