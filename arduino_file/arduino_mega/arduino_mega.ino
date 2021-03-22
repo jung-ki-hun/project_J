@@ -17,7 +17,7 @@
 //                                           //                            //
 /////////////////////////////////////////////////////////////////////////////
 // Make    : Kim Dong Hun             //                            ⠀      //
-// Update  : KR 2021/03/19 06:13      //                                   //
+// Update  : KR 2021/03/22 21:23      //                                   //
 // E-Mail  : 112303dh@naver.com       //                                   //
 // Develope Tool :                    //                                   //
 // Visual Stduio Code                 //                                   //
@@ -53,6 +53,9 @@ long delay1 = 2000;
 long lTime = 0;
 
 // 4_DEBUG_SERIAL
+int buttonPin=
+
+
 
 void _0_Controll(void)
 {
