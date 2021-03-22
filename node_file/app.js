@@ -8,6 +8,7 @@ var MySQLStore = require("express-mysql-session")(session);
 var router = require(`./api/router.js`);
 var expressErrorHandler = require('express-error-handler');
 const { error } = require("console");
+var slack = require('./api/process/slack.js');
 var argv_ip = process.argv[2];
 const app = express();
 const dataset = {
@@ -26,12 +27,12 @@ app.use(
 		saveUninitialized: true,
 	})
 );
-app.use('/', router); 
+app.use('/', router);
 app.use('/web', static(path.join(__dirname, 'web')));
 var errorHandler = expressErrorHandler({
-	static : {
-		'404':'./web/error/404.html',
-		'500':'./web/error/pages-500.html'	
+	static: {
+		'404': './web/error/404.html',
+		'500': './web/error/pages-500.html'
 	}
 })
 app.use(expressErrorHandler.httpError(404));
@@ -42,4 +43,10 @@ app.listen(dataset.port, dataset.host, () => {
 	console.log(__dirname);
 	console.log(argv_ip);
 	console.log(db_info);
+	slack.send(213456);
 });
+// process.on('SIGINT', () => {
+// 	app.close(() => {
+// 		console.log(`server exit!!`);
+// 	});
+// })
