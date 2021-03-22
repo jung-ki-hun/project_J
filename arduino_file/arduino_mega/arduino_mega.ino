@@ -25,7 +25,7 @@
 
 // 0_Car
 String Car_status = "0";
-int Car_speed = 255 / 2;
+int Car_speed = 255;
 
 // Bluetooth
 String bt_status = "0";
@@ -33,61 +33,33 @@ int enable_auto = 0;
 int alert_bluetooth = 0;
 
 // 1_Motor
-int A_motor_S = 2;  //A_motor_S을 3번핀으로 설정합니다. (속도 제어)
-int A_motor_L = 22; //A_motor_L을 30번핀으로 설정합니다.
-int A_motor_R = 23; //A_motor_R을 31번핀으로 설정합니다.
-int B_motor_L = 24; //B_motor_L을 32번핀으로 설정합니다.
-int B_motor_R = 25; //B_motor_R을 33번핀으로 설정합니다.
-int B_motor_S = 3;  //B_motor_S을 2번핀으로 설정합니다. (속도 제어)
+int ASpeed = 2;
+int ALeft = 22;
+int ARight = 23;
+int BRight = 24;
+int BLeft = 25;
+int BSpeed = 3;
 
 // 2_LineSensor
 
 // 3_BlockSensor
-//int Block_Sensor = 0;
-int enable_distance = 0;
+int enable_block = 0;
 int distance = 0;
 int triggerPin = 52;
 int echoPin = 53;
-int beeper = 11;
+int bPin = 11;
 
 long delay1 = 2000;
 long lTime = 0;
 
 // 4_DEBUG_SERIAL
-void _0_Auto(void)
-{
-    if (Serial.available())
-    {
-        Car_status = _4_readSerial();
-        switch (Car_status.toInt())
-        {
-        case 0:
 
-            break;
-
-        case 1:
-            //자동조작:전진
-            _1_Go(Car_speed);
-            break;
-        case 2:
-            //자동조작:정지
-            _1_Stop();
-            enable_distance = 1;
-            break;
-        case 3:
-            //자동조작:후진
-            _1_Back(Car_speed);
-            break;
-        default:
-            break;
-        }
-    }
-
-    //차 상태에 따른 동작
-}
 void _0_Controll(void)
 {
-    _3_Block_Sensor();
+    if (enable_block)
+    {
+        _3_Block_Sensor();
+    }
     if (Serial1.available())
     {
         bt_status = _4_readSerial1();
@@ -95,7 +67,7 @@ void _0_Controll(void)
         {
         case -2:
             //수동조작:비프음
-            enable_distance = !(enable_distance);
+            enable_block = !(enable_block);
             bt_status = "0";
             break;
         case -1:
@@ -103,11 +75,11 @@ void _0_Controll(void)
             enable_auto = !enable_auto;
             if (enable_auto)
             {
-                tone(beeper, 300, 100);
+                tone(bPin, 300, 100);
             }
             else if (!enable_auto)
             {
-                tone(beeper, 400, 100);
+                tone(bPin, 400, 100);
             }
             bt_status = "0";
             break;
@@ -144,50 +116,82 @@ void _0_Controll(void)
         _0_Auto();
     }
 }
+void _0_Auto(void)
+{
+    if (Serial.available())
+    {
+        Car_status = _4_readSerial();
+        switch (Car_status.toInt())
+        {
+        case 0:
+
+            break;
+
+        case 1:
+            //자동조작:전진
+            _1_Go(Car_speed);
+            break;
+        case 2:
+            //자동조작:정지
+            _1_Stop();
+            
+            break;
+        case 3:
+            //자동조작:후진
+            _1_Back(Car_speed);
+            enable_block = 1;
+            break;
+        default:
+            break;
+        }
+    }
+
+    //차 상태에 따른 동작
+}
 void _1_Stop(void)
 {
-    digitalWrite(A_motor_L, HIGH);
-    digitalWrite(A_motor_R, LOW);
-    analogWrite(A_motor_S, 0);
-    digitalWrite(B_motor_L, HIGH);
-    digitalWrite(B_motor_R, LOW);
-    analogWrite(B_motor_S, 0);
+    digitalWrite(ALeft, HIGH);
+    digitalWrite(ARight, LOW);
+    analogWrite(ASpeed, 0);
+    digitalWrite(BLeft, HIGH);
+    digitalWrite(BRight, LOW);
+    analogWrite(BSpeed, 0);
 }
 void _1_Go(int speed)
 {
-    digitalWrite(A_motor_L, HIGH);
-    digitalWrite(A_motor_R, LOW);
-    analogWrite(A_motor_S, speed);
-    digitalWrite(B_motor_L, HIGH);
-    digitalWrite(B_motor_R, LOW);
-    analogWrite(B_motor_S, speed);
+    digitalWrite(ALeft, HIGH);
+    digitalWrite(ARight, LOW);
+    analogWrite(ASpeed, speed);
+    digitalWrite(BLeft, HIGH);
+    digitalWrite(BRight, LOW);
+    analogWrite(BSpeed, speed);
 }
 void _1_Back(int speed)
 {
-    digitalWrite(A_motor_L, LOW);
-    digitalWrite(A_motor_R, HIGH);
-    analogWrite(A_motor_S, speed);
-    digitalWrite(B_motor_L, LOW);
-    digitalWrite(B_motor_R, HIGH);
-    analogWrite(B_motor_S, speed);
+    digitalWrite(ALeft, LOW);
+    digitalWrite(ARight, HIGH);
+    analogWrite(ASpeed, speed);
+    digitalWrite(BLeft, LOW);
+    digitalWrite(BRight, HIGH);
+    analogWrite(BSpeed, speed);
 }
 void _1_Left(int speed)
 {
-    digitalWrite(A_motor_L, HIGH);
-    digitalWrite(A_motor_R, LOW);
-    analogWrite(A_motor_S, speed);
-    digitalWrite(B_motor_L, LOW);
-    digitalWrite(B_motor_R, HIGH);
-    analogWrite(B_motor_S, speed);
+    digitalWrite(ALeft, HIGH);
+    digitalWrite(ARight, LOW);
+    analogWrite(ASpeed, speed);
+    digitalWrite(BLeft, LOW);
+    digitalWrite(BRight, HIGH);
+    analogWrite(BSpeed, speed);
 }
 void _1_Right(int speed)
 {
-    digitalWrite(A_motor_L, LOW);
-    digitalWrite(A_motor_R, HIGH);
-    analogWrite(A_motor_S, speed);
-    digitalWrite(B_motor_L, HIGH);
-    digitalWrite(B_motor_R, LOW);
-    analogWrite(B_motor_S, speed);
+    digitalWrite(ALeft, LOW);
+    digitalWrite(ARight, HIGH);
+    analogWrite(ASpeed, speed);
+    digitalWrite(BLeft, HIGH);
+    digitalWrite(BRight, LOW);
+    analogWrite(BSpeed, speed);
 }
 void _2_Line(void)
 {
@@ -208,10 +212,11 @@ void _3_Block_Sensor(void)
     Serial.print(Car_status);
 
     Serial.print(",bt_status:");
-    Serial.print(bt_status);
+    Serial.println(bt_status);
 
     if (distance < 50)
     {
+        Car_speed = 255*0;
         delay1 = 50;
     }
     else if (distance < 100)
@@ -220,6 +225,7 @@ void _3_Block_Sensor(void)
     }
     else if (distance < 150)
     {
+    
         delay1 = 300;
     }
     else
@@ -227,13 +233,10 @@ void _3_Block_Sensor(void)
         delay1 = 1000;
     }
 
-    if (enable_distance == 1)
+    if (millis() - lTime > delay1)
     {
-        if (millis() - lTime > delay1)
-        {
-            lTime = millis();
-            tone(beeper, 550, 100);
-        }
+        lTime = millis();
+        tone(bPin, 330, 100);
     }
 }
 String _4_readSerial(void)
@@ -276,29 +279,23 @@ void setup()
     // 0_Car
     Serial1.begin(9600);
     // 1_Motor
-    pinMode(A_motor_L, OUTPUT);
-    pinMode(A_motor_R, OUTPUT);
-    pinMode(B_motor_L, OUTPUT);
-    pinMode(B_motor_R, OUTPUT);
+    pinMode(ALeft, OUTPUT);
+    pinMode(ARight, OUTPUT);
+    pinMode(BLeft, OUTPUT);
+    pinMode(BRight, OUTPUT);
 
     // 2_RoadSensor
 
     // 3_BlockSensor
     pinMode(triggerPin, OUTPUT); // trigger 핀 출력으로 설정
-
     pinMode(echoPin, INPUT); // echo 핀 입력으로 설정
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
-    tone(beeper, 150, 500);
-    delay(500);
-    tone(beeper, 300, 500);
-    delay(500);
-    tone(beeper, 500, 500);
-    delay(500);
-    _1_Go(255);
-    delay(300);
-    _1_Back(255);
-    delay(300);
+    tone(bPin, 262, 500);delay(500);
+    tone(bPin, 330, 500);delay(500);
+    tone(bPin, 392, 500);delay(500);
+    _1_Go(Car_speed);delay(800);
+    _1_Back(Car_speed);delay(800);
     _1_Stop();
 }
 void loop()

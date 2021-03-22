@@ -366,15 +366,19 @@ void buzz(int targetPin, long frequency, long length) {
  
 }
  //*/
+#include "PS2Keyboard.h"
+PS2Keyboard keyboard;
+const int dataPin=2;
+const int irqPin=3;
 
-//* 04)SerialBuzzerPiano + keyboard
-#incldue "Keyboard.h"
-
+//* 04)SerialBuzzerPiano + USB PCB Female + keyboard + PS2Keyboard
+int flag_Enter = 0;
 int bPin = 11;
-int pList[] = { 247, 262, 277, 294, 311, 330,  349, 370, 392, 415, 440,  466, 494, 523, 554, 587,  622, 659, 698, 740, 784, 831, 880, 932, 988, 1047,  1109, 1175, 1245, 1319, 1397,  1480, 1568, 1661, 1760, 1865  };
+int pList[] = {247, 262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988, 1047, 1109, 1175, 1245, 1319, 1397, 1480, 1568, 1661, 1760, 1865};
 char cList[] = "`q2w3er5t6y7ui9o0pzsxdcfvbhnjm,l.;/'";
 void setup()
 {
+  
   Serial.begin(9600);
 }
 void loop()
@@ -384,20 +388,31 @@ void loop()
     int i = 0;
     int cValue = 0;
     char ch = Serial.read();
-    for (i = 0; i < sizeof(cList); i++)
+    flag_Enter=0;
+    if (ch == '1')
     {
-      if (ch == cList[i])
+    }
+    else
+    {
+      for (i = 0; i < sizeof(cList); i++)
       {
-        cValue = i;
-        break;
+        if (ch == cList[i])
+        {
+          flag_Enter=1;
+          cValue = i;
+          break;
+        }
+      }
+      if(flag_Enter==1)
+      {
+      tone(bPin, pList[cValue], 70);
+      String str = "pList[cValue] >";
+      str += cValue;
+      str += ", ";
+      str += pList[cValue];
+      Serial.println(str);
       }
     }
-    tone(bPin, pList[cValue], 70);
-    String str="pList[cValue] >";
-    str+=cValue;
-    str+=", ";
-    str+=pList[cValue];
-    Serial.println(str);
   }
 }
 //*/
