@@ -25,7 +25,8 @@
 
 // 0_Car
 String Car_status = "0";
-int Car_speed = 255;
+int Car_max_speed=255;
+int Car_speed =0;
 
 // Bluetooth
 String bt_status = "0";
@@ -53,7 +54,7 @@ long delay1 = 2000;
 long lTime = 0;
 
 // 4_DEBUG_SERIAL
-int buttonPin=
+//int buttonPin=
 
 
 
@@ -219,20 +220,22 @@ void _3_Block_Sensor(void)
 
     if (distance < 50)
     {
-        Car_speed = 255*0;
+        Car_speed = Car_max_speed*0;
         delay1 = 50;
     }
     else if (distance < 100)
     {
+        Car_speed = Car_max_speed/4;
         delay1 = 100;
     }
     else if (distance < 150)
     {
-    
+        Car_speed = Car_max_speed/2;
         delay1 = 300;
     }
     else
     {
+        Car_speed = Car_max_speed;
         delay1 = 1000;
     }
 
@@ -298,6 +301,7 @@ void setup()
     tone(bPin, 330, 500);delay(500);
     tone(bPin, 392, 500);delay(500);
     _1_Stop();
+    Car_speed=Car_max_speed;
 }
 void loop()
 {
