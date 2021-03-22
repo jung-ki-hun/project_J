@@ -18,7 +18,7 @@ window.onload = function () {
     var getData =  _GET(search);
     document.getElementById("div_number").innerHTML = `<h4 class="pull-right font-16"><strong>주문번호 : #${getData.a}</strong></h4>
     <h3 class="m-t-0">
-        <img src="assets/images/logo.png" alt="logo" height="26"/>
+        <img src="assets/images/1logo.png" alt="logo" height="26"/>
     </h3>`;
 
     document.getElementById("div_Date").innerHTML = `<address><strong>Order Date:</strong><br>${getData.d}<br><br></address>`;
