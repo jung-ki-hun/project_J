@@ -6,6 +6,7 @@ var response = {
 };//사용자 이름 전송용 
 
 var price = (conn, data_sug) => {
+    var rr;
     let sql = 'SELECT * FROM qrcode_database WHERE name = ? ';  //가져오기
     conn.query(sql, [data_sug.listname],function (err, results, fields) {
         if (err) {
@@ -15,11 +16,11 @@ var price = (conn, data_sug) => {
             try {
                 if (jkh_fun.isEmpty(results)) {
                     console.log(`${jkh_fun.date_time()} : undifined price data`);
-                    var rr = null;
+                    rr = null;
                     return rr;
                 }//조회 실패
                 else {
-                    var rr = results[0].price;
+                    rr = results[0].price;
                     console.log(`${jkh_fun.date_time()} : price data => ${rr}`);
                     return rr;
                 }

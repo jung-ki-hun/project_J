@@ -10,7 +10,6 @@ $(document).ready(() => {
                 let json_d = json_o.query;
                 test = JSON.parse(json_d);
                 var str = "";
-                //console.log(test);
                 $.each(test, async function (key, value) {
                     str += `<tr role="row">
                 <td>
@@ -26,12 +25,9 @@ $(document).ready(() => {
                     </div>
                 </td>               
             </tr>`;
-                });
-                   
+                });                   
                 var html_div = document.querySelector("#list_item");
                 html_div.innerHTML = str;//html에다가 만든걸 추가해줌
-
-
                 $('#datatable').DataTable();
             },
         })
