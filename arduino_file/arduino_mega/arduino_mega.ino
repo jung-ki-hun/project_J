@@ -79,11 +79,11 @@ void _0_Controll(void)
         enable_auto = !enable_auto;
         if (enable_auto)
         {
-            tone(bPin, 300, 100);
+            tone(bPin, 330, 100);
         }
         else if (!enable_auto)
         {
-            tone(bPin, 400, 100);
+            tone(bPin, 440, 100);
         }
         Car_status = "0";
         break;
@@ -107,15 +107,18 @@ void _0_Controll(void)
         {
             Car_speed -= 10;
         }
+        Car_status="0";
         break;
     case 7:
         if (Car_speed + 10 <= Car_max_speed)
         {
             Car_speed += 10;
         }
+        Car_status="0";
         break;
     case 8:
         Car_speed = Car_max_speed;
+        Car_status="0";
         break;
     }
 }
