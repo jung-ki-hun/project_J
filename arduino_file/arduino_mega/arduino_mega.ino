@@ -50,7 +50,6 @@ int bPin = 11;
 long delay1 = 2000;
 long lTime = 0;
 // 4_DEBUG_SERIAL
-<<<<<<< HEAD
 
 void _0_intro_song(void)
 {
@@ -135,8 +134,6 @@ void _0_intro_song(void)
     }
 }
 
-=======
->>>>>>> 872e61a586d3a7b2687f3b45812fec7bc500518b
 void _0_Controll(void)
 {
     //수동조작시 값받아옴
