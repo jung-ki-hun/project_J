@@ -8,7 +8,6 @@ var MySQLStore = require("express-mysql-session")(session);
 var router = require(`./api/router.js`);
 var expressErrorHandler = require('express-error-handler');
 const { error } = require("console");
-var slack = require('./api/process/slack.js');
 var argv_ip = process.argv[2];
 const app = express();
 const dataset = {
