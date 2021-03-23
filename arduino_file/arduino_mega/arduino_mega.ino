@@ -66,8 +66,13 @@ void _0_Controll(void)
     {
         Car_status = _4_readSerial();
     }
-
-    _3_Block_Sensor();
+    if (enable_auto)
+    {
+        _3_Block_Sensor();
+    }
+    else{
+        Car_speed=Car_max_speed;
+    }
     switch (Car_status.toInt())
     {
     case -2:
@@ -106,20 +111,23 @@ void _0_Controll(void)
     case 6:
         if (Car_speed - 10 >= 0)
         {
+            tone(bPin, 400, 100);
             Car_speed -= 10;
         }
-        Car_status="0";
+        Car_status = "0";
         break;
     case 7:
         if (Car_speed + 10 <= Car_max_speed)
         {
+            tone(bPin, 500, 100);
             Car_speed += 10;
         }
-        Car_status="0";
+        Car_status = "0";
         break;
     case 8:
+        tone(bPin, 600, 100);
         Car_speed = Car_max_speed;
-        Car_status="0";
+        Car_status = "0";
         break;
     }
 }
@@ -180,17 +188,17 @@ void _3_Block_Sensor(void)
     digitalWrite(triggerPin, LOW);
     // echo 핀 입력으로부터 거리를 cm 단위로 계산
     distance = pulseIn(echoPin, HIGH) / 58.2;
-    if (distance < 15)
+    if (distance < 30)
     {
         Car_speed = Car_max_speed * 0;
         delay1 = 50;
     }
-    else if (distance < 35)
+    else if (distance < 60)
     {
         Car_speed = Car_max_speed / 2.5;
         delay1 = 100;
     }
-    else if (distance < 70)
+    else if (distance < 150)
     {
         Car_speed = Car_max_speed / 1.5;
         delay1 = 300;
