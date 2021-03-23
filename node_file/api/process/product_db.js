@@ -4,7 +4,7 @@ var response = {
     query: null,
     msg: 'Succesful'
 };//사용자 이름 전송용 
-var data_price =null;
+var data_price;
 
 var price = (conn, data_sug) => {
     var rr;

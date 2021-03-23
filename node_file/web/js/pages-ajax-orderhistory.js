@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $("#jkhajax-5").ready(() => {
+    $("#jkhajax-4").ready(() => {
         $.ajax({
             url: '/p/order/list',
             cache: false,
@@ -10,11 +10,9 @@ $(document).ready(() => {
                 let json_d = json_o.query;
                 test = JSON.parse(json_d);
                 var str = "";
-                console.log(test);
                 var i=0;
 
                 $.each(test, function (key, value) {
-                    console.log(i);
                     str += `<tr>
                     <td>
                         <a href="#" id="${value.Number}" class="font-600 text-muted">#${value.Number}</a></td>

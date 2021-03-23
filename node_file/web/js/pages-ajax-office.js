@@ -47,18 +47,6 @@ $(document).ready(() => {
                 }
             })
         }),
-        $("#jkhajax-4").click(() => {
-            $.ajax({
-                url: 'pages-productbill.html',
-                cache: false,
-                dataType: 'html',
-                type: "GET",
-                success: function (data, textStatus, jqXHR) {
-                    $("#result").html(data);
-
-                }
-            })
-        })
         $("#jkhajax-5").click(() => {
             $.ajax({
                 url: 'pages-orderhistory.html',
