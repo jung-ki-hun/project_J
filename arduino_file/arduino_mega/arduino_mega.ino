@@ -67,6 +67,7 @@ void _0_Controll(void)
         Car_status = _4_readSerial();
     }
 
+    _3_Block_Sensor();
     switch (Car_status.toInt())
     {
     case -2:
@@ -132,7 +133,7 @@ void _1_Stop(void)
     digitalWrite(BRight, LOW);
     analogWrite(BSpeed, 0);
 }
-void _1_Go(int speed)
+void _1_Back(int speed)
 {
     digitalWrite(ALeft, HIGH);
     digitalWrite(ARight, LOW);
@@ -141,7 +142,7 @@ void _1_Go(int speed)
     digitalWrite(BRight, LOW);
     analogWrite(BSpeed, speed);
 }
-void _1_Back(int speed)
+void _1_Go(int speed)
 {
     digitalWrite(ALeft, LOW);
     digitalWrite(ARight, HIGH);
@@ -150,7 +151,7 @@ void _1_Back(int speed)
     digitalWrite(BRight, HIGH);
     analogWrite(BSpeed, speed);
 }
-void _1_Right(int speed)
+void _1_Left(int speed)
 {
     digitalWrite(ALeft, HIGH);
     digitalWrite(ARight, LOW);
@@ -159,7 +160,7 @@ void _1_Right(int speed)
     digitalWrite(BRight, HIGH);
     analogWrite(BSpeed, speed);
 }
-void _1_Left(int speed)
+void _1_Right(int speed)
 {
     digitalWrite(ALeft, LOW);
     digitalWrite(ARight, HIGH);
@@ -179,17 +180,17 @@ void _3_Block_Sensor(void)
     digitalWrite(triggerPin, LOW);
     // echo 핀 입력으로부터 거리를 cm 단위로 계산
     distance = pulseIn(echoPin, HIGH) / 58.2;
-    if (distance < 50)
+    if (distance < 15)
     {
         Car_speed = Car_max_speed * 0;
         delay1 = 50;
     }
-    else if (distance < 100)
+    else if (distance < 35)
     {
         Car_speed = Car_max_speed / 2.5;
         delay1 = 100;
     }
-    else if (distance < 150)
+    else if (distance < 70)
     {
         Car_speed = Car_max_speed / 1.5;
         delay1 = 300;
