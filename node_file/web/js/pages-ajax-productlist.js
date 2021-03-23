@@ -20,7 +20,7 @@ $(document).ready(() => {
                 <td>`+ value.qr_code + `</td>
                 <td>
                     <div class="progress" style="height: 5px;">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width:`+ value.stock + `0%;"
+                        <div class="progress-bar bg-danger" role="progressbar" style="width:`+ value.stock + `%;"
                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </td>               

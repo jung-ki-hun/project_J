@@ -84,6 +84,31 @@ var add_product= (res,conn,data_sug) => {
     })
 
 }//제고 채워줌
+var sub_product= (res,conn,data_sug) => {
+    let sql = 'UPDATE qrcode_database SET stock = stock - ? WHERE name = ?';
+    conn.query(sql, [data_sug.count, data_sug.listname], function (err) {
+        try{
+        if (err) {
+            console.error(`${jkh_fun.date_time()} : stock is not updata => ${err}`);
+            console.log(`${jkh_fun.date_time()} : undifined data`);
+            response.query = false;
+            response.msg = 'failed';
+            return res.status(200).json(JSON.stringify(response));
+        }//실패~!
+        else {
+            response.query = true;
+            response.msg = 'Succesful';
+            console.log(`${jkh_fun.date_time()} : chage product data => good!`);
+            return res.status(200).json(JSON.stringify(response));           
+        }//성공~!
+    }
+    catch(e)
+    {
+        console.error(`${jkh_fun.date_time()} : stock is not updata => ${e}`);
+    }
+    })
+
+}//제고 채워줌
 
 var out_order_add_list =(res, conn, data_sug)=>{
     let sql = 'INSERT into outproduct ( qr_code, count)  values(?,?);'; 
@@ -179,7 +204,8 @@ var out_order_add_list =(res, conn, data_sug)=>{
         },
         out_order_history_list:async (req, res, conn, data_sug) => {
            var add_list = await out_order_add_list(res, conn, data_sug);
-           var add_product_f =await add_product(res,conn,data_sug);
+           var add_product_f = await add_product(res,conn,data_sug);
+           var sub_stock = await sub_product(res,conn,data_sug);
         }
         
     }
