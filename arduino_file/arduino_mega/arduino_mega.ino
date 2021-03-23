@@ -100,7 +100,7 @@ void _0_Controll(void)
         _1_Stop();
         break;
     case 3:
-        _1_Back(Car_speed);
+        _1_Back(80);
         break;
     case 4:
         _1_Left(Car_speed);
@@ -188,17 +188,17 @@ void _3_Block_Sensor(void)
     digitalWrite(triggerPin, LOW);
     // echo 핀 입력으로부터 거리를 cm 단위로 계산
     distance = pulseIn(echoPin, HIGH) / 58.2;
-    if (distance < 30)
+    if (distance < 60)
     {
         Car_speed = Car_max_speed * 0;
         delay1 = 50;
     }
-    else if (distance < 60)
+    else if (distance < 110)
     {
         Car_speed = Car_max_speed / 2.5;
         delay1 = 100;
     }
-    else if (distance < 150)
+    else if (distance < 160)
     {
         Car_speed = Car_max_speed / 1.5;
         delay1 = 300;
