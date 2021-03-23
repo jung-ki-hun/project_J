@@ -65,7 +65,7 @@ var order_history = (res, conn, data_price, data_sug) => {
         }//성공~!
     })
 }//주문 기록 추가
-var add_product= (conn, data_sug) => {
+var add_product= (res,conn,data_sug) => {
     let sql = 'UPDATE qrcode_database SET product = product + ? WHERE name = ?';
     conn.query(sql, [data_sug.count, data_sug.listname], function (err) {
         if (err) {
@@ -179,7 +179,7 @@ var out_order_add_list =(res, conn, data_sug)=>{
         },
         out_order_history_list:async (req, res, conn, data_sug) => {
            var add_list = await out_order_add_list(res, conn, data_sug);
-           var add_product_f =await add_product(res,data_sug);
+           var add_product_f =await add_product(res,conn,data_sug);
         }
         
     }
