@@ -138,25 +138,22 @@ module.exports = {
             return res.status(200).json(JSON.stringify(response));
         }
         else {
-            let sql = 'UPDATE user_database set user_password =1234 WHERE user_email = ?';
+            let sql = 'UPDATE user_database set user_password = 1234 WHERE user_email = ?';
             conn.query(sql, [email], function (err) {
                 if (err) {
                     console.error(err);
+                    console.log(`${jkh_fun.date_time()} : name is not defined`);
+                    response.query = false;//이름없음
+                    response.msg = 'failed';
+                    return res.status(200).json(JSON.stringify(response));
+
                 }//디비 조회중 에러발생
                 else {
-                    try {
-                        if (jkh_fun.isEmpty(results)) {
-                            console.log(`${jkh_fun.date_time()} : name is not defined`);
-                            response.query = false;//이름없음
-                            response.msg = 'failed';
-                            return res.status(200).json(JSON.stringify(response));
-                        }//조회 실패
-                        else {
+                    try {//조회 실패
                             console.log(`${jkh_fun.date_time()} : userchage is succeful `);
                             response.msg = 'Succesful';
                             console.log(response);
                             return res.status(200).json(JSON.stringify(response));
-                        }
                     }
                     catch (e) {
                         console.log(e);
