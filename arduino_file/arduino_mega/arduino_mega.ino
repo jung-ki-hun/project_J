@@ -54,6 +54,89 @@ long lTime = 0;
 
 // 4_DEBUG_SERIAL
 
+void _0_intro_song(void)
+{
+    void setup()
+    {
+        // put your setup code here, to run once:
+
+        int i = 0;
+
+        for (i = 0; i < 4; i++)
+        {
+            tone(bPin, 494, 250);
+            delay(250);
+            tone(bPin, 659, 250);
+            delay(250);
+        }
+        delay(250);
+
+        for (i = 0; i < 3; i++)
+        {
+            tone(bPin, 659, 210);
+            delay(250);
+            delay(250);
+        }
+
+        for (i = 784; i <= 831; i++)
+        {
+            tone(bPin, i, 150);
+            delay(3);
+        }
+        delay(250 / 8 * 7);
+        delay(250 / 3);
+        /*
+  tone(11, 784, 150);
+  delay(250/8);
+  tone(11, 831, 200);
+  delay(250/8*7);
+  delay(250/2);
+*/
+
+        tone(bPin, 554, 100 / 2);
+        delay(250 / 8 * 7);
+        tone(bPin, 554, 100 / 8 * 9);
+        delay(250 / 2);
+        tone(bPin, 554, 100 / 2);
+        delay(250 / 8 * 9);
+
+        tone(bPin, 554, 100 / 8 * 9);
+        delay(250);
+        tone(bPin, 523, 100 / 8 * 9);
+        delay(250);
+        tone(bPin, 494, 100 / 8 * 9);
+        delay(250);
+        delay(250);
+
+        tone(bPin, 932, 100);
+        delay(100);
+        tone(bPin, 988, 100);
+        delay(250 / 2 * 3);
+
+        for (i = 0; i < 3; i++)
+        {
+            tone(bPin, 659, 210);
+            delay(250);
+            delay(250);
+        }
+        tone(bPin, 740, 150);
+        delay(250);
+
+        for (i = 0; i < 4; i++)
+        {
+            tone(bPin, 494, 250);
+            delay(250);
+            tone(bPin, 659, 250);
+            delay(250);
+        }
+    }
+
+    void loop()
+    {
+        // put your main code here, to run repeatedly:
+    }
+}
+
 void _0_Controll(void)
 {
     //수동조작시 값받아옴
@@ -70,8 +153,9 @@ void _0_Controll(void)
     {
         _3_Block_Sensor();
     }
-    else{
-        Car_speed=Car_max_speed;
+    else
+    {
+        Car_speed = Car_max_speed;
     }
     switch (Car_status.toInt())
     {
@@ -267,12 +351,8 @@ void setup()
     pinMode(echoPin, INPUT);     // echo 핀 입력으로 설정
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
-    tone(bPin, 262, 500);
-    delay(500);
-    tone(bPin, 330, 500);
-    delay(500);
-    tone(bPin, 392, 500);
-    delay(500);
+
+    _0_intro_song();
     _1_Stop();
     Car_speed = Car_max_speed;
 }
