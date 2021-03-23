@@ -65,9 +65,51 @@ var order_history = (res, conn, data_price, data_sug) => {
         }//성공~!
     })
 }//주문 기록 추가
+var add_product= (conn, data_sug) => {
+    let sql = 'UPDATE qrcode_database SET product = product + ? WHERE name = ?';
+    conn.query(sql, [data_sug.count, data_sug.listname], function (err) {
+        if (err) {
+            console.error(`${jkh_fun.date_time()} : stock is not updata => ${err}`);
+            console.log(`${jkh_fun.date_time()} : undifined data`);
+            response.query = false;
+            response.msg = 'failed';
+            return res.status(200).json(JSON.stringify(response));
+        }//실패~!
+        else {
+            response.query = true;
+            response.msg = 'Succesful';
+            console.log(`${jkh_fun.date_time()} : chage product data => good!`);
+            return res.status(200).json(JSON.stringify(response));           
+        }//성공~!
+    })
 
+}//제고 채워줌
 
+var out_order_add_list =(res, conn, data_sug)=>{
+    let sql = 'INSERT into outproduct ( qr_code, count)  values(?,?);'; 
+            conn.query(sql, [data_sug.listname, data_sug.count], async function (err) {
+                if (err) {
+                    console.error(`${jkh_fun.date_time()} : product list is not fined => ${err}`);
+                    console.log(`${jkh_fun.date_time()} : undifined data`);
+                    response.query = false;
+                    response.msg = 'failed';
+                    return; 
+                }
+                else {
+                    try {
+                        response.query = true;
+                        response.msg = 'Succesful';
+                        console.log(`${jkh_fun.date_time()} : order defined data => good!`);
+                        return; 
 
+                    }
+                    catch (e) {
+                        console.log(`${jkh_fun.date_time()} : outorder database Searching error => ${e}`);
+                    }
+                }
+            });
+
+}
 
 
     module.exports = {
@@ -135,29 +177,9 @@ var order_history = (res, conn, data_price, data_sug) => {
                 }
             });
         },
-        out_order_history_list: (req, res, conn, data_sug) => {
-            let sql = 'INSERT into outproduct ( qr_code, count)  values(?,?);';  //가져오기
-            conn.query(sql, [data_sug.listname, data_sug.count], async function (err) {
-                if (err) {
-                    console.error(`${jkh_fun.date_time()} : product list is not fined => ${err}`);
-                    console.log(`${jkh_fun.date_time()} : undifined data`);
-                    response.query = false;//이름없음
-                    response.msg = 'failed';
-                    return res.status(200).json(JSON.stringify(response));
-                }
-                else {
-                    try {
-                        response.query = true;
-                        response.msg = 'Succesful';
-                        console.log(`${jkh_fun.date_time()} : order defined data => good!`);
-                        return res.status(200).json(JSON.stringify(response));
-
-                    }
-                    catch (e) {
-                        console.log(`${jkh_fun.date_time()} : outorder database Searching error => ${e}`);
-                    }
-                }
-            });
+        out_order_history_list:async (req, res, conn, data_sug) => {
+           var add_list = await out_order_add_list(res, conn, data_sug);
+           var add_product_f =await add_product(res,data_sug);
         }
-        //제품추가  -> 1. 재고량 변경 2. 주문기록 테이블에 추가
+        
     }
