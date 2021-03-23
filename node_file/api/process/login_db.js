@@ -108,15 +108,19 @@ module.exports = {
 
     },//이름 보내줌
     userCreate: async (req, res, conn, req_data) => {
-        var check_data = 1;// this.userCheck();
-        if (check_data != 1) {
 
+        if (jkh_fun.isEmpty(req_data.name) || jkh_fun.isEmpty(req_data.pw) || jkh_fun.isEmpty(req_data.email)) {
+            console.log(`${jkh_fun.date_time()} : error req_data have not `);
+            response.msg = 'failed';
+            return res.status(200).json(JSON.stringify(response));
         }//중복 항목 존재시..
         else {
             let sql = 'INSERT into user_database values(?,?,?)';
             await conn.query(sql, [req_data.email, req_data.name, req_data.pw], function (err, rows) {
                 if (err) {
                     console.log(`${jkh_fun.date_time()} : error => ${err}`);
+                    response.msg = 'failed';
+                    return res.status(200).json(JSON.stringify(response));
                 }//실패~!
                 else {
                     console.log(`${jkh_fun.date_time()} : select is data => ${rows}`);
@@ -131,10 +135,11 @@ module.exports = {
         if (jkh_fun.isEmpty(email)) {
             console.log(`${jkh_fun.date_time()} : email is not defind => ${err}`);
             response.msg = 'please enter to email';
+            return res.status(200).json(JSON.stringify(response));
         }
         else {
             let sql = 'UPDATE user_database set user_password =1234 WHERE user_email = ?';
-            conn.query(sql, [email], function (err, rows) {
+            conn.query(sql, [email], function (err) {
                 if (err) {
                     console.error(err);
                 }//디비 조회중 에러발생
@@ -161,26 +166,27 @@ module.exports = {
         }
     },//비밀번호 찾기
     userdisable: (req, res) => {
-        try{
-        var session = req.session;
-        console.log(session.user.name);
-        if (session.user) {
-            req.session.destroy(
-                function (err) {
-                    if (err) {
-                        console.log('세션 삭제시 에러');
-                        return;
+        try {
+            var session = req.session;
+            console.log(session.user.name);
+            if (session.user) {
+                req.session.destroy(
+                    function (err) {
+                        if (err) {
+                            console.log('세션 삭제시 에러');
+                            return;
+                        }
+                        console.log('세션 삭제 성공');
+                        //파일 지정시 제일 앞에 / 를 붙여야 root 즉 public 안에서부터 찾게 된다
+                        res.redirect('/');
                     }
-                    console.log('세션 삭제 성공');
-                    //파일 지정시 제일 앞에 / 를 붙여야 root 즉 public 안에서부터 찾게 된다
-                    res.redirect('/');
-                }
-            );
+                );
 
-        }}
-        catch(err){
+            }
+        }
+        catch (err) {
             console.log(`${jkh_fun.date_time()} : ${err}`)
         }
     },//로그아웃
-    
+
 }

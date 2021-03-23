@@ -85,7 +85,7 @@ router.post('/regi', (req, res) => {
     jkh_db_config.userCreate(req, res, conn, req_data);
 });
 //회원 가입
-router.get('/repw', (req, res) => {
+router.post('/repw', (req, res) => {
     var email = req.body.email;
     jkh_db_config.userchage(req, res, conn, email);
 });

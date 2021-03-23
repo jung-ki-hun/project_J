@@ -36,8 +36,3 @@ function register() {
         })
         .catch((err) => console.error('에러 메시지 : ' + err))
 }
-/**
- * 중복확인 api 만들기
- * ajax로 적용하는거 만들기
- * 중복시 프론트에 적용시켜주는 js 작성
- */

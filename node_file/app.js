@@ -45,8 +45,4 @@ app.listen(dataset.port, dataset.host, () => {
 	console.log(db_info);
 	slack.send('213456');
 });
-// process.on('SIGINT', () => {
-// 	app.close(() => {
-// 		console.log(`server exit!!`);
-// 	});
-// })
+
