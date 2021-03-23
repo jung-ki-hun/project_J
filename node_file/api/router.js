@@ -66,7 +66,7 @@ router.get('/login', (req, res) => {
         pw: req.session.user.password
     }}
     catch(e){
-        console.error(e);
+       
     }
     jkh_db_config.userSelect_get(req, res, conn, req_data);
 })
