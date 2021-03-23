@@ -22,16 +22,16 @@
 // Develope Tool :                    //                                   //
 // Visual Stduio Code                 //                                   //
 /////////////////////////////////////////////////////////////////////////////
-
 // 0_Car
-String Car_status = "0"; //자동:시리얼받아옴
-int Car_max_speed = 255;
+String Car_status = "0";
+//자동:시리얼받아옴
+int Car_max_speed = 150;
 int Car_speed = 0;
-
 // Bluetooth
-String bt_status = "0"; //수동:블루투스받아옴
-int enable_auto = 1;    //
-
+String bt_status = "0";
+//수동:블루투스받아옴
+int enable_auto = 1;
+//
 // 1_Motor
 int ASpeed = 2;
 int ALeft = 22;
@@ -39,20 +39,18 @@ int ARight = 23;
 int BRight = 24;
 int BLeft = 25;
 int BSpeed = 3;
-
 // 2_LineSensor
-
 // 3_BlockSensor
-int enable_block = 0; //자동+수동:속도조절
+int enable_block = 0;
+//자동+수동:속도조절
 int distance = 0;
 int triggerPin = 52;
 int echoPin = 53;
 int bPin = 11;
-
 long delay1 = 2000;
 long lTime = 0;
-
 // 4_DEBUG_SERIAL
+<<<<<<< HEAD
 
 void _0_intro_song(void)
 {
@@ -137,6 +135,8 @@ void _0_intro_song(void)
     }
 }
 
+=======
+>>>>>>> 872e61a586d3a7b2687f3b45812fec7bc500518b
 void _0_Controll(void)
 {
     //수동조작시 값받아옴
@@ -144,7 +144,6 @@ void _0_Controll(void)
     {
         Car_status = _4_readSerial1();
     }
-
     if (Serial.available())
     {
         Car_status = _4_readSerial();
@@ -184,7 +183,7 @@ void _0_Controll(void)
         _1_Stop();
         break;
     case 3:
-        _1_Back(80);
+        _1_Back(Car_speed);
         break;
     case 4:
         _1_Left(Car_speed);
@@ -193,18 +192,15 @@ void _0_Controll(void)
         _1_Right(Car_speed);
         break;
     case 6:
-        if (Car_speed - 10 >= 0)
+        if (Car_max_speed >= 255)
         {
-            tone(bPin, 400, 100);
-            Car_speed -= 10;
+            tone(bPin, 800, 100);
+            Car_max_speed = 150;
         }
-        Car_status = "0";
-        break;
-    case 7:
-        if (Car_speed + 10 <= Car_max_speed)
+        else
         {
-            tone(bPin, 500, 100);
-            Car_speed += 10;
+            tone(bPin, 1000, 100);
+            Car_max_speed = 255;
         }
         Car_status = "0";
         break;
@@ -215,7 +211,6 @@ void _0_Controll(void)
         break;
     }
 }
-
 void _1_Stop(void)
 {
     digitalWrite(ALeft, HIGH);
@@ -279,12 +274,18 @@ void _3_Block_Sensor(void)
     }
     else if (distance < 110)
     {
-        Car_speed = Car_max_speed / 2.5;
+        if (Car_max_speed >= 255)
+        {
+            Car_speed = Car_max_speed / 2.5;
+        }
         delay1 = 100;
     }
     else if (distance < 160)
     {
-        Car_speed = Car_max_speed / 1.5;
+        if (Car_max_speed >= 255)
+        {
+            Car_speed = Car_max_speed / 1.5;
+        }
         delay1 = 300;
     }
     else
@@ -292,7 +293,6 @@ void _3_Block_Sensor(void)
         Car_speed = Car_max_speed;
         delay1 = 1000;
     }
-
     if (millis() - lTime > delay1)
     {
         lTime = millis();
@@ -343,12 +343,12 @@ void setup()
     pinMode(ARight, OUTPUT);
     pinMode(BLeft, OUTPUT);
     pinMode(BRight, OUTPUT);
-
     // 2_RoadSensor
-
     // 3_BlockSensor
-    pinMode(triggerPin, OUTPUT); // trigger 핀 출력으로 설정
-    pinMode(echoPin, INPUT);     // echo 핀 입력으로 설정
+    pinMode(triggerPin, OUTPUT);
+    // trigger 핀 출력으로 설정
+    pinMode(echoPin, INPUT);
+    // echo 핀 입력으로 설정
     // 4_DEBUG_SERIAL
     Serial.begin(9600);
 
