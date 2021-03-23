@@ -136,6 +136,13 @@ router.post('/p/buy', (req,res) => {
 router.get('/p/order/list', (req,res) => {
     jkh_product.order_history_list(res,conn);
 })//발주 기록
+router.post('/p/buy/out', (req,res) => {
+    var data_sug = {
+        listname : req.body.name,
+        count : req.body.count
+    }
+    jkh_product.out_order_history_list(req,res,conn,data_sug);
+})//출고 명령
 
 /*****************************/
 /******최상위 환경 페이지******/
