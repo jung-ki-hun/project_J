@@ -85,8 +85,6 @@ var add_product = (res, conn, data_sug) => {
     })
 
 }//제고 채워줌
-
-
 var out_order_add_list = (res, conn, data_sug) => {
     let sql = 'INSERT into outproduct ( qr_code, count)  values(?,?);';
     conn.query(sql, [data_sug.listname, data_sug.count], async function (err) {
@@ -112,7 +110,6 @@ var out_order_add_list = (res, conn, data_sug) => {
     });
 
 }
-
 
 module.exports = {
     listSelect: (res, conn) => {
