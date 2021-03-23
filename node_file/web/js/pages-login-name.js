@@ -1,7 +1,7 @@
 var benner = document.querySelector("#login__main_benner");
 var Succesful_login = () => {
     $.ajax({
-        url: '/login',//'/pages/pages-statistics.html'
+        url: '/login',
         cache: false,
         dataType: 'json',
         type: "GET",
@@ -18,19 +18,9 @@ var Succesful_login = () => {
                 </form>`;
               
                 benner.innerHTML = str;
-            } /*else {
-                let str = `<a href="pages-login.html">Login</a>`
-                benner.innerHTML = str;
-            }*/
+            } 
 
-        }/*,//login__main_benner
-        error: function (a, b, c) {
-            alert("test");
-            //통신 실패시 발생하는 함수(콜백)
-            //alert(a + b + c);
-            let str = `<a href="pages-login.html">Login</a>`
-            benner.innerHTML = str;
-        }*/
+        }
     })
 }
 $(document).ready(() => {

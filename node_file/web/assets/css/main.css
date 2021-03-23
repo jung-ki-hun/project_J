@@ -262,16 +262,16 @@ ul{
 
 /* header */
 .main > header.main{
-    display:flex;
-    width:100%;
-    height: var(--size-header);
-    background-color: var(--color-background-menu) ;    
-    justify-content: space-between;
-    align-items:center;
-    position: fixed;
-    top:0px;
-    left:0px;
-    z-index: 1;
+    display:flex !important;
+    width:100% !important;
+    height: var(--size-header) !important;
+    background-color: var(--color-background-menu) !important;    
+    justify-content: space-between !important;
+    align-items:center !important;
+    position: fixed !important;
+    top:0px !important;
+    left:0px !important;
+    z-index: 1 !important;
 }
 .main > header.main .logo{
     width:var(--size-header-img-width);
