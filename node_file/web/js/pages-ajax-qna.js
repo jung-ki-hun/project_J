@@ -12,14 +12,7 @@ $(document).ready(() => {
             var str = "";
             var text ="";
             //console.log(test);
-            function readfile(f){ 
-                var reader=new FileReader(); 
-                reader.readAsText(f); 
-                reader.onload = ()=>{
-                     text=reader.result;
-                    return;
-                }
-            }
+           
                 
             $.each(test, async function (key, value) {
                 str += `<div class="card">
@@ -35,7 +28,7 @@ $(document).ready(() => {
                 <div id="collapseOne" class="collapse show"
                      aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body text-muted">
-                        ${readfile(value.message)}
+                        ${value.message}
                     </div>
                 </div>
             </div>`;
