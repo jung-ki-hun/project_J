@@ -10,13 +10,11 @@ $(document).ready(() => {
                 let json_d = json_o.query;
                 test = JSON.parse(json_d);
                 var str = "";
+                console.log(test);
                  $.each(test, function (key, value) {                     
                     str += `<option id="${value.price}" value="${value.name}">${value.name}</option>`;
 
-                    console.log(value.name);
-
                 });
-                console.log(str);
                 var html_div = document.querySelector("#listitem");
                 html_div.innerHTML = str;//html에다가 만든걸 추가해줌
 
