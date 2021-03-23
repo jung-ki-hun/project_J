@@ -42,6 +42,6 @@ app.listen(dataset.port, dataset.host, () => {
 	console.log(__dirname);
 	console.log(argv_ip);
 	console.log(db_info);
-	slack.send('213456');
+	
 });
 
