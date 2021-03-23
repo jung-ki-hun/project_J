@@ -23,7 +23,7 @@ var price = (conn, data_sug) => {
                 else {
                     rr = results[0].price;
                     console.log(`${jkh_fun.date_time()} : price data => ${rr}`);
-                    return rr;
+                    return ;
                 }
             }
             catch (e) {
@@ -47,9 +47,9 @@ var add_stock = (conn, data_sug) => {
     })
 
 }//제고 채워줌
-var order_history = (res, conn, data_price, data_sug) => {
+var order_history = (res, conn, price, data_sug) => {
     var data = {
-        price: data_price,//* data_sug.count,
+        price: price,//* data_sug.count,
         username: data_sug.listname,
         date: jkh_fun.date_ymd()
     }
