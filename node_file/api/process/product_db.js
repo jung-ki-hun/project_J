@@ -87,7 +87,7 @@ var add_product = (res, conn, data_sug) => {
 }//제고 채워줌
 var out_order_add_list = (res, conn, data_sug) => {
     let sql = 'INSERT into outproduct ( qr_code, count)  values(?,?);';
-    conn.query(sql, [data_sug.listname, data_sug.count], async function (err) {
+    conn.query(sql, [data_sug.qr_code, data_sug.count], async function (err) {
         if (err) {
             console.error(`${jkh_fun.date_time()} : product list is not fined => ${err}`);
             console.log(`${jkh_fun.date_time()} : undifined data`);

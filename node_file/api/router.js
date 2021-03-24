@@ -139,7 +139,8 @@ router.get('/p/order/list', (req,res) => {
 router.post('/p/buy/out', (req,res) => {
     var data_sug = {
         listname : req.body.name,
-        count : req.body.count
+        count : req.body.count,
+        qr_code : req.body.qr_code
     }
     jkh_product.out_order_history_list(req,res,conn,data_sug);
 })//출고 명령
