@@ -6,7 +6,7 @@ var session = require('express-session');
 var db = require('./db.js');
 var MySQLStore = require("express-mysql-session")(session);
 var router = require(`./api/router.js`);
-var expressErrorHandler = require('express-error-handler');
+var expressErrorHandler = require('express-error-hWandler');
 const { error } = require("console");
 var argv_ip = process.argv[2];
 const app = express();
@@ -16,7 +16,6 @@ const dataset = {
 }
 var db_info = db.getConnection();
 var sessionStore = new MySQLStore(db_info);
-
 app.use(
 	session({
 		key: "session_cookie_name#@",

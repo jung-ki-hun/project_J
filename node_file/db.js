@@ -9,8 +9,9 @@ var db_info = {
     // database: 'ghtest_db'
     host: argv_ip != '192.168.219.102' ?  '180.83.98.144':argv_ip.toString(), //'180.83.98.144' //'127.0.0.1'//'192.168.219.102'
     port: '3306',
-    user: 'root',
-    password: 'root',
+    
+    user: process.env.NAME_DB,
+    password: process.env.PASSWORD,
     database: 'project'
 }
 
