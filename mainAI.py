@@ -4,6 +4,7 @@ import pyzbar.pyzbar as pyzbar
 import time
 import serial
 
+
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') #opecv 안면인식AI 사용
 arduino = serial.Serial('/dev/ttyUSB0',9600) # com5번 포트로 serial연결
 py_qrcode =[]
@@ -14,6 +15,7 @@ curs2 = conn.cursor()
 curs3 = conn.cursor()
 curs4 = conn.cursor()
 
+#아두이노-라즈베리파이 시리얼 통신 (자동차 바퀴 제어)
 def arduino_go(mycode):
     if (my_code == str('abc')):  #  앞으로가게하기 위한 제어
         var = '1'
@@ -35,7 +37,6 @@ def arduino_stop(var):
         arduino.write(var)
         print("stop!")
 
-
 def arduino_back(var):
     var ='3'
     if (var == str('3')):
@@ -56,7 +57,7 @@ def arduino_fn(mycode):
         arduino.write(var)
         print("stop!")
 
-#DB데이터 update
+#DB데이터 update ???????????????
 def table_b1(rs):
     for row20 in rs:
         if (row20[1] == my_code):
@@ -70,6 +71,7 @@ def table_b1(rs):
                 var = var.encode('utf-8')
                 arduino.write(var)
 
+#??????????????????
 def table_b2(rows2):
     for row1 in rows2:
 
@@ -84,6 +86,7 @@ def table_b2(rows2):
                 var = var.encode('utf-8')
                 arduino.write(var)
 
+#???????????????????????????
 def table_b4(rows4):
     for row4 in rows4:
         if (row4[2] == my_code):
@@ -108,10 +111,13 @@ def talbe_b3(rs3):
         elif (row2[1] !=my_code):
             arduino_P(1)
 
+#OpenCV 카메라세팅
 video = cv2.VideoCapture(-1);
 video.set(cv2.CAP_PROP_FPS, int(60))
 me_code =" "
 
+
+#메인소스
 if __name__ == '__main__':
     print("Frame rate : {0}".format(video.get(cv2.CAP_PROP_FPS)))
     while video.isOpened():
@@ -136,17 +142,17 @@ if __name__ == '__main__':
                     rs = curs.fetchall()
                     tb1 = table_b1(rs)
 
-                    sql10 = "select * from qrcode_database"
+                    sql10 = "select * from qrcode_database "
                     curs2.execute(sql10)
                     rows2 = curs2.fetchall()
                     tb2 = table_b2(rows2)
 
-                    sql11 = "select * from qrcode_database"
+                    sql11 = "select * from qrcode_database "
                     curs4.execute(sql11)
                     rows4 = curs4.fetchall()
                     tb4 = table_b4(rows4)
 
-                    sql4 = "select * from outproduct"
+                    sql4 = "select * from outproduct "
                     curs3.execute(sql4)
                     rs3 = curs3.fetchall()
                     tb3 = talbe_b3(rs3)
