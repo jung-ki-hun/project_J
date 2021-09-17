@@ -8,7 +8,7 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') #ope
 arduino = serial.Serial('/dev/ttyUSB0',9600) # com5번 포트로 serial연결
 py_qrcode =[]
 
-conn = pymysql.connect(host='180.83.98.144', user='root', password='root', db='project', charset='utf8')
+conn = pymysql.connect(host='127.0.0.1', user='root', password='root', db='project', charset='utf8')
 curs = conn.cursor()
 curs2 = conn.cursor()
 curs3 = conn.cursor()
